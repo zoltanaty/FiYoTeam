@@ -30,7 +30,9 @@
 	</repositories>
 	
 	<dependencies>
-
+		
+		<!-- Jersey Restful Web Services in Java -->
+		
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
@@ -42,6 +44,26 @@
 			<artifactId>jersey-json</artifactId>
 			<version>1.8</version>
 		</dependency>
+		
+		<!-- Persistence -->
+		
+		<dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.2.8.Final</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.27</version>
+        </dependency>
 		
 	</dependencies>
 
