@@ -1,42 +1,92 @@
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+	<div class="container-fluid">
 
-    <div class="navbar-header">
+		<div class="navbar-header">
 
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 
-      <a class="navbar-brand" href="#">FiYoTeam</a>
+			<a class="navbar-brand" href="#">FiYoTeam</a>
 
-    </div>
+		</div>
 
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <form id="signin" class="navbar-form navbar-right" role="form">
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<form id="signin" class="navbar-form navbar-right" role="form">
 
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-user"></i>
-          </span>
-          <input id="email" type="email" class="form-control" name="email"
-            value="" placeholder="Email Address">
-        </div>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-user"></i>
+					</span>
+					<input id="email" type="email" class="form-control" name="email"
+					value="" placeholder="Email Address">
+				</div>
 
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-lock"></i>
-          </span>
-          <input id="password" type="password" class="form-control"
-            name="password" value="" placeholder="Password">
-        </div>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-lock"></i>
+					</span>
+					<input id="password" type="password" class="form-control"
+					name="password" value="" placeholder="Password">
+				</div>
 
-        <div class="input-group">
-          <button type="submit" class="btn btn-primary">Login</button>
-        </div>
+				<div class="input-group">
+					<button type="submit" class="btn btn-primary">Login</button>
+				</div>
 
-      </form>
-    </div>
-  </div>
+			</form>
+		</div>
+	</div>
 </nav>
+
+<div class="container centered-form">
+	<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">Create new FiYoTeam account  <small>It's free!</small></h3>
+			</div>
+
+			<div class="panel-body">
+
+				<form id="register" role="form">
+
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" placeholder="First Name">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+							</div>
+						</div>
+					</div>
+
+					<input type="submit" value="Register" class="btn btn-info btn-block">
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
