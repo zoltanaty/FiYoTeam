@@ -31,10 +31,10 @@ public class PersonService {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Person getPerson(@PathParam("id") String id) {
+	public Person getPerson(@PathParam("id") Integer id) {
 		
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Person person = em.find(Person.class, 1);
+		Person person = em.find(Person.class, id);
 
 		return person;
 	}
