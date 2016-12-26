@@ -16,3 +16,7 @@ label.label-floatlabel {
     color: #46b8da;
     font-size: 11px;
 }
+
+.input-margin {
+  margin: 5px;
+}
