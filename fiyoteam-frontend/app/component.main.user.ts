@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
-import {GetAndPostService, User} from './getandpost.service'
+import {GetAndPostService, User} from './service.getandpost'
 import 'rxjs/Rx';
 
 @Component({
-    selector: 'login',
-    templateUrl: 'app/templates/login.template.html',
+    selector: 'main-user',
+    templateUrl: 'app/templates/main.user.template.html',
     providers: [GetAndPostService]
 
 })
-export class LoginComponent { 
+export class MainUserComponent { 
 
 	public user = new User(null, '','');
 
