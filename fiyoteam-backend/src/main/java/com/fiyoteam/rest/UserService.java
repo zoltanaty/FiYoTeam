@@ -10,31 +10,32 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.fiyoteam.model.Person;
+import com.fiyoteam.model.User;
 import com.fiyoteam.persistence.Entitymanager;
 
-@Path("/person")
-public class PersonService {
+@Path("/user")
+public class UserService {
 	
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Person> getAllPerson() {
+	public List<User> getAllPerson() {
 		
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM Person");
+		Query query = em.createQuery("FROM User");
 		
-	    List<Person> personList = (List<Person>) query.getResultList();
+	    @SuppressWarnings("unchecked")
+		List<User> personList = (List<User>) query.getResultList();
 	    return personList;
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Person getPerson(@PathParam("id") Integer id) {
+	public User getPerson(@PathParam("id") Integer id) {
 		
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Person person = em.find(Person.class, id);
+		User person = em.find(User.class, id);
 
 		return person;
 	}
