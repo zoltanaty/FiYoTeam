@@ -16,6 +16,10 @@ export class MainAdminComponent {
     constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
     ngOnInit(){
+        if (localStorage.getItem("USEREMAIL") === null){
+            this._router.navigate(['Login']);
+        }
+        
         this.userEmail = localStorage.getItem("USEREMAIL");
         console.log(this.userEmail);
     }
