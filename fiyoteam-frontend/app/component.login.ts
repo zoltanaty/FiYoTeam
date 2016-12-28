@@ -1,7 +1,8 @@
 import {Component} from 'angular2/core';
-import {GetAndPostService, User} from './service.getandpost'
 import {Router} from 'angular2/router';
 import 'rxjs/Rx';
+import {GetAndPostService, User} from './service.getandpost'
+
 
 @Component({
     selector: 'login',

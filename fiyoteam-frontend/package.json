@@ -9,9 +9,9 @@
     "typings": "typings",
     "postinstall": "typings install" 
   },  
-  "license": "ISC",
+  "license": "UBB",
   "dependencies": {
-    "angular2": "2.0.0-beta.7",
+    "angular2": "2.0.0-beta.21",
     "systemjs": "0.19.22",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
