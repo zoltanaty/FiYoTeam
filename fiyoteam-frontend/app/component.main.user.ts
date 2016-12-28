@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
-import {GetAndPostService, User} from './service.getandpost'
+import {GetAndPostService} from './service.getandpost'
+import {Router} from 'angular2/router';
 import 'rxjs/Rx';
 
 @Component({
@@ -10,17 +11,18 @@ import 'rxjs/Rx';
 })
 export class MainUserComponent { 
 
-	public user = new User(null, '','');
+	public userEmail : string;
 
-	constructor(private getAndPostService:GetAndPostService) {}
+	constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
-	login() {
-        this.getAndPostService.postData(this.user, 'http://localhost:8080/fiyoteam-backend/rest/authentication/login').map(res => res.json())
+    ngOnInit(){
+        this.userEmail = localStorage.getItem("USEREMAIL");
+        console.log(this.userEmail);
+    }
 
-        .subscribe(
-          (res) => {
-            console.log(res);
-            }
-         );
+    logout() {
+        localStorage.removeItem("USEREMAIL");
+        localStorage.removeItem("USERID");
+        this._router.navigate(['Login']);
     }
 }

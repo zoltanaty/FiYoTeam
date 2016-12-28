@@ -2,8 +2,9 @@ package com.fiyoteam.model;
 
 public class LoginResponse {
 	
-	int id;
-	String role;
+	private int id;
+	private String email;
+	private String role;
 	
 	public LoginResponse(){
 		
@@ -24,10 +25,20 @@ public class LoginResponse {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
-		return "LoginResponse [id=" + id + ", role=" + role + "]";
+		return "LoginResponse [id=" + id + ", email=" + email + ", role=" + role + "]";
 	}
 
 }

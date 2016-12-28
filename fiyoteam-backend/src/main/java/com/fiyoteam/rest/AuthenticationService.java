@@ -22,7 +22,6 @@ public class AuthenticationService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public LoginResponse login(User user) {
-
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		Query query = em.createQuery("FROM User u WHERE u.email = :email AND u.password = :password");
 		query.setParameter("email", user.getEmail());
@@ -35,9 +34,11 @@ public class AuthenticationService {
 	    
 	    if(userList.size() > 0){
 	    	response.setId(userList.get(0).getId());
+	    	response.setEmail(userList.get(0).getEmail());
 	    	response.setRole(userList.get(0).getRole());
 	    }else{
 	    	response.setId(-1);
+	    	response.setEmail(userList.get(0).getEmail());
 	    	response.setRole("none");
 	    }
 	    
