@@ -3,7 +3,7 @@
 }
 
 .top_wrapper {
-	background: linear-gradient(315deg, #3e5062 10%, #203040 90%);
+	background: linear-gradient(315deg, #573e62 10%, #203040 90%);
 }
 
 .navbar.mynavbar {
@@ -61,4 +61,27 @@
   border-top: 1px solid #e4e4e4;
   border-bottom: 1px solid #e4e4e4;
   padding-bottom: 20px;
+}
+
+.selling_point .container{
+	padding-top:50px;
+	padding-bottom: 50px;
+}
+
+.workflow_div {
+	vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+
+.workflow-img {
+	width:200px;
+	margin:20px;
+}
+
+.my_strong {
+	font-size: 18px;
+	font-weight: bold;
+	color:#2ba8ea;
+	display: block;
 }
