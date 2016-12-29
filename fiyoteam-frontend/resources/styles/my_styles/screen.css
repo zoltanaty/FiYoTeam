@@ -1,0 +1,64 @@
+.top_wrapper, .footer_wrapper {
+    background: #2e3e4d;
+}
+
+.top_wrapper {
+	background: linear-gradient(315deg, #3e5062 10%, #203040 90%);
+}
+
+.navbar.mynavbar {
+	background: transparent;
+	margin-bottom: 0px;
+	border-bottom: 0px;
+}
+
+.navbar-brand {
+	font-size: 24px !important;
+	font-family:Comic Sans MS;
+	color: white !important;
+}
+
+.panel-heading {
+	background-color: #5fc073 !important;
+	border-color: transparent;
+}
+
+.input-margin {
+	margin: 5px;
+}
+
+.jumbotron {
+	background-color: transparent;
+	color: white;
+	margin-bottom: 0px;
+}
+
+.jumbotron h1 {
+	font-size: 48px;
+	font-weight: 300;
+	letter-spacing: -1px;
+}
+
+.jumbotron h2 {
+	font-size: 24px;
+	font-weight: 100;
+	color:#bde0f4;
+}
+
+.register-container {
+	margin-top: 45px;
+}
+
+.footer .copyright {
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+    display: block;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.selling_point {
+  background: #F6F8F9;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 20px;
+}

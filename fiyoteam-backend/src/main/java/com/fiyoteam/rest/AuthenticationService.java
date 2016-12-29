@@ -38,7 +38,7 @@ public class AuthenticationService {
 	    	response.setRole(userList.get(0).getRole());
 	    }else{
 	    	response.setId(-1);
-	    	response.setEmail(userList.get(0).getEmail());
+	    	response.setEmail("none");
 	    	response.setRole("none");
 	    }
 	    

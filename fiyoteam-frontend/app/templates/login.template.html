@@ -1,89 +1,133 @@
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
+<div class="container-full">
 
-		<div class="navbar-header">
+    <div class=top_wrapper>
 
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
+        <nav class="navbar navbar-inverse mynavbar">
+            <div class="container-fluid">
 
-			<a class="navbar-brand" href="#">FiYoTeam</a>
+                <div class="navbar-header">
 
-		</div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<form (ngSubmit)="login()" id="login" class="navbar-form navbar-right" role="form">
+                    <a class="navbar-brand">FiYoTeam</a>
 
-				<div class="input-group input-margin">
-					<span class="input-group-addon">
-						<i class="glyphicon glyphicon-user"></i>
-					</span>
-					<input [(ngModel)]="user.email" id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">
-				</div>
+                </div>
+                <!-- navbar header -->
 
-				<div class="input-group input-margin">
-					<span class="input-group-addon">
-						<i class="glyphicon glyphicon-lock"></i>
-					</span>
-					<input  [(ngModel)]="user.password" id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
-				</div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <form (ngSubmit)="login()" id="login" class="navbar-form navbar-right" role="form">
 
-				<div class="input-group input-margin">
-					<button type="submit" class="btn btn-primary">Login</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</nav>
+                        <div class="input-group input-margin">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <input [(ngModel)]="user.email" id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">
+                        </div>
 
-<div class="container centered-form">
-	<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<div class="panel panel-default">
+                        <div class="input-group input-margin">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-lock"></i>
+                            </span>
+                            <input  [(ngModel)]="user.password" id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
+                        </div>
 
-			<div class="panel-heading">
-				<h3 class="panel-title">Create new FiYoTeam account  <small>It's free!</small></h3>
-			</div>
+                        <div class="input-group input-margin">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- navbar collapse -->
+            </div>
+        </nav>
+        <!-- navbar -->
 
-			<div class="panel-body">
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>Find Your Team!</h1>
+                <h2>Find your own Developer team for your Startup with FiYoTeam - in a Professional Way.</h2>
 
-				<form id="register" role="form">
+                <div class="container register-container">
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                        <div class="panel panel-default">
 
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="form-group">
-								<input type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" placeholder="First Name">
-							</div>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="form-group">
-								<input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
-							</div>
-						</div>
-					</div>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Create new FiYoTeam account  <small>It's free!</small></h3>
+                            </div>
 
-					<div class="form-group">
-						<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-					</div>
+                            <div class="panel-body">
 
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="form-group">
-								<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
-							</div>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="form-group">
-								<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
-							</div>
-						</div>
-					</div>
+                                <form id="register" role="form">
 
-					<input type="submit" value="Register" class="btn btn-info btn-block">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" placeholder="First Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                    </div>
 
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="submit" value="Register" class="btn btn-info btn-block">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- register container -->
+
+            </div>
+            
+        </div>
+        <!-- jumbotron -->
+
+    </div>
+    <!-- top_wrapper-->
+
+    <div class="row selling_point">
+        <div class="container">
+            <h1>Showing the workflow here</h1>
+            <h1>Showing the workflow here</h1>
+            <h1>Showing the workflow here</h1>
+            <h1>Showing the workflow here</h1>
+            <h1>Showing the workflow here</h1>
+        </div>
+    </div>
+
+    <div class="footer_wrapper">
+        <div class="container">
+            <div class="footer">
+                <div class="col-sm-12 text-center copyright">
+                    <p>Copyright 2016 FiYoTeam. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> 
+<!-- container full -->
