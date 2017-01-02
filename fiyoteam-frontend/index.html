@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-  	<base href="/">
-    <title>FiYoTeam</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+ <base href="/">
+ <title>FiYoTeam</title>
 
-    <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/systemjs/dist/system.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/router.dev.js"></script>
-    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="./resources/jquery.min.js" ></script>
-    <script src="./resources/styles/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="resources/styles/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+ <!-- 1. Load libraries -->
+ <!-- IE required polyfills, in this exact order -->
+ <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+ <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+ <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+ <script src="node_modules/systemjs/dist/system.src.js"></script>
+ <script src="node_modules/systemjs/dist/system.js"></script>
+ <script src="node_modules/rxjs/bundles/Rx.js"></script>
+ <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+ <script src="node_modules/angular2/bundles/router.dev.js"></script>
+ <script src="node_modules/angular2/bundles/http.dev.js"></script>
 
-    <link rel="stylesheet" href="/resources/styles/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/styles/jasny-bootstrap/css/jasny-bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/styles/my_styles/screen.css">
+ <script src="./resources/jquery.min.js" ></script>
+ <script src="./resources/styles/bootstrap/dist/js/bootstrap.min.js"></script>
+ <script src="resources/styles/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+ <script src="http://1000hz.github.io/bootstrap-validator/dist/validator.min.js"></script>
 
-    <!-- 2. Configure SystemJS -->
-    <script>
-      System.config({
-        packages: {        
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
-      });
-      System.import('app/boot')
-            .then(null, console.error.bind(console));
-    </script>
+ <link rel="stylesheet" href="/resources/styles/bootstrap/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/resources/styles/jasny-bootstrap/css/jasny-bootstrap.min.css">
+ <link rel="stylesheet" href="/resources/styles/my_styles/screen.css">
 
-  </head>
+ <!-- 2. Configure SystemJS -->
+ <script>
+  System.config({
+    packages: {        
+      app: {
+        format: 'register',
+        defaultExtension: 'js'
+      }
+    }
+  });
+  System.import('app/boot')
+  .then(null, console.error.bind(console));
+</script>
 
-  <!-- 3. Display the application -->
-  <body>
-    <my-app>Loading...</my-app>
-  </body>
+</head>
+
+<!-- 3. Display the application -->
+<body>
+  <my-app>Loading...</my-app>
+</body>
 
 </html>

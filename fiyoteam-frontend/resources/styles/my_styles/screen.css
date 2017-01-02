@@ -18,6 +18,11 @@
 	color: white !important;
 }
 
+.navbar-element {
+	font-size: 24px !important;
+	color: white !important;
+}
+
 .panel-heading {
 	background-color: #5fc073 !important;
 	border-color: transparent;
