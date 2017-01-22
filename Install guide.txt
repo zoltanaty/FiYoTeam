@@ -1,0 +1,31 @@
+Database:
+	1. Downlaod and install the MySQL server and the MySQL WorkBench
+	2. After installation run the SQL script from the "db_dump" folder to create the database schema and the tables.
+
+Frontend:
+	1. Download and install the NodeJs 
+	2. After installation go to the "fiyoteam-frontend" folder, open a command-prompt and type "npm-install" - for downloading and installing the necesarry dependencies.
+	3. To start the frondend project just open a new cmd window, and type npm start. This will open the project in a new browser tab.
+
+Backend:
+	In order to start the Backend, we need 4 important things:
+		1. JDK - download and install the JDK
+		2. Maven: 
+			a.) download and install the latest stable version of maven
+			b.) unzip the files in a folder choosen by ourselves
+			c.) add to Path (Environment Variables) the /bin folder of the maven
+			d.) test if the installation was successful by the "mvn –version" command
+		3. Eclipse EE IDE - download and install the eclipse ide's EE version
+		4. Download and configure Tomcat (version 8.5) in Eclipse. Here is a little tutorial how to do that: http://crunchify.com/step-by-step-guide-to-setup-and-install-apache-tomcat-server-in-eclipse-development-environment-ide/
+
+	If everything is installed, and everything works we have to do the following steps in order to start the server:
+		1. Go to the "fiyoteam-backend" folder, open a cmd, and type mvn intall
+		2. After mvn install finished, open the Eclipse IDE and import the backend project.
+		3. Right click on the project -> Maven -> Update project
+		4. Now we have to add the project to the Tomcat server
+			a.) If the Servers view is not shown in Eclipse:  Window -> Show View -> Other... and then type Servers in the filter
+			b.) After the Servers view is shown in Tomcat's window, Richt click on the Tomcat, and add for it our backend project.
+			c.) Now time to start the server.
+
+
+ Enjoy the project! :)
