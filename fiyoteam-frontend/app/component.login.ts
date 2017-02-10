@@ -13,7 +13,7 @@ import {GetAndPostService, User} from './service.getandpost'
 export class LoginComponent { 
 
 	public user = new User(null, '','');
-    private ipv4 = "192.168.0.104";
+    private ipv4 = "localhost";
 
 	constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 

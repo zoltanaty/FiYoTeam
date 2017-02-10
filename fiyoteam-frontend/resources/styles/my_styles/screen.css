@@ -3,7 +3,7 @@
 }
 
 .top_wrapper {
-	background: linear-gradient(315deg, #573e62 10%, #203040 90%);
+	background: linear-gradient(200deg, #573e62 25%, #203040 100%);
 }
 
 .navbar.mynavbar {
@@ -47,7 +47,13 @@
 .jumbotron h2 {
 	font-size: 24px;
 	font-weight: 100;
-	color:#bde0f4;
+	color: #F0E2FF;
+}
+
+.fiyoteam-text{
+	color:#DDCBF4;
+	font-family: Comic Sans MS;
+	font-size: 28px;
 }
 
 .register-container {
