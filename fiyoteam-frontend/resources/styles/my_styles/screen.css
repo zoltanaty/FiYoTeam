@@ -96,3 +96,7 @@
 	color:#2ba8ea;
 	display: block;
 }
+
+.login-error {
+	color: red !important;
+}
