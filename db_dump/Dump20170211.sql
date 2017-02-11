@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `fiyoteam` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `fiyoteam`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: fiyoteam
@@ -29,6 +27,8 @@ CREATE TABLE `user` (
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `role` varchar(45) NOT NULL,
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,7 +39,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'zoltanaty@gmail.com','123456','user'),(2,'admin@fiyoteam.com','123456','admin');
+INSERT INTO `user` VALUES (1,'zoltanaty@gmail.com','123456','user','Zoltán - Attila','Máté'),(2,'admin@fiyoteam.com','123456','admin','Admin','Admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-29 22:26:11
+-- Dump completed on 2017-02-11 18:31:41

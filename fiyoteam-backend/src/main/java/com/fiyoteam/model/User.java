@@ -1,5 +1,7 @@
 package com.fiyoteam.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
 	
+	private static final long serialVersionUID = 3076859089557584379L;
+
 	@Id
     @Column(name = "id")
 	private int id;
@@ -22,15 +26,24 @@ public class User {
 	@Column(name = "role")
 	private String role;
 	
+	@Column(name = "firstname")
+	private String firstName;
+	
+	@Column(name = "lastname")
+	private String lastName;
+	
 	public User(){
 		//do nothing
 	}
 
-	public User(int id, String email, String password) {
+	public User(int id, String email, String password, String role, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
+		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public int getId() {
@@ -65,9 +78,25 @@ public class User {
 		this.role = role;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + ", firstName="
+				+ firstName + ", lastName=" + lastName + "]";
 	}
-	
 }

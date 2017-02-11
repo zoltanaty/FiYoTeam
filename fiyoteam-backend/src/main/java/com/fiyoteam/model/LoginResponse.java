@@ -1,6 +1,10 @@
 package com.fiyoteam.model;
 
-public class LoginResponse {
+import java.io.Serializable;
+
+public class LoginResponse implements Serializable{
+	
+	private static final long serialVersionUID = 2256410848795209928L;
 	
 	private int id;
 	private String email;
@@ -24,9 +28,7 @@ public class LoginResponse {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-	
-	
+	}	
 
 	public String getEmail() {
 		return email;
