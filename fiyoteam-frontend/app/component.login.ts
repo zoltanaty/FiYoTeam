@@ -12,7 +12,7 @@ import {GetAndPostService, User} from './service.getandpost'
 })
 export class LoginComponent { 
 
-	public user = new User(null, '','');
+	public user = new User(null, '','', '', '');
 	private ipv4 = "localhost";
 
 	private loginError: false;

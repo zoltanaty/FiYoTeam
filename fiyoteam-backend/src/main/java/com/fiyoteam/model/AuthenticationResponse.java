@@ -2,7 +2,7 @@ package com.fiyoteam.model;
 
 import java.io.Serializable;
 
-public class LoginResponse implements Serializable{
+public class AuthenticationResponse implements Serializable{
 	
 	private static final long serialVersionUID = 2256410848795209928L;
 	
@@ -10,7 +10,7 @@ public class LoginResponse implements Serializable{
 	private String email;
 	private String role;
 	
-	public LoginResponse(){
+	public AuthenticationResponse(){
 		
 	}
 
