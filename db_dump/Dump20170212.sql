@@ -31,7 +31,7 @@ CREATE TABLE `user` (
   `lastname` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'zoltanaty@gmail.com','123456','user','Zoltán - Attila','Máté'),(2,'admin@fiyoteam.com','123456','admin','Admin','Admin'),(24,'test@gmail.com','sha1:64000:18:xiOJgw357HIFGFja1HOgGoHctVP48pG9:klYefZrF96xER7VADBYwnqGZ','user','Test','Test');
+INSERT INTO `user` VALUES (31,'zoltanaty@fiyoteam.com','sha1:64000:18:YuAZP0n4Y/sL/MJjcTzkR8lNugPvaxTJ:bCBfdWCVbQA4eMsv3GrP4yWJ','user','Zoltán - Attila','Mate'),(32,'admin@fiyoteam.com','sha1:64000:18:mdlRNg+9+j0xH90McYSxj43hjFCZa+xg:GjsbCIgECWtjre5T17u9v1eL','admin','Zoltán - Attila','Mate');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-12 18:55:09
+-- Dump completed on 2017-02-12 20:59:55
