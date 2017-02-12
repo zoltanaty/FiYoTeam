@@ -61,16 +61,20 @@ public class AuthenticationService {
 		AuthenticationResponse response = new AuthenticationResponse();
 
 		if (userList.size() > 0) {
+			//the email is already in use
 			response.setId(-1);
 			return response;
 
 		} else {
+			//store the new user
 			em.getTransaction().begin();
 			em.persist(user);
 			em.flush();
 			em.getTransaction().commit();
 			
 			response.setId(user.getId());
+			response.setEmail(user.getEmail());
+			response.setRole(user.getRole());
 			
 			return response;
 
