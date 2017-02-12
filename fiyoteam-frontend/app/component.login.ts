@@ -15,7 +15,7 @@ export class LoginComponent {
 	private user = new User(null, '','', '', '', '');
 	private userToRegister = new User(null, '','', '', '', '');
 
-	private loginError: false;
+	private loginError = false;
 
 	private ipv4 = "localhost";
 
@@ -46,21 +46,40 @@ export class LoginComponent {
 	}
 
 	register(){
-		this.getAndPostService.postData(this.userToRegister, 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/authentication/register').map(res => res.json())
+		if(this.userToRegister.password == this.userToRegister.passwordAgain){
+			this.getAndPostService.postData(this.userToRegister, 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/authentication/register').map(res => res.json())
 
-		.subscribe(
-			(res) => {
-				if(res.id >= 0){
-					console.log("Registration Successful");
-				}else{
-					console.log("Registration Unsuccessful");
+			.subscribe(
+				(res) => {
+					if(res.id >= 0){
+						console.log("Registration Successful");
+					}else{
+						console.log("Registration Unsuccessful");
+					}
 				}
-			}
-			);
+				);
+		}else{
+			this.passwordAgainError = true;
+		}	
 	}
 
 
-	disableError(value){
+	disableLoginError(){
 		this.loginError = false;
+	}
+
+	validatePassword(){
+		if(this.userToRegister.password.length >= 6){
+			return true;
+		}
+
+		return false;
+	}
+
+	validatePasswordAgain(){
+		if(this.userToRegister.password.valueOf() == this.userToRegister.passwordAgain.valueOf()){
+			return true;
+		}
+		return false;
 	}
 }

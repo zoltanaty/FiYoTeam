@@ -25,14 +25,14 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input [(ngModel)]="user.email" id="email" type="email" class="form-control"  (ngModelChange)="disableError()" autocomplete="off" name="email" value="" placeholder="Email Address">
+                            <input [(ngModel)]="user.email" id="email" type="email" class="form-control"  (ngModelChange)="disableLoginError()" autocomplete="off" name="email" value="" placeholder="Email Address">
                         </div>
 
                         <div class="input-group input-margin" [ngClass]="{'has-error': loginError }">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input  [(ngModel)]="user.password" id="password" type="password" class="form-control"  (ngModelChange)="disableError()" name="password" value="" placeholder="Password">
+                            <input  [(ngModel)]="user.password" id="password" type="password" class="form-control"  (ngModelChange)="disableLoginError()" name="password" value="" placeholder="Password">
                         </div>
 
                         <div class="input-group input-margin">
@@ -60,37 +60,46 @@
 
                             <div class="panel-body">
 
-                                <form (ngSubmit)="register()" id="register" role="form">
+                                <form (ngSubmit)="register()" id="register" data-toggle="validator">
 
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input [(ngModel)]="userToRegister.firstName" type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" autocomplete="off" placeholder="First Name">
+                                                <input [(ngModel)]="userToRegister.firstName" type="text" name="first_name" id="first_name" class="form-control input-sm"  placeholder="First Name" autocomplete="off" required>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input [(ngModel)]="userToRegister.lastName" type="text" name="last_name" id="last_name" class="form-control input-sm" autocomplete="off" placeholder="Last Name">
+                                                <input [(ngModel)]="userToRegister.lastName" type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <input [(ngModel)]="userToRegister.email" type="email" name="email" id="email" class="form-control input-sm" autocomplete="off" placeholder="Email Address">
+                                        <input [(ngModel)]="userToRegister.email" type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" autocomplete="off" required>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input [(ngModel)]="userToRegister.password" type="password" name="password" id="password" class="form-control input-sm" autocomplete="off" placeholder="Password">
+                                            <div class="input-group" [ngClass]="{'has-error': validatePassword() == false, 'has-success': validatePassword() == true }">
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-lock"></i>
+                                                </span>
+                                                <input [(ngModel)]="userToRegister.password" type="password" name="password" id="password2" class="form-control input-sm" placeholder="Password - Min 6 Characters" autocomplete="off" required>
                                             </div>
                                         </div>
+
                                         <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input [(ngModel)]="userToRegister.passwordAgain" type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" autocomplete="off" placeholder="Confirm Password">
+                                            <div class="input-group"  [ngClass]="{'has-error': validatePasswordAgain() == false, 'has-success': validatePasswordAgain() == true }">
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-lock"></i>
+                                                </span>
+                                                <input [(ngModel)]="userToRegister.passwordAgain" type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" autocomplete="off" data-match="#password2" required>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <br>
 
                                     <input type="submit" value="Register" class="btn btn-info btn-block">
 
@@ -112,33 +121,33 @@
     <div class="selling_point">
         <div class="container">
 
-         <div class="col-xs-12 col-sm-4 workflow_div">
-            <img src="/resources/images/workflow_1.png" class="workflow-img">
-            <strong class="my_strong">1. Get an ideea for a Startup Project.</strong>
-        </div>
+            <div class="col-xs-12 col-sm-4 workflow_div">
+                <img src="/resources/images/workflow_1.png" class="workflow-img">
+                <strong class="my_strong">1. Get an ideea for a Startup Project.</strong>
+            </div>
 
-        <div class="col-xs-12 col-sm-4 workflow_div">
-            <img src="/resources/images/workflow_2.png" class="workflow-img">
-            <strong class="my_strong">2. Create a FiYoTeam account, and complete your profile.</strong>
-        </div>
+            <div class="col-xs-12 col-sm-4 workflow_div">
+                <img src="/resources/images/workflow_2.png" class="workflow-img">
+                <strong class="my_strong">2. Create a FiYoTeam account, and complete your profile.</strong>
+            </div>
 
-        <div class="col-xs-12 col-sm-4 workflow_div">
-            <img src="/resources/images/workflow_3.png" class="workflow-img">
-            <strong class="my_strong">3. Add your Startup Project details, and wait for developers find your Project.</strong>
-        </div>
+            <div class="col-xs-12 col-sm-4 workflow_div">
+                <img src="/resources/images/workflow_3.png" class="workflow-img">
+                <strong class="my_strong">3. Add your Startup Project details, and wait for developers find your Project.</strong>
+            </div>
 
+        </div>
     </div>
-</div>
 
-<div class="footer_wrapper">
-    <div class="container">
-        <div class="footer">
-            <div class="col-sm-12 text-center copyright">
-                <p>Copyright 2016 FiYoTeam. All rights reserved.</p>
+    <div class="footer_wrapper">
+        <div class="container">
+            <div class="footer">
+                <div class="col-sm-12 text-center copyright">
+                    <p>Copyright 2016 FiYoTeam. All rights reserved.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div> 
 <!-- container full -->
