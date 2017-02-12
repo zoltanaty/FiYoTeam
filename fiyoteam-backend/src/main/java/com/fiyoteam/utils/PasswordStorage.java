@@ -87,7 +87,7 @@ public class PasswordStorage
         // Decode the hash into its parameters
         String[] params = correctHash.split(":");
         if (params.length != HASH_SECTIONS) {
-            throw new InvalidHashException(
+            throw new InvalidHashException(	
                 "Fields are missing from the password hash."
             );
         }

@@ -13,6 +13,9 @@ import javax.ws.rs.core.MediaType;
 import com.fiyoteam.model.AuthenticationResponse;
 import com.fiyoteam.model.User;
 import com.fiyoteam.persistence.Entitymanager;
+import com.fiyoteam.utils.PasswordStorage;
+import com.fiyoteam.utils.PasswordStorage.CannotPerformOperationException;
+import com.fiyoteam.utils.PasswordStorage.InvalidHashException;
 
 @Path("/authentication")
 public class AuthenticationService {
@@ -23,9 +26,8 @@ public class AuthenticationService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public AuthenticationResponse login(User user) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM User u WHERE u.email = :email AND u.password = :password");
+		Query query = em.createQuery("FROM User u WHERE u.email = :email");
 		query.setParameter("email", user.getEmail());
-		query.setParameter("password", user.getPassword());
 
 		@SuppressWarnings("unchecked")
 		List<User> userList = (List<User>) query.getResultList();
@@ -33,9 +35,18 @@ public class AuthenticationService {
 		AuthenticationResponse response = new AuthenticationResponse();
 
 		if (userList.size() > 0) {
-			response.setId(userList.get(0).getId());
-			response.setEmail(userList.get(0).getEmail());
-			response.setRole(userList.get(0).getRole());
+			try {
+				if(PasswordStorage.verifyPassword(user.getPassword(), userList.get(0).getPassword())){
+					response.setId(userList.get(0).getId());
+					response.setEmail(userList.get(0).getEmail());
+					response.setRole(userList.get(0).getRole());
+				}
+			} catch (CannotPerformOperationException e) {
+				e.printStackTrace();
+			} catch (InvalidHashException e) {
+				e.printStackTrace();
+			}	
+			
 		} else {
 			response.setId(-1);
 			response.setEmail("none");
@@ -66,9 +77,14 @@ public class AuthenticationService {
 			return response;
 
 		} else {
-			//store the new user
 			user.setRole("user");
+			try {
+				user.setPassword(PasswordStorage.createHash(user.getPassword()));
+			} catch (CannotPerformOperationException e) {
+				e.printStackTrace();
+			}
 			
+			//store the new user
 			em.getTransaction().begin();
 			em.persist(user);
 			em.flush();
@@ -79,7 +95,6 @@ public class AuthenticationService {
 			response.setRole(user.getRole());
 			
 			return response;
-
 		}
 	}
 
