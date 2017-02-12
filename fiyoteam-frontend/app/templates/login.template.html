@@ -60,34 +60,34 @@
 
                             <div class="panel-body">
 
-                                <form id="register" role="form">
+                                <form (ngSubmit)="register()" id="register" role="form">
 
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" placeholder="First Name">
+                                                <input [(ngModel)]="userToRegister.firstName" type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" autocomplete="off" placeholder="First Name">
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                                                <input [(ngModel)]="userToRegister.lastName" type="text" name="last_name" id="last_name" class="form-control input-sm" autocomplete="off" placeholder="Last Name">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                                        <input [(ngModel)]="userToRegister.email" type="email" name="email" id="email" class="form-control input-sm" autocomplete="off" placeholder="Email Address">
                                     </div>
 
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                                <input [(ngModel)]="userToRegister.password" type="password" name="password" id="password" class="form-control input-sm" autocomplete="off" placeholder="Password">
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                                <input [(ngModel)]="userToRegister.passwordAgain" type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" autocomplete="off" placeholder="Confirm Password">
                                             </div>
                                         </div>
                                     </div>
@@ -101,33 +101,33 @@
                 </div>
                 <!-- register container -->
 
+            </div>
+
+        </div>
+        <!-- jumbotron -->
+
+    </div>
+    <!-- top_wrapper-->
+
+    <div class="selling_point">
+        <div class="container">
+
+         <div class="col-xs-12 col-sm-4 workflow_div">
+            <img src="/resources/images/workflow_1.png" class="workflow-img">
+            <strong class="my_strong">1. Get an ideea for a Startup Project.</strong>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 workflow_div">
+            <img src="/resources/images/workflow_2.png" class="workflow-img">
+            <strong class="my_strong">2. Create a FiYoTeam account, and complete your profile.</strong>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 workflow_div">
+            <img src="/resources/images/workflow_3.png" class="workflow-img">
+            <strong class="my_strong">3. Add your Startup Project details, and wait for developers find your Project.</strong>
         </div>
 
     </div>
-    <!-- jumbotron -->
-
-</div>
-<!-- top_wrapper-->
-
-<div class="selling_point">
-    <div class="container">
-
-       <div class="col-xs-12 col-sm-4 workflow_div">
-        <img src="/resources/images/workflow_1.png" class="workflow-img">
-        <strong class="my_strong">1. Get an ideea for a Startup Project.</strong>
-    </div>
-
-    <div class="col-xs-12 col-sm-4 workflow_div">
-        <img src="/resources/images/workflow_2.png" class="workflow-img">
-        <strong class="my_strong">2. Create a FiYoTeam account, and complete your profile.</strong>
-    </div>
-
-    <div class="col-xs-12 col-sm-4 workflow_div">
-        <img src="/resources/images/workflow_3.png" class="workflow-img">
-        <strong class="my_strong">3. Add your Startup Project details, and wait for developers find your Project.</strong>
-    </div>
-
-</div>
 </div>
 
 <div class="footer_wrapper">

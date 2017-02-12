@@ -12,10 +12,12 @@ import {GetAndPostService, User} from './service.getandpost'
 })
 export class LoginComponent { 
 
-	public user = new User(null, '','', '', '');
-	private ipv4 = "localhost";
+	private user = new User(null, '','', '', '', '');
+	private userToRegister = new User(null, '','', '', '', '');
 
 	private loginError: false;
+
+	private ipv4 = "localhost";
 
 	constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
@@ -38,6 +40,20 @@ export class LoginComponent {
 
 				}else if(res.id < 0){
 					this.loginError = true;
+				}
+			}
+			);
+	}
+
+	register(){
+		this.getAndPostService.postData(this.userToRegister, 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/authentication/register').map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				if(res.id >= 0){
+					console.log("Registration Successful");
+				}else{
+					console.log("Registration Unsuccessful");
 				}
 			}
 			);

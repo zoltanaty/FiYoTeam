@@ -67,6 +67,8 @@ public class AuthenticationService {
 
 		} else {
 			//store the new user
+			user.setRole("user");
+			
 			em.getTransaction().begin();
 			em.persist(user);
 			em.flush();
