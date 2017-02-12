@@ -103,6 +103,18 @@
 
                                     <input type="submit" value="Register" class="btn btn-info btn-block">
 
+                                    <div class="alert alert-success registration-message" [ngClass]="{'invisible': !successfulRegistration }">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <i class="glyphicon glyphicon-ok-sign"></i>
+                                        <i>Registration successful! You can log in now.</i>
+                                    </div>
+
+                                    <div class="alert alert-danger registration-message" [ngClass]="{'invisible': !unsuccessfulRegistration }">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <span class="glyphicon glyphicon-info-sign"></span> 
+                                        <i>Registration unsuccessful! Email already in use.</i>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>

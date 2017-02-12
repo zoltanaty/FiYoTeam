@@ -16,6 +16,8 @@ export class LoginComponent {
 	private userToRegister = new User(null, '','', '', '', '');
 
 	private loginError = false;
+	private successfulRegistration = false;
+	private unsuccessfulRegistration = false;
 
 	private ipv4 = "localhost";
 
@@ -52,9 +54,11 @@ export class LoginComponent {
 			.subscribe(
 				(res) => {
 					if(res.id >= 0){
-						console.log("Registration Successful");
+						this.successfulRegistration = true;
+						this.unsuccessfulRegistration = false;
 					}else{
-						console.log("Registration Unsuccessful");
+						this.unsuccessfulRegistration = true;
+						this.successfulRegistration = false;
 					}
 				}
 				);
