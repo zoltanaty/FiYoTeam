@@ -73,17 +73,24 @@ export class LoginComponent {
 	}
 
 	validatePassword(){
-		if(this.userToRegister.password.length >= 6){
-			return true;
+		if(this.userToRegister.password.length == 0){
+			return 0;
 		}
-
-		return false;
+		else if(this.userToRegister.password.length >= 6){
+			return 1;
+		}else{
+			return -1;
+		}
 	}
 
 	validatePasswordAgain(){
-		if(this.userToRegister.password.valueOf() == this.userToRegister.passwordAgain.valueOf()){
-			return true;
+		if(this.userToRegister.passwordAgain.length == 0){
+			return 0;
 		}
-		return false;
+		else if(this.userToRegister.password.valueOf() == this.userToRegister.passwordAgain.valueOf()){
+			return 1;
+		}else{
+			return -1;
+		}
 	}
 }
