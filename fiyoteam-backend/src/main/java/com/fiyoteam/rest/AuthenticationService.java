@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.fiyoteam.model.AuthenticationResponse;
 import com.fiyoteam.model.User;
 import com.fiyoteam.persistence.Entitymanager;
+import com.fiyoteam.utils.Email;
 import com.fiyoteam.utils.PasswordStorage;
 import com.fiyoteam.utils.PasswordStorage.CannotPerformOperationException;
 import com.fiyoteam.utils.PasswordStorage.InvalidHashException;
@@ -110,6 +111,9 @@ public class AuthenticationService {
 			response.setId(user.getId());
 			response.setEmail(user.getEmail());
 			response.setRole(user.getRole());
+			
+			Email confirmationEmail = new Email();
+			//confirmationEmail.send(user.getEmail(), "Test registration confirmation");
 
 			log.info("Successful registration : " + response);
 			
