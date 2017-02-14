@@ -10,6 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fiyoteam.model.AuthenticationResponse;
 import com.fiyoteam.model.User;
 import com.fiyoteam.persistence.Entitymanager;
@@ -19,6 +22,8 @@ import com.fiyoteam.utils.PasswordStorage.InvalidHashException;
 
 @Path("/authentication")
 public class AuthenticationService {
+
+	private static final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
 
 	@POST
 	@Path("/login")
@@ -36,17 +41,19 @@ public class AuthenticationService {
 
 		if (userList.size() > 0) {
 			try {
-				if(PasswordStorage.verifyPassword(user.getPassword(), userList.get(0).getPassword())){
+				if (PasswordStorage.verifyPassword(user.getPassword(), userList.get(0).getPassword())) {
 					response.setId(userList.get(0).getId());
 					response.setEmail(userList.get(0).getEmail());
 					response.setRole(userList.get(0).getRole());
+					
+					log.info("Logged in: " + response.getEmail());
 				}
 			} catch (CannotPerformOperationException e) {
 				e.printStackTrace();
 			} catch (InvalidHashException e) {
 				e.printStackTrace();
-			}	
-			
+			}
+
 		} else {
 			response.setId(-1);
 			response.setEmail("none");
@@ -72,7 +79,7 @@ public class AuthenticationService {
 		AuthenticationResponse response = new AuthenticationResponse();
 
 		if (userList.size() > 0) {
-			//the email is already in use
+			// the email is already in use
 			response.setId(-1);
 			return response;
 
@@ -83,17 +90,17 @@ public class AuthenticationService {
 			} catch (CannotPerformOperationException e) {
 				e.printStackTrace();
 			}
-			
-			//store the new user
+
+			// store the new user
 			em.getTransaction().begin();
 			em.persist(user);
 			em.flush();
 			em.getTransaction().commit();
-			
+
 			response.setId(user.getId());
 			response.setEmail(user.getEmail());
 			response.setRole(user.getRole());
-			
+
 			return response;
 		}
 	}

@@ -29,6 +29,10 @@
 		</repository>
 	</repositories>
 
+	<properties>
+		<slf4j.version>1.7.5</slf4j.version>
+	</properties>
+
 	<dependencies>
 
 		<!-- Jersey Restful Web Services in Java -->
@@ -63,6 +67,26 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.27</version>
+		</dependency>
+
+		<!-- Logging -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>apache-log4j-extras</artifactId>
+			<version>1.1</version>
 		</dependency>
 
 	</dependencies>
