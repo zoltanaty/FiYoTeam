@@ -46,12 +46,20 @@ public class AuthenticationService {
 					response.setEmail(userList.get(0).getEmail());
 					response.setRole(userList.get(0).getRole());
 					
-					log.info("Logged in: " + response.getEmail());
+					log.info("Logged in: " + response);
 				}
 			} catch (CannotPerformOperationException e) {
-				e.printStackTrace();
+				response.setId(-1);
+				response.setEmail("none");
+				response.setRole("none");
+				
+				log.debug("Failed to Login: " + user.getEmail() + " - " + e);
 			} catch (InvalidHashException e) {
-				e.printStackTrace();
+				response.setId(-1);
+				response.setEmail("none");
+				response.setRole("none");
+				
+				log.debug("Failed to Login: " + user.getEmail() + " - " + e);
 			}
 
 		} else {
@@ -80,6 +88,7 @@ public class AuthenticationService {
 
 		if (userList.size() > 0) {
 			// the email is already in use
+			log.info("Registration attempt - email already in use: " + user.getEmail());
 			response.setId(-1);
 			return response;
 
@@ -87,8 +96,9 @@ public class AuthenticationService {
 			user.setRole("user");
 			try {
 				user.setPassword(PasswordStorage.createHash(user.getPassword()));
+				log.info("Password successfully hashed to the user: " + user.getEmail());
 			} catch (CannotPerformOperationException e) {
-				e.printStackTrace();
+				log.debug("Password hashing failed to the user: " + user.getEmail() + " - " + e);
 			}
 
 			// store the new user
@@ -101,6 +111,8 @@ public class AuthenticationService {
 			response.setEmail(user.getEmail());
 			response.setRole(user.getRole());
 
+			log.info("Successful registration : " + response);
+			
 			return response;
 		}
 	}
