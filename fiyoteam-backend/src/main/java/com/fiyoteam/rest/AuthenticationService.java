@@ -25,6 +25,7 @@ import com.fiyoteam.utils.PasswordStorage.InvalidHashException;
 public class AuthenticationService {
 
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
+	
 
 	@POST
 	@Path("/login")
@@ -112,9 +113,9 @@ public class AuthenticationService {
 			response.setEmail(user.getEmail());
 			response.setRole(user.getRole());
 			
-			Email confirmationEmail = new Email();
-			//confirmationEmail.send(user.getEmail(), "Test registration confirmation");
-
+			Email activationEmail = new Email();
+			activationEmail.send("zoltanaty@gmail.com", "FiYoTeam Account Activation",  activationEmail.composeActivationEmail(user.getFirstName(), activationEmail.generateRandomString()));
+			
 			log.info("Successful registration : " + response);
 			
 			return response;

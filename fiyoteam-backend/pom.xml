@@ -97,6 +97,14 @@
 			<version>1.4</version>
 		</dependency>
 
+		<!-- Apache RandomStringUtils -->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
