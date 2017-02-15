@@ -103,13 +103,13 @@
 
                                     <input type="submit" value="Register" class="btn btn-info btn-block">
 
-                                    <div class="alert alert-success registration-message" [ngClass]="{'invisible': !successfulRegistration }">
+                                    <div *ngIf="successfulRegistration" class="alert alert-success registration-message">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         <i class="glyphicon glyphicon-ok-sign"></i>
-                                        <i>Registration successful! You can log in now.</i>
+                                        <i>Registration successful! Activation email sent.</i>
                                     </div>
 
-                                    <div class="alert alert-danger registration-message" [ngClass]="{'invisible': !unsuccessfulRegistration }">
+                                    <div *ngIf="unsuccessfulRegistration" class="alert alert-danger registration-message">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         <span class="glyphicon glyphicon-info-sign"></span> 
                                         <i>Registration unsuccessful! Email already in use.</i>
