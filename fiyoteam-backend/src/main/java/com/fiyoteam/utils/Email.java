@@ -1,6 +1,5 @@
 package com.fiyoteam.utils;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.slf4j.Logger;
@@ -49,9 +48,5 @@ public class Email {
 						 + "<br><br>All the best,<br>The FiYoTeam</p>";
 		
 		return emailBody;
-	}
-	
-	public String generateRandomString(){
-		return RandomStringUtils.randomAlphanumeric(8);
 	}
 }

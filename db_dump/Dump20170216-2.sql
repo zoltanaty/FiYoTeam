@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `account_activation`
+--
+
+DROP TABLE IF EXISTS `account_activation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_activation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `activation_code` varchar(45) NOT NULL,
+  `activated` bit(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_user_UNIQUE` (`id_user`),
+  CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_activation`
+--
+
+LOCK TABLES `account_activation` WRITE;
+/*!40000 ALTER TABLE `account_activation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_activation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -53,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-12 20:59:55
+-- Dump completed on 2017-02-16 19:07:33

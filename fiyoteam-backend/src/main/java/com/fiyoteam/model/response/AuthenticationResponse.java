@@ -1,4 +1,4 @@
-package com.fiyoteam.model;
+package com.fiyoteam.model.response;
 
 import java.io.Serializable;
 
