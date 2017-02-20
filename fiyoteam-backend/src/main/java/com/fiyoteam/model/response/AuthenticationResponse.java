@@ -8,6 +8,8 @@ public class AuthenticationResponse implements Serializable{
 	
 	private int id;
 	private String email;
+	private String firstName;
+	private String lastName;
 	private String role;
 	
 	public AuthenticationResponse(){
@@ -38,9 +40,26 @@ public class AuthenticationResponse implements Serializable{
 		this.email = email;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	@Override
 	public String toString() {
-		return "LoginResponse [id=" + id + ", email=" + email + ", role=" + role + "]";
+		return "AuthenticationResponse [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", role=" + role + "]";
 	}
 
 }

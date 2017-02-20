@@ -11,9 +11,12 @@ import 'rxjs/Rx';
 })
 export class MainUserComponent { 
 
-	public userEmail : string;
+	private userEmail : string;
+    private userName : string;
 
-	constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
+    private isUserClicked = false;
+
+    constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
     ngOnInit(){
         if (localStorage.getItem("USEREMAIL") === null){
@@ -21,12 +24,19 @@ export class MainUserComponent {
         }
         
         this.userEmail = localStorage.getItem("USEREMAIL");
+        this.userName = localStorage.getItem("USERNAME");
         console.log(this.userEmail);
     }
 
     logout() {
         localStorage.removeItem("USEREMAIL");
         localStorage.removeItem("USERID");
+        localStorage.removeItem("USERNAME");
+
         this._router.navigate(['Login']);
+    }
+
+    clickOnUser(){
+        this.isUserClicked = !this.isUserClicked;
     }
 }

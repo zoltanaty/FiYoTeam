@@ -47,6 +47,8 @@ public class AuthenticationService {
 				if (PasswordStorage.verifyPassword(user.getPassword(), userList.get(0).getPassword())) {
 					response.setId(userList.get(0).getId());
 					response.setEmail(userList.get(0).getEmail());
+					response.setFirstName(userList.get(0).getFirstName());
+					response.setLastName(userList.get(0).getLastName());
 					response.setRole(userList.get(0).getRole());
 
 					log.info("Logged in: " + response);

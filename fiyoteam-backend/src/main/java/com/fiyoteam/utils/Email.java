@@ -43,7 +43,7 @@ public class Email {
 	
 	public String composeActivationEmail(String firstName, String randomString){	
 		String emailBody = "<p style='font-size:125%;'>Dear <b>" + firstName + "</b>,"
-						 + "<br><br>Thank you for registering for <b>FiYoTeam</b>."
+						 + "<br><br>Thank you for registering to <b>FiYoTeam</b>."
 						 + "<br><br>Please activate your account in 48h with the following code: <b><i>" + randomString + "</i></b>"
 						 + "<br><br>All the best,<br>The FiYoTeam</p>";
 		
