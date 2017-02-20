@@ -13,9 +13,11 @@
 }
 
 .navbar-brand {
-	font-size: 24px !important;
-	font-family:Comic Sans MS;
+	font-family: fantasy;
+	font-size: 32px !important;
+	font-variant: small-caps;
 	color: white !important;
+	cursor: default;
 }
 
 .navbar-element {
@@ -51,8 +53,9 @@
 }
 
 .fiyoteam-text{
-	color:#DDCBF4;
-	font-family: Comic Sans MS;
+	color: #85cea9;
+	font-family: fantasy;
+	font-variant: small-caps;
 	font-size: 28px;
 }
 
@@ -113,27 +116,26 @@
 	font-family: verdana;
 	font-size: 12px;
 	font-weight: 200;
-	background-color: #44505e;
+	background-color: #493b59;
 	position: fixed;
 	top: 0px;
-	width: 150px;
+	width: 125px;
 	height: 100%;
 	color: #f5f6f7;
 }
-.nav-side-menu .brand {
-	background-color: #23282e;
+
+.nav-side-menu .navbar-brand  {
+	background-color: #33293e;
 	height: 70px;
-	line-height: 50px;
-	display: block;
-	text-align: center;
-	font-size: 14px;
+	line-height: 35px;
+	margin-bottom: 10px;
 }
 
 .nav-side-menu ul, .nav-side-menu li {
 	list-style: none;
 	padding: 0px;
 	margin: 0px;
-	line-height: 35px;
+	line-height: 60px;
 	cursor: pointer;
 }
 
@@ -149,17 +151,6 @@
 	border-bottom: 1px solid #23282e;
 }
 
-.nav-side-menu li a {
-	text-decoration: none;
-	color: #f5f6f7;
-}
-
-.nav-side-menu li a i {
-	padding-left: 10px;
-	width: 20px;
-	padding-right: 20px;
-}
-
 .nav-side-menu li:hover {
 	border-left: 3px solid #d19b3d;
 	background-color: #4f5b69;
@@ -168,6 +159,23 @@
 	-o-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
 	transition: all 0.5s ease;
+}
+
+.nav-side-menu-icon {
+	text-align: center;
+	line-height: initial;
+	margin-bottom: 10px;
+	margin-top: 15px;
+}
+
+.nav-side-menu-text {
+	text-align: center;
+	line-height: initial;
+	margin-bottom: 10px;
+}
+
+.fa-lg {
+	font-size: 3em !important;
 }
 
 .brand {
@@ -183,7 +191,7 @@
 
 .user-top-navbar {
 	min-height: 70px;
-	background-color: #f5f6f6;
+	background-color: #f6f8f9;
 }
 
 .user-top-navbar button{
@@ -199,7 +207,7 @@
 	line-height: 100px;
 	text-align: center;
 	padding: 0px;
-	background: #adb400;
+	background: #6f5290;
 	border-radius: 8px;
 	box-shadow: 2px -8px 13px 8px rgba(163, 163, 163, 0.24);
 	-webkit-transform: rotate(180deg);
@@ -215,7 +223,7 @@
 	position: absolute;
 	border-style: solid;
 	border-width: 11px 14px 0;
-	border-color: #adb400 transparent;
+	border-color: #6f5290 transparent;
 	display: block;
 	width: 0;
 	z-index: 1;
