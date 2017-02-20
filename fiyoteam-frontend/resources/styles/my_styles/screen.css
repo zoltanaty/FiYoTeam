@@ -128,7 +128,7 @@
 	background-color: #33293e;
 	height: 70px;
 	line-height: 35px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 .nav-side-menu ul, .nav-side-menu li {
@@ -165,7 +165,7 @@
 	text-align: center;
 	line-height: initial;
 	margin-bottom: 10px;
-	margin-top: 15px;
+	padding-top: 15px;
 }
 
 .nav-side-menu-text {
