@@ -45,8 +45,9 @@
 
 <div class="user-top-navbar">
 	<div class="pull-right">
-
-		<button (click)="clickOnUser()" type="button" class="btn btn-secondary current-user"><span class="glyphicon glyphicon-user"></span> {{ userName }}</button>
+	<div class="pull-right">
+			<button (click)="clickOnUser()" type="button" class="btn btn-secondary current-user"><span class="glyphicon glyphicon-user"></span> {{ userName }}</button>
+		</div>
 
 		<div *ngIf="isUserClicked" class="speech-bubble">
 			<button (click)="logout()" type="button" class="btn btn-secondary btn-sm rotate180deg logout-btn">
