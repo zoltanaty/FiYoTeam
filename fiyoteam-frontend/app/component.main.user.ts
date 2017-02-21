@@ -2,10 +2,12 @@ import {Component} from 'angular2/core';
 import {GetAndPostService} from './service.getandpost'
 import {Router} from 'angular2/router';
 import 'rxjs/Rx';
+import {UserProfileComponent} from './component.userprofile';
 
 @Component({
     selector: 'main-user',
     templateUrl: 'app/templates/main.user.template.html',
+    directives: [UserProfileComponent],
     providers: [GetAndPostService]
 
 })
@@ -13,6 +15,11 @@ export class MainUserComponent {
 
 	private userEmail : string;
     private userName : string;
+
+    /*
+    *   Defines which menu is active
+    */
+    private activeMenu = 1;
 
     private isUserClicked = false;
 
@@ -38,5 +45,9 @@ export class MainUserComponent {
 
     clickOnUser(){
         this.isUserClicked = !this.isUserClicked;
+    }
+
+    switchMenu(menuToActivate){
+        this.activeMenu = menuToActivate;
     }
 }
