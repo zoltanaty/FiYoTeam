@@ -23,6 +23,18 @@ public class User implements Serializable{
     @Column(name = "id", unique=true, nullable=false)
 	private int id;
 	
+	@Column(name = "firstname")
+	private String firstName;
+	
+	@Column(name = "lastname")
+	private String lastName;
+	
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "city")
+	private String city;
+	
 	@Column(name = "email")
 	private String email;
 	
@@ -32,24 +44,21 @@ public class User implements Serializable{
 	@Column(name = "role")
 	private String role;
 	
-	@Column(name = "firstname")
-	private String firstName;
-	
-	@Column(name = "lastname")
-	private String lastName;
-	
 	public User(){
 		//do nothing
 	}
 
-	public User(int id, String email, String password, String role, String firstName, String lastName) {
+	public User(int id, String firstName, String lastName, String country, String city, String email, String password,
+			String role) {
 		super();
 		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.country = country;
+		this.city = city;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.firstName = firstName;
-		this.lastName = lastName;
 	}
 
 	public int getId() {
@@ -58,6 +67,38 @@ public class User implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getEmail() {
@@ -84,25 +125,10 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + ", firstName="
-				+ firstName + ", lastName=" + lastName + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", country=" + country
+				+ ", city=" + city + ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
+
 }

@@ -7,7 +7,6 @@ import {GetAndPostService, Skill} from './service.getandpost'
     templateUrl: 'app/templates/skills.template.html'
 })
 
-
 export class SkillTemplateComponent {
 
 
@@ -15,7 +14,7 @@ export class SkillTemplateComponent {
     public newSkill = new Skill(null,null,'');
     public id;
     public skillsfromadmins;
-    
+
     constructor(private getandpostservice: GetAndPostService){}
     
     ngOnInit(){
@@ -42,37 +41,37 @@ export class SkillTemplateComponent {
 
   updateSkills() {
 
-     this.getandpostservice.postData(this.skills,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/updateskillhasuser').map(res => res.json())
+   this.getandpostservice.postData(this.skills,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/updateskillhasuser').map(res => res.json())
 
-     .subscribe(
+   .subscribe(
       (res) => {
         this.skills = res;
         console.log(res);
     }
     );
- }
+}
 
- restoreSkills() {
-     
- }
+restoreSkills() {
 
- addNewSkill() {
+}
 
-     this.newSkill.userId = this.id;
-     console.log(this.newSkill);
+addNewSkill() {
 
-     this.getandpostservice.postData(this.newSkill,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/addskillhasuser').map(res => res.json())
+   this.newSkill.userId = this.id;
+   console.log(this.newSkill);
 
-     .subscribe(
+   this.getandpostservice.postData(this.newSkill,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/addskillhasuser').map(res => res.json())
+
+   .subscribe(
       (res) => {
         this.skills = res;
         console.log(res);
     }
     );
- }
+}
 
 
- deleteSkill(skill){
+deleteSkill(skill){
 
   this.getandpostservice.postData(skill,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/deleteskillhasuser').map(res => res.json())
 

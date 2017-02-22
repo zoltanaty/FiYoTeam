@@ -35,8 +35,8 @@ public class UserService {
 	public User getPerson(@PathParam("id") Integer id) {
 		
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		User person = em.find(User.class, id);
+		User user = em.find(User.class, id);
 
-		return person;
+		return user;
 	}
 }

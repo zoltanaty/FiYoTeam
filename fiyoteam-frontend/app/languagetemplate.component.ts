@@ -7,7 +7,6 @@ import {GetAndPostService, Language} from './service.getandpost'
   templateUrl: 'app/templates/languages.template.html'
 })
 
-
 export class LanguageTemplateComponent {
 
   public languages: Language[];

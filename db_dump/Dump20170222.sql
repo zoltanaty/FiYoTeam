@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `fiyoteam` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `fiyoteam`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: fiyoteam
@@ -51,11 +53,13 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `country` varchar(45) NOT NULL DEFAULT 'N/A',
+  `city` varchar(45) NOT NULL DEFAULT 'N/A',
   `email` varchar(45) NOT NULL,
   `password` varchar(200) NOT NULL,
   `role` varchar(45) NOT NULL,
-  `firstname` varchar(45) NOT NULL,
-  `lastname` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
@@ -67,7 +71,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (31,'zoltanaty@fiyoteam.com','sha1:64000:18:YuAZP0n4Y/sL/MJjcTzkR8lNugPvaxTJ:bCBfdWCVbQA4eMsv3GrP4yWJ','user','Zoltán - Attila','Mate'),(32,'admin@fiyoteam.com','sha1:64000:18:mdlRNg+9+j0xH90McYSxj43hjFCZa+xg:GjsbCIgECWtjre5T17u9v1eL','admin','Zoltán - Attila','Mate');
+INSERT INTO `user` VALUES (31,'Zoltán - Attila','Mate','N/A','N/A','zoltanaty@fiyoteam.com','sha1:64000:18:YuAZP0n4Y/sL/MJjcTzkR8lNugPvaxTJ:bCBfdWCVbQA4eMsv3GrP4yWJ','user'),(32,'Zoltán - Attila','Mate','N/A','N/A','admin@fiyoteam.com','sha1:64000:18:mdlRNg+9+j0xH90McYSxj43hjFCZa+xg:GjsbCIgECWtjre5T17u9v1eL','admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-16 19:07:33
+-- Dump completed on 2017-02-22 20:57:05

@@ -3,17 +3,17 @@ import {Router} from 'angular2/router';
 import 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 
-
 @Component({
 	selector: 'login',
 	templateUrl: 'app/templates/login.template.html',
 	providers: [GetAndPostService]
 
 })
+
 export class LoginComponent { 
 
-	private user = new User(null, '','', '', '', '');
-	private userToRegister = new User(null, '','', '', '', '');
+	private user = new User(null, '', '', '','', '', '', '');
+	private userToRegister = new User(null, '', '', '','', '', '', '');
 
 	private loginError = false;
 	private successfulRegistration = false;

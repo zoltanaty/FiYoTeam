@@ -7,7 +7,6 @@ import {GetAndPostService, Project} from './service.getandpost'
   templateUrl: `app/templates/projects.template.html`
 })
 
-
 export class ProjectsTemplateComponent {
 
   public projects: Project[];
