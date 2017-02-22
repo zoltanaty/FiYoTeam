@@ -19,12 +19,10 @@ export class LoginComponent {
 	private successfulRegistration = false;
 	private unsuccessfulRegistration = false;
 
-	private ipv4 = "localhost";
-
 	constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
 	login() {
-		this.getAndPostService.postData(this.user, 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/authentication/login').map(res => res.json())
+		this.getAndPostService.postData(this.user, this.getAndPostService.baseUrl + 'authentication/login').map(res => res.json())
 
 		.subscribe(
 			(res) => {
@@ -51,7 +49,7 @@ export class LoginComponent {
 
 	register(){
 		if(this.userToRegister.password == this.userToRegister.passwordAgain){
-			this.getAndPostService.postData(this.userToRegister, 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/authentication/register').map(res => res.json())
+			this.getAndPostService.postData(this.userToRegister, this.getAndPostService.baseUrl + 'authentication/register').map(res => res.json())
 
 			.subscribe(
 				(res) => {

@@ -8,6 +8,9 @@ export class User {
 @Injectable()
 export class GetAndPostService{
 
+  private ipv4 = 'localhost';
+  public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
+
   constructor(private _http: Http){}
 
   getData(url){

@@ -1,0 +1,141 @@
+<div class="panel-body">
+        <div class="container">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                        <h3>Projects</h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <div *ngFor="#project of projects">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                            {{project.name}}
+                        </div>
+                    </div>
+                </div>
+           
+                </div>
+
+                <div class="panel-heading">
+
+                    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addNewProjectModal"><i class="glyphicon glyphicon-plus"></i></button>
+                    <button class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="modal" data-target="#editProjectsModal"><i class="glyphicon glyphicon-cog"></i></button>
+                    
+                    <br><br>
+
+                     
+                      <!-- ------------------------------------------------------------------------------------ -->
+                      <!--                                  Project Options Modal                               -->
+                      <!-- ------------------------------------------------------------------------------------ -->
+
+                      <div class="modal fade" id="editProjectsModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Edit Projects</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <!--- ********************************************************************** -->
+
+                                <div class="container">
+
+                                <div class="row">
+
+                                  <div class="col-sm-3">
+                                    <h4>Project Name:</h4>
+                                  </div>
+
+                                </div>
+
+
+                                <div class="row">
+
+                                  <div class="col-sm-5">
+
+                                     <div *ngFor="#project of projects">
+
+                                        <br> 
+                                        <input [(ngModel)]="project.name" type="text" value={{project.name}} class="form-control" name="projectname" id="projectname" readonly/> 
+                                      
+                                     </div> 
+                                   </div>
+
+                                   <div class="col-sm-1">
+
+                                    <div *ngFor="#project of projects">
+                                      <br>
+                                      <button (click)="deleteProject(project)" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+                                      <p></p>
+                                    </div>
+
+                                  </div>
+
+                                </div>
+
+                              </div>
+
+                              <!--- ********************************************************************** -->
+
+                            </div>
+                            <div class="modal-footer">
+                              <button (click)="updateProjects()" type="button" class="btn btn-default" data-dismiss="modal" >Save</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+
+
+
+                      <!-- ------------------------------------------------------------------------------------ -->
+                      <!--                                     Add Project Modal                                -->
+                      <!-- ------------------------------------------------------------------------------------ -->
+
+
+                      <div class="modal fade" id="addNewProjectModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Add New Project</h4>
+                            </div>
+                            <div class="modal-body">
+                              
+
+                              <div class="form-group">
+
+                                <label for="project">Project Name:</label>
+                                 <select class="form-control" [(ngModel)]="newProject.projectId">
+                                  <option *ngFor="#projectfromadmin of projectsfromadmins" value= {{projectfromadmin.id}}>{{projectfromadmin.name}}
+                                  </option>
+                                  </select>
+
+                                <br>
+
+                              </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                              <button (click)="addNewProject()" type="button" class="btn btn-default" data-dismiss="modal" >Save</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
