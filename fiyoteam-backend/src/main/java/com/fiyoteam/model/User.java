@@ -1,14 +1,18 @@
 package com.fiyoteam.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
@@ -44,12 +48,15 @@ public class User implements Serializable{
 	@Column(name = "role")
 	private String role;
 	
+	@OneToMany(mappedBy = "user")
+	private List<UserLanguage> userLanguage = new ArrayList<>();
+	
 	public User(){
-		//do nothing
+		super();
 	}
 
 	public User(int id, String firstName, String lastName, String country, String city, String email, String password,
-			String role) {
+			String role, ArrayList<UserLanguage> userLanguage) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -59,6 +66,7 @@ public class User implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.role = role;
+		this.userLanguage = userLanguage;
 	}
 
 	public int getId() {
@@ -109,6 +117,7 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
+	@JsonIgnore 
 	public String getPassword() {
 		return password;
 	}
@@ -125,10 +134,20 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
+	@JsonIgnore 
+	public List<UserLanguage> getUserLanguage() {
+		return userLanguage;
+	}
+
+	public void setUserLanguage(List<UserLanguage> userLanguage) {
+		this.userLanguage = userLanguage;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", country=" + country
-				+ ", city=" + city + ", email=" + email + ", password=" + password + ", role=" + role + "]";
+				+ ", city=" + city + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", userLanguage=" + userLanguage + "]";
 	}
-
 }
+
