@@ -41,6 +41,7 @@ public class AuthenticationService {
 		List<User> userList = (List<User>) query.getResultList();
 
 		AuthenticationResponse response = new AuthenticationResponse();
+		boolean failedToLogin = false;
 
 		if (userList.size() > 0) {
 			try {
@@ -52,21 +53,27 @@ public class AuthenticationService {
 					response.setRole(userList.get(0).getRole());
 
 					log.info("Logged in: " + response);
+				}else{
+					failedToLogin = true;
+
+					log.debug("Failed to Login: " + user.getEmail());
 				}
 			} catch (CannotPerformOperationException|InvalidHashException e) {
-				response.setId(-1);
-				response.setEmail("none");
-				response.setRole("none");
+				failedToLogin = true;
 
 				log.debug("Failed to Login: " + user.getEmail() + " - " + e);
 			} 
 
 		} else {
+			failedToLogin = true;
+			
+			log.debug("Login attempt: " + user);
+		}
+		
+		if(failedToLogin){
 			response.setId(-1);
 			response.setEmail("none");
 			response.setRole("none");
-			
-			log.debug("Login attempt: " + user);
 		}
 
 		return response;
