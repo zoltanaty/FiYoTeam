@@ -2,10 +2,12 @@ import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 import 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
+import {LanguageTemplateComponent} from './languagetemplate.component';
 
 @Component({
 	selector: 'userprofile',
 	templateUrl: 'app/templates/userprofile.template.html',
+	directives: [LanguageTemplateComponent],
 	providers: [GetAndPostService]
 
 })
@@ -13,7 +15,7 @@ import {GetAndPostService, User} from './service.getandpost'
 export class UserProfileComponent { 
 
 	private userId;
-	private user = new User(null, '', '', '','', '', '', '');
+	private user = new User(null, '', '', '','', '');
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 

@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import 'rxjs/Rx';
 import {GetAndPostService, Language} from './service.getandpost'
 
 @Component({
@@ -9,35 +10,35 @@ import {GetAndPostService, Language} from './service.getandpost'
 
 export class LanguageTemplateComponent {
 
-  public languages: Language[];
-  public newLanguage = new Language(null,null,'');
-  public id;
-  public languagesfromadmins;
+  private private userId;
+  private languages: Language[];
+  //public newLanguage = new Language(null,null,'');
+  //public languagesfromadmins;
 
-  constructor(private getandpostservice: GetAndPostService){}
+  constructor(private getAndPostService: GetAndPostService){}
 
   ngOnInit(){
-   this.id = localStorage.getItem("user");
+   this.userId = localStorage.getItem("USERID");
 
-   this.getandpostservice.getData('http://localhost:8080/addressbook_rest/api/v1/languages/getAllLanguages/').map(res => res.json())
+   /*this.getandpostservice.getData('http://localhost:8080/addressbook_rest/api/v1/languages/getAllLanguages/').map(res => res.json())
 
    .subscribe(
     (res) => {
       this.languagesfromadmins = res;
     }
-    );
+    );*/
 
 
-   this.getandpostservice.getData('http://localhost:8080/addressbook_rest/api/v1/languagehasuser/getlanguagehasuser/' + this.id).map(res => res.json())
+   this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
 
-   .subscribe(
-    (res) => {
-      this.languages = res;
-    }
-    );
+    .subscribe(
+      (res) => {
+        this.languages = res;    
+      }
+      );
  }
 
- updateLanguages() {
+ /*updateLanguages() {
 
    this.getandpostservice.postData(this.languages,'http://localhost:8080/addressbook_rest/api/v1/languagehasuser/updateslanguagehasuser').map(res => res.json())
 
@@ -73,6 +74,6 @@ deleteLanguage(language){
       this.languages = res;
     }
     );
-}
+}*/
 
 }

@@ -1,164 +1,30 @@
-<div class="panel-body">
-        <div class="container">
-            <div class="panel panel-default">
+<div class="panel panel-default">
 
-                <div class="panel-heading">
-                        <h3>Languages</h3>
-                </div>
+  <div class="panel-heading">
+    <h3>Languages</h3>
+  </div>
 
-                <div class="panel-body">
+  <div class="panel-body">
 
-                    <div *ngFor="#language of languages">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{language.level}}%">
-                            {{language.name}}
-                        </div>
-                    </div>
-                </div>
-           
-                </div>
-
-                <div class="panel-heading">
-
-                    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addLanguagesModal"><i class="glyphicon glyphicon-plus"></i></button>
-                    <button class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="modal" data-target="#editlanguage"><i class="glyphicon glyphicon-cog"></i></button>
-                    
-                    <br><br>
-
-                    
-                      <!-- ------------------------------------------------------------------------------------ -->
-                      <!--                                  Language Options Modal                              -->
-                      <!-- ------------------------------------------------------------------------------------ -->
-
-                      <div class="modal fade" id="editlanguage" role="dialog">
-                        <div class="modal-dialog">
-                        
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Edit Languages</h4>
-                            </div>
-                            <div class="modal-body">
-
-                                <!--- ********************************************************************** -->
-
-                                <div class="container">
-
-                                <div class="row">
-
-                                  <div class="col-sm-3">
-                                    <h4>Language Name:</h4>
-                                  </div>
-
-                                  <div class="col-sm-2">
-                                      <h4>Language Level:</h4>
-                                  </div>
-
-                                </div>
-
-
-                                <div class="row">
-
-                                  <div class="col-sm-3">
-
-                                        <div *ngFor="#language of languages">
-
-                                          <br>
-                                          
-                                          <input [(ngModel)]="language.name" type="text" value={{language.name}} class="form-control" name="languagename" id="languagename" readonly/> 
-                                        
-                                        </div> 
-                                   </div>
-
-                                   <div class="col-sm-6">
-
-                                      <div *ngFor="#language of languages">
-
-                                          <div class="row">
-
-                                          <div class="col-sm-4">
-                                            <div class="range range-primary">
-                                              <input [(ngModel)]="language.level" type="range" name="range" min="0" max="100" value="{{language.level}}" onchange="rangePrimary.value=value">
-                                              <output value="{{language.level}}" id="rangePrimary"></output>
-                                            </div>
-                                          </div>
-
-                                          <div class="col-sm-3">
-                                            <br>
-                                            <button (click)="deleteLanguage(language)" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
-                                          </div>
-
-                                        </div>
-
-                                        <p></p>
-
-                                      </div>
-
-                                  </div>
-
-                                </div>
-
-                              </div>
-
-                              <!--- ********************************************************************** -->
-
-                            </div>
-                            <div class="modal-footer">
-                              <button (click)="updateLanguages()" type="button" class="btn btn-default" data-dismiss="modal" >Save</button>
-                              <button (click)="restoreLanguages()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
-
-                     
-                     <!-- ------------------------------------------------------------------------------------ -->
-                     <!--                                   Add Language Modal                                 -->
-                     <!-- ------------------------------------------------------------------------------------ -->
-
-
-                      <div class="modal fade" id="addLanguagesModal" role="dialog">
-                        <div class="modal-dialog">
-                        
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Add New language</h4>
-                            </div>
-                            <div class="modal-body">
-                              
-
-                              <div class="form-group">
-
-                                <label for="language">Language Name:</label>
-                                 <select class="form-control" [(ngModel)]="newLanguage.languageId">
-                                  <option *ngFor="#languagesfromadmin of languagesfromadmins" value= {{languagesfromadmin.id}}>{{languagesfromadmin.name}}
-                                  </option>
-                                  </select>
-
-                                  <br>
-
-                                <label for="level">Level:</label>
-                                <input [(ngModel)]="newLanguage.level" type="text" class="form-control" id="level">
-
-                              </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                              <button (click)="addNewLanguage()" type="button" class="btn btn-default" data-dismiss="modal" >Save</button>
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
-
-                </div>
-
-            </div>
+    <div *ngFor="let language of languages">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{language.level}}%">
+          {{language.language}}
         </div>
+      </div>
     </div>
+
+  </div>
+
+  <div class="panel-heading">
+
+    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addLanguagesModal"><i class="glyphicon glyphicon-plus"></i></button>
+    <button class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="modal" data-target="#editlanguage"><i class="glyphicon glyphicon-cog"></i></button>
+
+    <br><br>
+
+
+    
+  </div>
+
+</div>
