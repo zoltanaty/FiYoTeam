@@ -32,7 +32,6 @@ export class MainUserComponent {
         
         this.userEmail = localStorage.getItem("USEREMAIL");
         this.userName = localStorage.getItem("USERNAME");
-        console.log(this.userEmail);
     }
 
     logout() {

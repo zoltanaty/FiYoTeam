@@ -21,7 +21,6 @@ export class MainAdminComponent {
         }
         
         this.userEmail = localStorage.getItem("USEREMAIL");
-        console.log(this.userEmail);
     }
 
     logout() {

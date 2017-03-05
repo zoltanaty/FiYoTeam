@@ -19,8 +19,8 @@ public class UserLanguageResponse implements Serializable{
 		return languages;
 	}
 
-	public void addLanguage(String language, int level){
-		languages.add(new  Language(language, level));
+	public void addLanguage(int id, String language, int level){
+		languages.add(new  Language(id, language, level));
 	}
 	
 	@Override
@@ -28,14 +28,28 @@ public class UserLanguageResponse implements Serializable{
 		return "Languages [" + languages + "]";
 	}
 
-	public class Language{
+	public static class Language{
+		private int id;
 		private String language;
 		private int level;
 		
-		public Language(String language, int level) {
+		public Language(){
 			super();
+		}
+		
+		public Language(int id, String language, int level) {
+			super();
+			this.id = id;
 			this.language = language;
 			this.level = level;
+		}
+		
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
 		}
 
 		public String getLanguage() {
@@ -56,8 +70,8 @@ public class UserLanguageResponse implements Serializable{
 
 		@Override
 		public String toString() {
-			return "Language [language=" + language + ", level=" + level + "]";
+			return "Language [id=" + id + ", language=" + language + ", level=" + level + "]";
 		}
-		
+
 	}
 }

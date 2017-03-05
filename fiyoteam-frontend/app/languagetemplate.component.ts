@@ -28,19 +28,23 @@ export class LanguageTemplateComponent {
     }
     );*/
 
+    this.getUsersLanguages();
 
-   this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+  }
+
+  getUsersLanguages(){
+    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
 
     .subscribe(
       (res) => {
-        this.languages = res;    
+        this.languages = res;
       }
       );
- }
+  }
 
- /*updateLanguages() {
+ updateLanguages() {
 
-   this.getandpostservice.postData(this.languages,'http://localhost:8080/addressbook_rest/api/v1/languagehasuser/updateslanguagehasuser').map(res => res.json())
+   this.getAndPostService.postData(this.languages, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
 
    .subscribe(
     (res) => {
@@ -48,11 +52,19 @@ export class LanguageTemplateComponent {
     }
     );
  }
- restoreLanguages() {
 
- }
+deleteLanguage(language){
 
- addNewLanguage() {
+  this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/languages/' + this.userId + '/' + language.id).map(res => res.json())
+
+   .subscribe(
+    (res) => {
+      this.languages = res;
+    }
+    );
+  }
+
+/*   addNewLanguage() {
 
   this.newLanguage.userId = this.id;
 
@@ -63,17 +75,8 @@ export class LanguageTemplateComponent {
       this.languages = res;
     }
     );
-}
+  }*/
 
-deleteLanguage(language){
 
-  this.getandpostservice.postData(language,'http://localhost:8080/addressbook_rest/api/v1/languagehasuser/deletelanguagehasuser').map(res => res.json())
-
-  .subscribe(
-    (res) => {
-      this.languages = res;
-    }
-    );
-}*/
 
 }

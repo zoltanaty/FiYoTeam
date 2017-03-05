@@ -32,7 +32,7 @@ CREATE TABLE `account_activation` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_user_UNIQUE` (`id_user`),
   CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `account_activation` (
 
 LOCK TABLES `account_activation` WRITE;
 /*!40000 ALTER TABLE `account_activation` DISABLE KEYS */;
+INSERT INTO `account_activation` VALUES (1,33,'RJTWk0bT','\0');
 /*!40000 ALTER TABLE `account_activation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +87,7 @@ CREATE TABLE `user` (
   `role` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +96,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (31,'Zoltán - Attila','Mate','N/A','N/A','zoltanaty@fiyoteam.com','sha1:64000:18:YuAZP0n4Y/sL/MJjcTzkR8lNugPvaxTJ:bCBfdWCVbQA4eMsv3GrP4yWJ','user'),(32,'Zoltán - Attila','Mate','N/A','N/A','admin@fiyoteam.com','sha1:64000:18:mdlRNg+9+j0xH90McYSxj43hjFCZa+xg:GjsbCIgECWtjre5T17u9v1eL','admin');
+INSERT INTO `user` VALUES (32,'Zoltán - Attila','Mate','N/A','N/A','admin@fiyoteam.com','sha1:64000:18:mdlRNg+9+j0xH90McYSxj43hjFCZa+xg:GjsbCIgECWtjre5T17u9v1eL','admin'),(33,'Zoltán - Attila','Mate','N/A','N/A','zoltanaty@fiyoteam.com','sha1:64000:18:fsLcctShs9QHX2yeWF0CiMdZ7TB7ILDn:dpMhDcwghEbUbMzpBN6P4OHZ','user');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,8 +115,8 @@ CREATE TABLE `user_language` (
   PRIMARY KEY (`id`),
   KEY `fk_user_idx` (`user_id`),
   KEY `fk_language_idx` (`language_id`),
-  CONSTRAINT `fk_language` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_language` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -125,7 +126,7 @@ CREATE TABLE `user_language` (
 
 LOCK TABLES `user_language` WRITE;
 /*!40000 ALTER TABLE `user_language` DISABLE KEYS */;
-INSERT INTO `user_language` VALUES (1,31,1,95),(2,31,2,70),(3,31,3,85);
+INSERT INTO `user_language` VALUES (1,33,1,50),(3,33,3,100);
 /*!40000 ALTER TABLE `user_language` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -138,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-28 20:51:01
+-- Dump completed on 2017-03-05 20:14:35

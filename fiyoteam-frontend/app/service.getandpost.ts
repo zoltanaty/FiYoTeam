@@ -6,7 +6,7 @@ export class User {
 }
 
 export class Language {
-  constructor(public language: string, public level: number) { }
+  constructor(public id: number, public language: string, public level: number) { }
 }
 
 @Injectable()
@@ -30,6 +30,13 @@ export class GetAndPostService{
       var json = JSON.stringify(object);
 
       return this._http.post(url, json, {headers: headers});
+  }
+
+  delete(url){
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this._http.delete(url, {headers: headers});
   }
 
 }
