@@ -12,7 +12,7 @@
 .button-languages {
 	background-color: transparent;
 	border-color: transparent;
-	color: #eee;
+	color: #31708f;
 }
 
 #btnAdd:hover {
@@ -28,7 +28,11 @@
 }
 
 .language-box {
-	backround-color: #4C934C;
+	background-color: #d8e5f0 !important;
+}
+
+.language-box-title {
+	color: #1e5f80;
 }
 
 .languages-box-footer {
@@ -46,3 +50,5 @@
 .profile-pic {
 	width: 250px;
 }
+
+
