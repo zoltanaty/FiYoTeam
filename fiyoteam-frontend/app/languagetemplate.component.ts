@@ -12,71 +12,70 @@ export class LanguageTemplateComponent {
 
   private private userId;
   private languages: Language[];
-  //public newLanguage = new Language(null,null,'');
-  //public languagesfromadmins;
+  private availableLanguages: Language[];
+  private newLanguage = new Language(null, '', 50);
 
   constructor(private getAndPostService: GetAndPostService){}
 
   ngOnInit(){
    this.userId = localStorage.getItem("USERID");
 
-   /*this.getandpostservice.getData('http://localhost:8080/addressbook_rest/api/v1/languages/getAllLanguages/').map(res => res.json())
+   this.getUsersLanguages();
+   this.getAvailableLanguages();
 
-   .subscribe(
-    (res) => {
-      this.languagesfromadmins = res;
-    }
-    );*/
-
-    this.getUsersLanguages();
-
-  }
-
-  getUsersLanguages(){
-    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
-
-    .subscribe(
-      (res) => {
-        this.languages = res;
-      }
-      );
-  }
-
- updateLanguages() {
-
-   this.getAndPostService.postData(this.languages, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
-
-   .subscribe(
-    (res) => {
-      this.languages = res;
-    }
-    );
  }
 
-deleteLanguage(language){
-
-  this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/languages/' + this.userId + '/' + language.id).map(res => res.json())
-
-   .subscribe(
-    (res) => {
-      this.languages = res;
-    }
-    );
-  }
-
-/*   addNewLanguage() {
-
-  this.newLanguage.userId = this.id;
-
-  this.getandpostservice.postData(this.newLanguage,'http://localhost:8080/addressbook_rest/api/v1/languagehasuser/addlanguagehasuser').map(res => res.json())
+ getUsersLanguages(){
+  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
 
   .subscribe(
     (res) => {
       this.languages = res;
     }
     );
-  }*/
+}
 
+getAvailableLanguages(){
+  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'language/').map(res => res.json())
 
+  .subscribe(
+    (res) => {
+      this.availableLanguages = res;
+    }
+    );
+}
+
+updateLanguages() {
+
+ this.getAndPostService.postData(this.languages, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+
+ .subscribe(
+  (res) => {
+    this.languages = res;
+  }
+  );
+}
+
+addNewLanguage() {
+
+  this.getAndPostService.putData(this.newLanguage, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+
+  .subscribe(
+    (res) => {
+      this.languages = res;
+    }
+    );
+}
+
+deleteLanguage(language){
+
+  this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/languages/' + this.userId + '/' + language.id).map(res => res.json())
+
+  .subscribe(
+    (res) => {
+      this.languages = res;
+    }
+    );
+}
 
 }

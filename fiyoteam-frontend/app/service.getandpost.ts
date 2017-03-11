@@ -32,6 +32,14 @@ export class GetAndPostService{
       return this._http.post(url, json, {headers: headers});
   }
 
+  putData(object, url){
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      var json = JSON.stringify(object);
+
+      return this._http.put(url, json, {headers: headers});
+  }
+
   delete(url){
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
