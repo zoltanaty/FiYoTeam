@@ -4,13 +4,14 @@
     <h3 class="language-box-title">Known Languages</h3>
   </div>
 
+
   <div class="panel-body no-padding-bottom">
 
     <div *ngFor="let language of languages">
       <div class="progress">
-        <div class="progress-bar progress-bar-personalized" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{language.level}}%">
-          {{language.language}}
-        </div>
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{language.level}}%"></div>
+        <span class="progress-type"> {{language.language}}</span>
+        <span class="progress-completed">({{language.level}}%)</span>
       </div>
     </div>
 

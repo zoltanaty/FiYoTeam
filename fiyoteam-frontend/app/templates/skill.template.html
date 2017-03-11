@@ -8,9 +8,9 @@
 
     <div *ngFor="let skill of skills">
       <div class="progress">
-        <div class="progress-bar progress-bar-personalized" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{skill.level}}%">
-          {{skill.skill}}
-        </div>
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.level}}%"></div>
+        <span class="progress-type"> {{skill.skill}}</span>
+        <span class="progress-completed">({{skill.level}}%)</span>
       </div>
     </div>
 
