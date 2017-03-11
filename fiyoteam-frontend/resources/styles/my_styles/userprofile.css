@@ -1,4 +1,5 @@
 .main-container {
+	width: 80%;
 	margin: 0 auto;
 	padding-left: 135px;
 	padding-top: 40px;
@@ -29,10 +30,19 @@
 .language-box {
 	backround-color: #4C934C;
 }
+
 .languages-box-footer {
 	height: 50px;
 }
 
 .language-level-text {
 	font-size: 16px;
+}
+
+.progress-bar-personalized{
+	background-color: #4f9e50 !important;
+}
+
+.profile-pic {
+	width: 250px;
 }

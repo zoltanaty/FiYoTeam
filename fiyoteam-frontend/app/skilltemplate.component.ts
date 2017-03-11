@@ -1,88 +1,81 @@
 import {Component} from 'angular2/core';
-import {GetAndPostService, Skill} from './service.getandpost'
+import 'rxjs/Rx';
+import {GetAndPostService, Language} from './service.getandpost'
 
 @Component({
-    selector: 'skill-template',
-    providers: [GetAndPostService],
-    templateUrl: 'app/templates/skills.template.html'
+  selector: 'skill-template',
+  providers: [GetAndPostService],
+  templateUrl: 'app/templates/skill.template.html'
 })
 
 export class SkillTemplateComponent {
 
+  private private userId;
+  private languages: Language[];
+  private availableLanguages: Language[];
+  private newLanguage = new Language(null, '', 50);
 
-    public skills: Skill[];
-    public newSkill = new Skill(null,null,'');
-    public id;
-    public skillsfromadmins;
+  constructor(private getAndPostService: GetAndPostService){}
 
-    constructor(private getandpostservice: GetAndPostService){}
-    
-    ngOnInit(){
-      this.id = localStorage.getItem('user');
+  ngOnInit(){
+   this.userId = localStorage.getItem("USERID");
 
-      this.getandpostservice.getData('http://localhost:8080/addressbook_rest/api/v1/skills/getallskills/').map(res => res.json())
+   this.getUsersLanguages();
+   this.getAvailableLanguages();
 
-      .subscribe(
-          (res) => {
-            this.skillsfromadmins = res;
-        }
-        );
+ }
 
-      this.getandpostservice.getData('http://localhost:8080/addressbook_rest/api/v1/skillhasuser/getskillhasuser/' + this.id).map(res => res.json())
-
-      .subscribe(
-          (res) => {
-            this.skills = res;
-        }
-        );
-
-
-  }
-
-  updateSkills() {
-
-   this.getandpostservice.postData(this.skills,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/updateskillhasuser').map(res => res.json())
-
-   .subscribe(
-      (res) => {
-        this.skills = res;
-        console.log(res);
-    }
-    );
-}
-
-restoreSkills() {
-
-}
-
-addNewSkill() {
-
-   this.newSkill.userId = this.id;
-   console.log(this.newSkill);
-
-   this.getandpostservice.postData(this.newSkill,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/addskillhasuser').map(res => res.json())
-
-   .subscribe(
-      (res) => {
-        this.skills = res;
-        console.log(res);
-    }
-    );
-}
-
-
-deleteSkill(skill){
-
-  this.getandpostservice.postData(skill,'http://localhost:8080/addressbook_rest/api/v1/skillhasuser/deleteskillhasuser').map(res => res.json())
+ getUsersLanguages(){
+  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
 
   .subscribe(
-      (res) => {
-        this.skills = res;
-        console.log(res);
+    (res) => {
+      this.languages = res;
     }
     );
 }
 
+getAvailableLanguages(){
+  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'language/').map(res => res.json())
 
+  .subscribe(
+    (res) => {
+      this.availableLanguages = res;
+    }
+    );
+}
+
+updateLanguages() {
+
+ this.getAndPostService.postData(this.languages, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+
+ .subscribe(
+  (res) => {
+    this.languages = res;
+  }
+  );
+}
+
+addNewLanguage() {
+
+  this.getAndPostService.putData(this.newLanguage, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+
+  .subscribe(
+    (res) => {
+      this.languages = res;
+    }
+    );
+}
+
+deleteLanguage(language){
+
+  this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/languages/' + this.userId + '/' + language.id).map(res => res.json())
+
+  .subscribe(
+    (res) => {
+      this.languages = res;
+    }
+    );
+}
 
 }

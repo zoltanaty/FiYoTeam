@@ -3,11 +3,12 @@ import {Router} from 'angular2/router';
 import 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 import {LanguageTemplateComponent} from './languagetemplate.component';
+import {SkillTemplateComponent} from './skilltemplate.component';
 
 @Component({
 	selector: 'userprofile',
 	templateUrl: 'app/templates/userprofile.template.html',
-	directives: [LanguageTemplateComponent],
+	directives: [LanguageTemplateComponent, SkillTemplateComponent],
 	providers: [GetAndPostService]
 
 })
