@@ -6,10 +6,10 @@
 
   <div class="panel-body no-padding-bottom">
 
-    <div *ngFor="let language of languages">
+    <div *ngFor="let skill of skills">
       <div class="progress">
-        <div class="progress-bar progress-bar-personalized" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{language.level}}%">
-          {{language.language}}
+        <div class="progress-bar progress-bar-personalized" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{skill.level}}%">
+          {{skill.skill}}
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <button id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages" data-toggle="modal" data-target="#editskill"></button>
 
     <!-- ------------------------------------------------------------------------------------ -->
-    <!--                                  Language Options Modal                              -->
+    <!--                                  Skill Options Modal                              -->
     <!-- ------------------------------------------------------------------------------------ -->
 
     <div class="modal fade" id="editskill" role="dialog">
@@ -50,28 +50,28 @@
                 </div>
               </div>
 
-              <div *ngFor="let language of languages">
+              <div *ngFor="let skill of skills">
                 <br>
 
                 <div class="row">
 
                   <div class="col-sm-3">
-                    <input [(ngModel)]="language.name" type="text" value={{language.language}} class="form-control" name="languagename" id="languagename" readonly/> 
+                    <input type="text" value={{skill.skill}} class="form-control" name="skillname" id="skillname" readonly/> 
                   </div>
 
                   <div class="col-sm-3">
                     <div class="row">
                       <div class="range range-primary">
                         <div class="col-sm-7">
-                          <input [(ngModel)]="language.level" type="range" name="range" min="0" max="100" step="5" value="{{language.level}}" onchange="rangePrimary.value=value">
+                          <input [(ngModel)]="skill.level" type="range" name="range" min="0" max="100" step="5" value="{{skill.level}}" onchange="rangePrimary.value=value">
                         </div>
                         <div class="col-sm-1">
-                          <output class="language-level-text" value="{{language.level}}" id="rangePrimary"></output>
+                          <output class="language-level-text" value="{{skill.level}}" id="rangePrimary"></output>
                         </div>
                       </div>
 
                       <div class="col-sm-1">
-                        <button id="btnRemove" (click)="deleteLanguage(language)" class="fa fa-times fa-2x  button-languages"></button> 
+                        <button id="btnRemove" (click)="deleteSkill(skill)" class="fa fa-times fa-2x  button-languages"></button> 
                       </div>
                     </div>
                   </div>
@@ -86,8 +86,8 @@
 
           </div>
           <div class="modal-footer">
-            <button (click)="updateLanguages()" type="button" class="btn btn-primary" data-dismiss="modal" >Save Changes</button>
-            <button (click)="getUsersLanguages()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button (click)="updateSkills()" type="button" class="btn btn-primary" data-dismiss="modal" >Save Changes</button>
+            <button (click)="getUserSkills()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </div>
 
@@ -121,8 +121,8 @@
                 </div>
 
                 <div class="row">
-                  <select class="form-control" [(ngModel)]="newLanguage.id">
-                    <option *ngFor="let availableLanguage of availableLanguages" value= {{availableLanguage.id}}>{{availableLanguage.language}}</option>
+                  <select class="form-control" [(ngModel)]="newSkill.id">
+                    <option *ngFor="let availableSkill of availableSkills" value= {{availableSkill.id}}>{{availableSkill.skill}}</option>
                   </select>
                 </div>
 
@@ -137,10 +137,10 @@
                 <div class="row">
                   <div class="range range-primary">
                     <div class="col-sm-7">
-                      <input [(ngModel)]="newLanguage.level" type="range" name="range" min="0" max="100" step="5" value="{{newLanguage.level}}" onchange="rangePrimary.value=value">
+                      <input [(ngModel)]="newSkill.level" type="range" name="range" min="0" max="100" step="5" value="{{newSkill.level}}" onchange="rangePrimary.value=value">
                     </div>
                     <div class="col-sm-1">
-                      <output class="language-level-text" value="{{newLanguage.level}}" id="rangePrimary"></output>
+                      <output class="language-level-text" value="{{newSkill.level}}" id="rangePrimary"></output>
                     </div>
                   </div>
                 </div>
@@ -153,7 +153,7 @@
           <br>
 
           <div class="modal-footer">
-            <button (click)="addNewLanguage()" type="button" class="btn btn-primary" data-dismiss="modal" >Add Language</button>
+            <button (click)="addNewSkill()" type="button" class="btn btn-primary" data-dismiss="modal" >Add Skill</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </div>

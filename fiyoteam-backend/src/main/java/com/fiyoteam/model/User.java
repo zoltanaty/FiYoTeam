@@ -51,12 +51,15 @@ public class User implements Serializable{
 	@OneToMany(mappedBy = "user")
 	private List<UserLanguage> userLanguage = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "user")
+	private List<UserSkill> userSkill = new ArrayList<>();
+	
 	public User(){
 		super();
 	}
 
 	public User(int id, String firstName, String lastName, String country, String city, String email, String password,
-			String role, ArrayList<UserLanguage> userLanguage) {
+			String role, List<UserLanguage> userLanguage, List<UserSkill> userSkill) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -67,6 +70,7 @@ public class User implements Serializable{
 		this.password = password;
 		this.role = role;
 		this.userLanguage = userLanguage;
+		this.userSkill = userSkill;
 	}
 
 	public int getId() {
@@ -142,12 +146,22 @@ public class User implements Serializable{
 	public void setUserLanguage(List<UserLanguage> userLanguage) {
 		this.userLanguage = userLanguage;
 	}
+	
+	@JsonIgnore 
+	public List<UserSkill> getUserSkill() {
+		return userSkill;
+	}
+
+	public void setUserSkill(List<UserSkill> userSkill) {
+		this.userSkill = userSkill;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", country=" + country
 				+ ", city=" + city + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", userLanguage=" + userLanguage + "]";
+				+ ", userLanguage=" + userLanguage + ", userSkill=" + userSkill + "]";
 	}
+
 }
 

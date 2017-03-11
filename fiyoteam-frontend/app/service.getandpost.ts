@@ -9,6 +9,10 @@ export class Language {
   constructor(public id: number, public language: string, public level: number) { }
 }
 
+export class Skill {
+  constructor(public id: number, public skill: string, public level: number) { }
+}
+
 @Injectable()
 export class GetAndPostService{
 

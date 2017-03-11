@@ -70,6 +70,30 @@ INSERT INTO `language` VALUES (1,'Hungarian'),(2,'Roumanian'),(3,'English');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `skill`
+--
+
+DROP TABLE IF EXISTS `skill`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `skill` (
+  `id` int(11) NOT NULL,
+  `skill` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `skill`
+--
+
+LOCK TABLES `skill` WRITE;
+/*!40000 ALTER TABLE `skill` DISABLE KEYS */;
+INSERT INTO `skill` VALUES (1,'Java'),(2,'C++'),(3,'C#'),(4,'Hybernate'),(5,'REST'),(6,'Angular'),(7,'Angular2'),(8,'MySQL');
+/*!40000 ALTER TABLE `skill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -117,7 +141,7 @@ CREATE TABLE `user_language` (
   KEY `fk_language_idx` (`language_id`),
   CONSTRAINT `fk_language` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,8 +150,40 @@ CREATE TABLE `user_language` (
 
 LOCK TABLES `user_language` WRITE;
 /*!40000 ALTER TABLE `user_language` DISABLE KEYS */;
-INSERT INTO `user_language` VALUES (1,33,1,50),(3,33,3,100);
+INSERT INTO `user_language` VALUES (1,33,1,25),(24,33,2,90),(25,33,3,75);
 /*!40000 ALTER TABLE `user_language` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_skill`
+--
+
+DROP TABLE IF EXISTS `user_skill`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_skill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `skill_id` int(11) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_idx` (`user_id`),
+  KEY `fk_skill_idx` (`skill_id`),
+  KEY `fk_user_idx_1` (`user_id`),
+  KEY `fk_skill_idx_1` (`skill_id`),
+  CONSTRAINT `fk_skill_1` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_skill`
+--
+
+LOCK TABLES `user_skill` WRITE;
+/*!40000 ALTER TABLE `user_skill` DISABLE KEYS */;
+INSERT INTO `user_skill` VALUES (1,33,1,80),(3,33,3,60),(4,33,4,90),(5,33,5,50),(6,33,6,100),(7,33,2,70);
+/*!40000 ALTER TABLE `user_skill` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -139,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-05 20:14:35
+-- Dump completed on 2017-03-12  0:53:24

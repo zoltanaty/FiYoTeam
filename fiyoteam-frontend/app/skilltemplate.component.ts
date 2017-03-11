@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import 'rxjs/Rx';
-import {GetAndPostService, Language} from './service.getandpost'
+import {GetAndPostService, Skill} from './service.getandpost'
 
 @Component({
   selector: 'skill-template',
@@ -11,69 +11,69 @@ import {GetAndPostService, Language} from './service.getandpost'
 export class SkillTemplateComponent {
 
   private private userId;
-  private languages: Language[];
-  private availableLanguages: Language[];
-  private newLanguage = new Language(null, '', 50);
+  private skills: Skill[];
+  private availableSkills: Skill[];
+  private newSkill = new Skill(null, '', 50);
 
   constructor(private getAndPostService: GetAndPostService){}
 
   ngOnInit(){
    this.userId = localStorage.getItem("USERID");
 
-   this.getUsersLanguages();
-   this.getAvailableLanguages();
+   this.getUserSkills();
+   this.getAvailableSkills();
 
  }
 
- getUsersLanguages(){
-  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+ getUserSkills(){
+  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(res => res.json())
 
   .subscribe(
     (res) => {
-      this.languages = res;
+      this.skills = res;
     }
     );
 }
 
-getAvailableLanguages(){
-  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'language/').map(res => res.json())
+getAvailableSkills(){
+  this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/').map(res => res.json())
 
   .subscribe(
     (res) => {
-      this.availableLanguages = res;
+      this.availableSkills = res;
     }
     );
 }
 
-updateLanguages() {
+updateSkills() {
 
- this.getAndPostService.postData(this.languages, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+ this.getAndPostService.postData(this.skills, this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(res => res.json())
 
  .subscribe(
   (res) => {
-    this.languages = res;
+    this.skills = res;
   }
   );
 }
 
-addNewLanguage() {
+addNewSkill() {
 
-  this.getAndPostService.putData(this.newLanguage, this.getAndPostService.baseUrl + 'user/languages/' + this.userId).map(res => res.json())
+  this.getAndPostService.putData(this.newSkill, this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(res => res.json())
 
   .subscribe(
     (res) => {
-      this.languages = res;
+      this.skills = res;
     }
     );
 }
 
-deleteLanguage(language){
+deleteSkill(skill){
 
-  this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/languages/' + this.userId + '/' + language.id).map(res => res.json())
+  this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/skills/' + this.userId + '/' + skill.id).map(res => res.json())
 
   .subscribe(
     (res) => {
-      this.languages = res;
+      this.skills = res;
     }
     );
 }
