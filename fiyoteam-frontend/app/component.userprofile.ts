@@ -33,4 +33,15 @@ export class UserProfileComponent {
 
 	}
 
+	updateUser() {
+
+		this.getAndPostService.postData(this.user, this.getAndPostService.baseUrl + 'user/' + this.userId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.user = res;
+			}
+			);
+	}
+
 }

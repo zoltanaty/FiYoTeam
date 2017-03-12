@@ -30,9 +30,9 @@ import com.fiyoteam.persistence.Entitymanager;
 public class UserService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
-	
+
 	/*
-	 * 	Services of the User
+	 * Services of the User
 	 */
 
 	@GET
@@ -63,9 +63,40 @@ public class UserService {
 
 		return user;
 	}
-	
+
+	@POST
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public User updateUser(@PathParam("id") Integer id, User user) {
+
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		User _user = em.find(User.class, id);
+
+		_user.setFirstName(user.getFirstName());
+		_user.setLastName(user.getLastName());
+		_user.setCountry(user.getCountry());
+		_user.setCity(user.getCity());
+		_user.setEmail(user.getEmail());
+
+		try {
+			em.getTransaction().begin();
+			em.merge(_user);
+			em.flush();
+			em.getTransaction().commit();
+
+			log.info("User with id: " + id + " updated.");
+			return _user;
+
+		} catch (Exception e) {
+			log.error("Error occured while updating the user with id: " + id + " - " + e);
+			return user;
+		}
+
+	}
+
 	/*
-	 * 	Services for languages of the User
+	 * Services for languages of the User
 	 */
 
 	@GET
@@ -104,15 +135,19 @@ public class UserService {
 				}
 			}
 		}
-
-		em.getTransaction().begin();
-		em.merge(user);
-		em.flush();
-		em.getTransaction().commit();
-
-		log.info("Languages Updated of the User with id: " + id);
 		
-		return getUserLanguage(id);
+		try{
+			em.getTransaction().begin();
+			em.merge(user);
+			em.flush();
+			em.getTransaction().commit();
+		
+			log.info("Languages Updated of the User with id: " + id);
+			return getUserLanguage(id);
+		}catch(Exception e){
+			log.error("Error occured while updating the User's Languages with id: " + id + " - " + e);
+			return languages;
+		}
 	}
 
 	@PUT
@@ -120,25 +155,29 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<UserLanguageResponse.Language> addUserLanguage(@PathParam("id") Integer id, Language newLanguage) {
-		
+
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		
+
 		User user = em.find(User.class, id);
 		com.fiyoteam.model.Language language = em.find(com.fiyoteam.model.Language.class, newLanguage.getId());
-		
+
 		UserLanguage newUserLanguage = new UserLanguage();
 		newUserLanguage.setUser(user);
 		newUserLanguage.setLanguage(language);
 		newUserLanguage.setLevel(newLanguage.getLevel());
 		
-		em.getTransaction().begin();
-		em.persist(newUserLanguage);
-		em.flush();
-		em.getTransaction().commit();
-		
-		user.getUserLanguage().add(newUserLanguage);
-		
-		log.info("New language added to the User with id: " + id);
+		try{
+			em.getTransaction().begin();
+			em.persist(newUserLanguage);
+			em.flush();
+			em.getTransaction().commit();
+
+			user.getUserLanguage().add(newUserLanguage);
+
+			log.info("New language added to the User with id: " + id);
+		}catch(Exception e){
+			log.error("Error occured while adding new Language to the User with id: " + id + " - " + e);
+		}
 
 		return getUserLanguage(id);
 	}
@@ -154,27 +193,32 @@ public class UserService {
 
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
 			if (userLanguage.getLanguage().getId() == language) {
-				user.getUserLanguage().remove(userLanguage);
+				try{
+					user.getUserLanguage().remove(userLanguage);
+					
+					em.getTransaction().begin();
+					em.merge(user);
+					em.flush();
+					em.remove(userLanguage);
+					em.flush();
+					em.getTransaction().commit();
+					
+					log.info("Language deleted of the User with id: " + id);
+				}catch(Exception e){
+					log.error("Error occured while deleting Language of the User with id: " + id + " - " + e);
+				}
 				
-				em.getTransaction().begin();
-				em.merge(user);
-				em.flush();
-				em.remove(userLanguage);
-				em.flush();
-				em.getTransaction().commit();
 				break;
 			}
 		}
-		
-		log.info("Language deleted of the User with id: " + id);
-		
+
 		return getUserLanguage(id);
 	}
-	
+
 	/*
-	 * 	Services for skills of the User
+	 * Services for skills of the User
 	 */
-	
+
 	@GET
 	@Path("/skills/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -185,10 +229,11 @@ public class UserService {
 
 		UserSkillResponse userSkillResponse = new UserSkillResponse();
 		for (UserSkill userSkill : user.getUserSkill()) {
-			userSkillResponse.addSkill(userSkill.getSkill().getId(), userSkill.getSkill().getSkill(), userSkill.getLevel());
+			userSkillResponse.addSkill(userSkill.getSkill().getId(), userSkill.getSkill().getSkill(),
+					userSkill.getLevel());
 		}
 
-		log.info("Returned languages of the User with id: " + id);
+		log.info("Returned Skills of the User with id: " + id);
 
 		return userSkillResponse.getSkills();
 	}
@@ -210,15 +255,19 @@ public class UserService {
 				}
 			}
 		}
-
-		em.getTransaction().begin();
-		em.merge(user);
-		em.flush();
-		em.getTransaction().commit();
-
-		log.info("Skills Updated of the User with id: " + id);
-
-		return getUserSkill(id);
+		
+		try{
+			em.getTransaction().begin();
+			em.merge(user);
+			em.flush();
+			em.getTransaction().commit();
+		
+			log.info("Skills Updated of the User with id: " + id);
+			return getUserSkill(id);
+		}catch(Exception e){
+			log.error("Error occured while updating the User's Skills with id: " + id + " - " + e);
+			return skills;
+		}
 	}
 
 	@PUT
@@ -226,25 +275,29 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<UserSkillResponse.Skill> addUserSkill(@PathParam("id") Integer id, Skill newSkill) {
-		
+
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		
+
 		User user = em.find(User.class, id);
 		com.fiyoteam.model.Skill skill = em.find(com.fiyoteam.model.Skill.class, newSkill.getId());
-		
+
 		UserSkill newUserSkill = new UserSkill();
 		newUserSkill.setUser(user);
 		newUserSkill.setSkill(skill);
 		newUserSkill.setLevel(newSkill.getLevel());
 		
-		em.getTransaction().begin();
-		em.persist(newUserSkill);
-		em.flush();
-		em.getTransaction().commit();
-		
-		user.getUserSkill().add(newUserSkill);
-		
-		log.info("New skill added to the User with id: " + id);
+		try{
+			em.getTransaction().begin();
+			em.persist(newUserSkill);
+			em.flush();
+			em.getTransaction().commit();
+
+			user.getUserSkill().add(newUserSkill);
+
+			log.info("New skill added to the User with id: " + id);
+		}catch(Exception e){
+			log.error("Error occured while adding new skill to the User with id: " + id + " - " + e);
+		}
 
 		return getUserSkill(id);
 	}
@@ -258,22 +311,27 @@ public class UserService {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		User user = em.find(User.class, id);
 
-		for (UserSkill userSkill: user.getUserSkill()) {
-			if (userSkill.getSkill().getId() == skill) {
-				user.getUserSkill().remove(userSkill);
+		for (UserSkill userSkill : user.getUserSkill()) {
+			if (userSkill.getSkill().getId() == skill) {		
+				try{
+					user.getUserSkill().remove(userSkill);
+					
+					em.getTransaction().begin();
+					em.merge(user);
+					em.flush();
+					em.remove(userSkill);
+					em.flush();
+					em.getTransaction().commit();
+					
+					log.info("Skill deleted of the User with id: " + id);
+				}catch(Exception e){
+					log.error("Error occured while deleting Skill of the User with id: " + id + " - " + e);
+				}
 				
-				em.getTransaction().begin();
-				em.merge(user);
-				em.flush();
-				em.remove(userSkill);
-				em.flush();
-				em.getTransaction().commit();
 				break;
 			}
 		}
-		
-		log.info("Skill deleted of the User with id: " + id);
-		
+
 		return getUserSkill(id);
 	}
 }
