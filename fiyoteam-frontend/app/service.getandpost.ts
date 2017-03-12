@@ -22,33 +22,48 @@ export class GetAndPostService{
   constructor(private _http: Http){}
 
   getData(url){
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-      return this._http.get(url,{headers: headers});
+    return this._http.get(url,{headers: headers});
   }
 
   postData(object, url){
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      var json = JSON.stringify(object);
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    var json = JSON.stringify(object);
 
-      return this._http.post(url, json, {headers: headers});
+    return this._http.post(url, json, {headers: headers});
   }
 
   putData(object, url){
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      var json = JSON.stringify(object);
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    var json = JSON.stringify(object);
 
-      return this._http.put(url, json, {headers: headers});
+    return this._http.put(url, json, {headers: headers});
   }
 
   delete(url){
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-      return this._http.delete(url, {headers: headers});
+    return this._http.delete(url, {headers: headers});
   }
+
+  /*uploadFile(fileToUpload, url){
+    var headers = new Headers();
+    headers.append('Content-Type', 'image/jpeg');
+
+    let formData = new FormData();
+    formData.append("file", fileToUpload);
+    var json = JSON.stringify(formData);
+
+    console.log(fileToUpload);
+
+    return this._http.post(url, json, {headers: headers});
+  }*/
+
+}
 
 }

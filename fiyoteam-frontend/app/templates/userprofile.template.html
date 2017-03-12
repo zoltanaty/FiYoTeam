@@ -9,16 +9,34 @@
       <div class="text-center">
         <img src="http://images.freeimages.com/images/previews/a96/business-man-avatar-vector-1236211.jpg" class="avatar img-thumbnail profile-pic" alt="avatar">
         <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block well well-sm">
+        
+        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+          <div class="form-control" data-trigger="fileinput">
+            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+            <span class="fileinput-filename"></span>
+          </div>
+
+          <span class="input-group-addon btn btn-default btn-file">
+            <span class="fileinput-new">Select file</span>
+            <span class="fileinput-exists">Change</span>
+            <input #fileInput (change)="fileChangeEvent($event)"  type="file">
+          </span>
+        </div>
+
+        <input (click)="upload()" class="btn btn-primary" value="Upload">
+
       </div>
+
+
     </div>
 
     <!-- Personal Info form column -->
     <div class="col-md-9 col-sm-6 col-xs-12 personal-info">
-      <div class="alert alert-info alert-dismissable"  style="display: none;">
-        <a class="panel-close close" data-dismiss="alert">×</a> 
-        <i class="fa fa-coffee"></i>
-        This is an <strong>alert</strong>. Use this to show important messages to the user.
+
+      <div *ngIf="showUpdatedUserMessage == true" class="alert alert-info">
+        <a (click)="hideUpdatedMessage()" class="close">×</a> 
+        <i class="fa fa-info"></i>
+          Personal info was <strong>successfully</strong> updated.
       </div>
 
       <form class="form-horizontal" role="form" data-toggle="validator">

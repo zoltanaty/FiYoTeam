@@ -99,6 +99,10 @@
 	color: red !important;
 }
 
+.panel-heading {
+	background-color: #02af59 !important;
+}
+
 .registration-message{
 	height: 35px;
 	padding-top: 8px;
