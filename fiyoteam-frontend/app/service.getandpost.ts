@@ -51,6 +51,24 @@ export class GetAndPostService{
     return this._http.delete(url, {headers: headers});
   }
 
+  getFile(url){
+    var headers = new Headers();
+    headers.append('Content-Type', 'image/jpg');
+
+    this._http.get(url,  { headers: headers })
+    .map(res => {
+        return new Blob([res], {
+        type: res.headers.get("Content-Type")
+      });
+    })
+    .map(blob => {
+      var urlCreator = window.URL;
+      var url = urlCreator.createObjectURL(blob);
+      console.log("THE URL IS: " + url);
+      return url;
+    })
+  }
+
   /*uploadFile(fileToUpload, url){
     var headers = new Headers();
     headers.append('Content-Type', 'image/jpeg');

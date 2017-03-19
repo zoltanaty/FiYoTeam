@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -37,6 +39,8 @@ import com.sun.jersey.multipart.FormDataParam;
 public class UserService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
+
+	private static final String CATALINA_BASE = System.getProperty("catalina.base");
 
 	/*
 	 * Services of the User
@@ -101,30 +105,36 @@ public class UserService {
 		}
 
 	}
-	
+
 	@POST
 	@Path("/profilepic/{id}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public String uploadFile(
-		@FormDataParam("file") InputStream uploadedInputStream,
-		@FormDataParam("file") FormDataContentDisposition fileDetail,
-		@PathParam("id") Integer id) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("id") Integer id) {
 
-		String uploadedFileLocation = "d://uploaded/" + fileDetail.getFileName();
+		String fileExtension = getFileExtension(fileDetail.getFileName());
+		String uploadedFileLocation = CATALINA_BASE + "/FiYoTeam/photos/user_" + id + "." + fileExtension; // +
+																											// fileDetail.getFileName();
 
-		// save it
-		writeToFile(uploadedInputStream, uploadedFileLocation);
-
-		String output = "File uploaded to : " + uploadedFileLocation;
-
-		return "OK";
-
+		if (writeToFile(uploadedInputStream, uploadedFileLocation) == true) {
+			log.info("The User with id: " + id + " successfully uploaded his Profile Picture");
+			return true;
+		} else {
+			log.error("The User with id: " + id + " Failed to upload his Profile Picture");
+			return false;
+		}
 	}
 
-	// save uploaded file to new location
-	private void writeToFile(InputStream uploadedInputStream,
-		String uploadedFileLocation) {
+	private String getFileExtension(String fileName) {
+		try {
+			return fileName.substring(fileName.lastIndexOf(".") + 1);
+		} catch (Exception e) {
+			return "";
+		}
+	}
 
+	private boolean writeToFile(InputStream uploadedInputStream, String uploadedFileLocation) {
 		try {
 			OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
 			int read = 0;
@@ -137,9 +147,29 @@ public class UserService {
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("Failed to write the file to the disk. - " + e);
+			return false;
 		}
 
+		return true;
+	}
+
+	@GET
+	@Path("/profilepic/{id}")
+	@Produces("image/png")
+	public byte[] getFullImage(@PathParam("id") int id) {
+		byte[] file = null;
+		
+		try {
+			String fileExtension = ".png";
+			java.nio.file.Path path = Paths.get(CATALINA_BASE + "/FiYoTeam/photos/user_" + id + fileExtension);
+			file =  Files.readAllBytes(path);
+			log.info("File successfully loaded.");
+		} catch (Exception e) {
+			log.error("Failed to load the file. - " + e);
+		}
+		
+		return file;
 	}
 
 	/*
@@ -182,16 +212,16 @@ public class UserService {
 				}
 			}
 		}
-		
-		try{
+
+		try {
 			em.getTransaction().begin();
 			em.merge(user);
 			em.flush();
 			em.getTransaction().commit();
-		
+
 			log.info("Languages Updated of the User with id: " + id);
 			return getUserLanguage(id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error("Error occured while updating the User's Languages with id: " + id + " - " + e);
 			return languages;
 		}
@@ -212,8 +242,8 @@ public class UserService {
 		newUserLanguage.setUser(user);
 		newUserLanguage.setLanguage(language);
 		newUserLanguage.setLevel(newLanguage.getLevel());
-		
-		try{
+
+		try {
 			em.getTransaction().begin();
 			em.persist(newUserLanguage);
 			em.flush();
@@ -222,7 +252,7 @@ public class UserService {
 			user.getUserLanguage().add(newUserLanguage);
 
 			log.info("New language added to the User with id: " + id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error("Error occured while adding new Language to the User with id: " + id + " - " + e);
 		}
 
@@ -240,21 +270,21 @@ public class UserService {
 
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
 			if (userLanguage.getLanguage().getId() == language) {
-				try{
+				try {
 					user.getUserLanguage().remove(userLanguage);
-					
+
 					em.getTransaction().begin();
 					em.merge(user);
 					em.flush();
 					em.remove(userLanguage);
 					em.flush();
 					em.getTransaction().commit();
-					
+
 					log.info("Language deleted of the User with id: " + id);
-				}catch(Exception e){
+				} catch (Exception e) {
 					log.error("Error occured while deleting Language of the User with id: " + id + " - " + e);
 				}
-				
+
 				break;
 			}
 		}
@@ -302,16 +332,16 @@ public class UserService {
 				}
 			}
 		}
-		
-		try{
+
+		try {
 			em.getTransaction().begin();
 			em.merge(user);
 			em.flush();
 			em.getTransaction().commit();
-		
+
 			log.info("Skills Updated of the User with id: " + id);
 			return getUserSkill(id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error("Error occured while updating the User's Skills with id: " + id + " - " + e);
 			return skills;
 		}
@@ -332,8 +362,8 @@ public class UserService {
 		newUserSkill.setUser(user);
 		newUserSkill.setSkill(skill);
 		newUserSkill.setLevel(newSkill.getLevel());
-		
-		try{
+
+		try {
 			em.getTransaction().begin();
 			em.persist(newUserSkill);
 			em.flush();
@@ -342,7 +372,7 @@ public class UserService {
 			user.getUserSkill().add(newUserSkill);
 
 			log.info("New skill added to the User with id: " + id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error("Error occured while adding new skill to the User with id: " + id + " - " + e);
 		}
 
@@ -359,22 +389,22 @@ public class UserService {
 		User user = em.find(User.class, id);
 
 		for (UserSkill userSkill : user.getUserSkill()) {
-			if (userSkill.getSkill().getId() == skill) {		
-				try{
+			if (userSkill.getSkill().getId() == skill) {
+				try {
 					user.getUserSkill().remove(userSkill);
-					
+
 					em.getTransaction().begin();
 					em.merge(user);
 					em.flush();
 					em.remove(userSkill);
 					em.flush();
 					em.getTransaction().commit();
-					
+
 					log.info("Skill deleted of the User with id: " + id);
-				}catch(Exception e){
+				} catch (Exception e) {
 					log.error("Error occured while deleting Skill of the User with id: " + id + " - " + e);
 				}
-				
+
 				break;
 			}
 		}

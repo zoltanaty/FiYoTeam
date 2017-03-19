@@ -7,10 +7,10 @@
 		<appender-ref ref="FA_OUTPUT" />
 	</appender>
 	<appender name="FA_OUTPUT" class="org.apache.log4j.rolling.RollingFileAppender">
-		<param name="File" value="${catalina.base}/logs/FiyotTeam/log.log" />
+		<param name="File" value="${catalina.base}/FiYoTeam/logs/log.log" />
 		<param name="Append" value="true" />
 		<rollingPolicy class="org.apache.log4j.rolling.FixedWindowRollingPolicy">
-			<param name="FileNamePattern" value="${catalina.base}/logs/FiyotTeam/log%i.log" />
+			<param name="FileNamePattern" value="${catalina.base}/FiYoTeam/logs/log%i.log" />
 			<param name="maxIndex" value="10" />
 			<param name="minIndex" value="1" />
 		</rollingPolicy>

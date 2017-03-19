@@ -7,7 +7,7 @@
     <!-- left column -->
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="text-center">
-        <img src="http://images.freeimages.com/images/previews/a96/business-man-avatar-vector-1236211.jpg" class="avatar img-thumbnail profile-pic" alt="avatar">
+        <img *ngIf="tmpUrl" [src]="profilePicURL" class="avatar img-thumbnail profile-pic" alt="avatar">
         <h6>Upload a different photo...</h6>
         
         <div class="fileinput fileinput-new input-group" data-provides="fileinput">

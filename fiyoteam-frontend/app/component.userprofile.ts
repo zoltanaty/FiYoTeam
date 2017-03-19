@@ -1,6 +1,7 @@
 import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
 import 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 import {LanguageTemplateComponent} from './languagetemplate.component';
 import {SkillTemplateComponent} from './skilltemplate.component';
@@ -17,7 +18,8 @@ export class UserProfileComponent {
 
 	private userId;
 	private user = new User(null, '', '', '','', '', '', '');
-	filesToUpload: Array<File> = [];
+	private filesToUpload: Array<File> = [];
+	private profilePicURL;
 
 	private showUpdatedUserMessage = false;
 
@@ -27,6 +29,7 @@ export class UserProfileComponent {
 		this.userId = localStorage.getItem("USERID");
 
 		this.getUser();
+		this.createImageURL();
 	}
 
 	getUser(){
@@ -60,36 +63,58 @@ export class UserProfileComponent {
 	}
 
 	upload() {
-        this.makeFileRequest( this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, [], this.filesToUpload).then((result) => {
-            console.log(result);
-        }, (error) => {
-            console.error(error);
-        });
-    }
- 
-    fileChangeEvent(fileInput: any){
-        this.filesToUpload = <Array<File>> fileInput.target.files;
-    }
- 
-    makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
-        return new Promise((resolve, reject) => {
-            var formData: any = new FormData();
-            var xhr = new XMLHttpRequest();
-            for(var i = 0; i < files.length; i++) {
-                formData.append("file", files[i], files[i].name);
-            }
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        resolve(JSON.parse(xhr.response));
-                    } else {
-                        reject(xhr.response);
-                    }
-                }
-            }
-            xhr.open("POST", url, true);
-            xhr.send(formData);
-        });
-    }
+		this.makeFileRequest( this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, [], this.filesToUpload).then((result) => {
+			console.log(result);
+		}, (error) => {
+			console.error(error);
+		});
+	}
 
+	fileChangeEvent(fileInput: any){
+		this.filesToUpload = <Array<File>> fileInput.target.files;
+	}
+
+	makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+		return new Promise((resolve, reject) => {
+			var formData: any = new FormData();
+			var xhr = new XMLHttpRequest();
+			for(var i = 0; i < files.length; i++) {
+				formData.append("file", files[i], files[i].name);
+			}
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						resolve(JSON.parse(xhr.response));
+					} else {
+						reject(xhr.response);
+					}
+				}
+			}
+			xhr.open("POST", url, true);
+			xhr.send(formData);
+		});
+	}
+
+	downloadImage(url:string){ 
+		return Observable.create(observer=>{
+			let req = new XMLHttpRequest();
+			req.open('get',url);
+			req.responseType = "arraybuffer";
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					observer.next(req.response);
+					observer.complete();
+				}
+			};
+			req.send();
+		});
+	}
+
+	createImageURL(){
+		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
+			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+			console.log("THE IMAGE IS: " + imageData);
+			console.log("THE URL IS: " + this.profilePicURL);
+		});
+	}
 }
