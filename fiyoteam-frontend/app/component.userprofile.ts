@@ -1,6 +1,5 @@
 import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
-import 'rxjs/Rx';
 import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 import {LanguageTemplateComponent} from './languagetemplate.component';
@@ -113,8 +112,6 @@ export class UserProfileComponent {
 	createImageURL(){
 		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
 			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
-			console.log("THE IMAGE IS: " + imageData);
-			console.log("THE URL IS: " + this.profilePicURL);
 		});
 	}
 }

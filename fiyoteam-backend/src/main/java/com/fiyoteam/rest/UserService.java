@@ -1,5 +1,7 @@
 package com.fiyoteam.rest;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
@@ -159,16 +162,16 @@ public class UserService {
 	@Produces("image/png")
 	public byte[] getFullImage(@PathParam("id") int id) {
 		byte[] file = null;
-		
+
 		try {
-			String fileExtension = ".png";
+			String fileExtension = ".jpg";
 			java.nio.file.Path path = Paths.get(CATALINA_BASE + "/FiYoTeam/photos/user_" + id + fileExtension);
-			file =  Files.readAllBytes(path);
+			file = Files.readAllBytes(path);
 			log.info("File successfully loaded.");
 		} catch (Exception e) {
 			log.error("Failed to load the file. - " + e);
 		}
-		
+
 		return file;
 	}
 
