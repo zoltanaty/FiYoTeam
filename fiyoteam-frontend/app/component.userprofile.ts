@@ -18,7 +18,7 @@ export class UserProfileComponent {
 	private userId;
 	private user = new User(null, '', '', '','', '', '', '');
 	private filesToUpload: Array<File> = [];
-	private profilePicURL;
+	private profilePicURL = null;
 
 	private showUpdatedUserMessage = false;
 
@@ -26,7 +26,6 @@ export class UserProfileComponent {
 
 	ngOnInit(){
 		this.userId = localStorage.getItem("USERID");
-
 		this.getUser();
 		this.createImageURL();
 	}
@@ -62,8 +61,8 @@ export class UserProfileComponent {
 	}
 
 	upload() {
-		this.makeFileRequest( this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, [], this.filesToUpload).then((result) => {
-			console.log(result);
+		this.makeFileRequest( this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, this.filesToUpload).then((result) => {
+			this.createImageURL();
 		}, (error) => {
 			console.error(error);
 		});
@@ -73,7 +72,7 @@ export class UserProfileComponent {
 		this.filesToUpload = <Array<File>> fileInput.target.files;
 	}
 
-	makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+	makeFileRequest(url: string, files: Array<File>) {
 		return new Promise((resolve, reject) => {
 			var formData: any = new FormData();
 			var xhr = new XMLHttpRequest();

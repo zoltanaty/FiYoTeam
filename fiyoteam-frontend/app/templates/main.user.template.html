@@ -3,41 +3,41 @@
 
 	<div class="menu-list">
 		<ul id="menu-content" class="menu-content out">
+
 			<li [ngClass]="{'active': activeMenu==1 }" (click)="switchMenu(1)">
 				<div class="nav-side-menu-icon">
-					<i class="fa fa-cubes fa-lg"></i>
-				</div>
-				<div class="nav-side-menu-text">Projects</div>
+					<i class="fa fa-user fa-lg"></i>
+				</div> 
+				<div class="nav-side-menu-text">My Profile</div>
 			</li>
 
 			<li [ngClass]="{'active': activeMenu==2 }" (click)="switchMenu(2)">
 				<div class="nav-side-menu-icon">
-					<i class="fa fa-users fa-lg"></i>
-				</div> 
-				<div class="nav-side-menu-text">Users</div>
-			</li>
+					<i class="fa fa-cubes fa-lg"></i>
+				</div>
+				<div class="nav-side-menu-text">My Projects</div>
+			</li>	
 
 			<li [ngClass]="{'active': activeMenu==3 }" (click)="switchMenu(3)">
 				<div class="nav-side-menu-icon">
 					<i class="fa fa-comment-o fa-lg"></i>
 				</div> 
 				<div class="nav-side-menu-text">Messages</div>
-			</li>  
+			</li> 
 
 			<li [ngClass]="{'active': activeMenu==4 }" (click)="switchMenu(4)">
+				<div class="nav-side-menu-icon">
+					<i class="fa fa-users fa-lg"></i>
+				</div> 
+				<div class="nav-side-menu-text">Users</div>
+			</li>
+
+			<li [ngClass]="{'active': activeMenu==5 }" (click)="switchMenu(5)">
 				<div class="nav-side-menu-icon">
 					<i class="fa fa-cogs fa-lg"></i>
 				</div> 
 				<div class="nav-side-menu-text">Settings</div>
 			</li>
-
-			<li [ngClass]="{'active': activeMenu==5 }" (click)="switchMenu(5)">
-				<div class="nav-side-menu-icon">
-					<i class="fa fa-user fa-lg"></i>
-				</div> 
-				<div class="nav-side-menu-text">Profile</div>
-			</li>
-
 			
 		</ul>
 	</div>
@@ -58,4 +58,4 @@
 	</div>
 </div>
 
-<userprofile *ngIf="activeMenu==5"></userprofile>
+<userprofile *ngIf="activeMenu==1"></userprofile>
