@@ -2,13 +2,14 @@ import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
-import {LanguageTemplateComponent} from './languagetemplate.component';
-import {SkillTemplateComponent} from './skilltemplate.component';
+import {LanguageTemplateComponent} from './component.languages';
+import {SkillTemplateComponent} from './component.skills';
+import {RatingComponent} from './component.rating'
 
 @Component({
 	selector: 'userprofile',
 	templateUrl: 'app/templates/userprofile.template.html',
-	directives: [LanguageTemplateComponent, SkillTemplateComponent],
+	directives: [LanguageTemplateComponent, SkillTemplateComponent, RatingComponent],
 	providers: [GetAndPostService]
 
 })

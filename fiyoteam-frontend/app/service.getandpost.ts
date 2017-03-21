@@ -16,7 +16,7 @@ export class Skill {
 @Injectable()
 export class GetAndPostService{
 
-  private ipv4 = 'localhost';
+  private ipv4 = '192.168.96.55';
   public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
 
   constructor(private _http: Http){}
