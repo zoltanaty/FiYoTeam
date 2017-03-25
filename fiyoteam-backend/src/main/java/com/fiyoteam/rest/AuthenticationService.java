@@ -53,24 +53,24 @@ public class AuthenticationService {
 					response.setRole(userList.get(0).getRole());
 
 					log.info("Logged in: " + response);
-				}else{
+				} else {
 					failedToLogin = true;
 
 					log.debug("Failed to Login: " + user.getEmail());
 				}
-			} catch (CannotPerformOperationException|InvalidHashException e) {
+			} catch (CannotPerformOperationException | InvalidHashException e) {
 				failedToLogin = true;
 
 				log.debug("Failed to Login: " + user.getEmail() + " - " + e);
-			} 
+			}
 
 		} else {
 			failedToLogin = true;
-			
+
 			log.debug("Login attempt: " + user);
 		}
-		
-		if(failedToLogin){
+
+		if (failedToLogin) {
 			response.setId(-1);
 			response.setEmail("none");
 			response.setRole("none");
@@ -107,30 +107,40 @@ public class AuthenticationService {
 				log.info("Password successfully hashed to the user: " + user.getEmail());
 			} catch (CannotPerformOperationException e) {
 				log.debug("Password hashing failed to the user: " + user.getEmail() + " - " + e);
+				response.setId(-1);
+				return response;
 			}
 
 			AccountActivation accountActivation = new AccountActivation();
 			accountActivation.setActivationCode(RandomStringUtils.randomAlphanumeric(8));
 			accountActivation.setActivated(false);
 
-			// store the new user
-			em.getTransaction().begin();
-			em.persist(user);
-			em.flush();
-			accountActivation.setIdUser(user.getId());
-			em.persist(accountActivation);
-			em.flush();
-			em.getTransaction().commit();
+			try {
+				// store the new user
+				em.getTransaction().begin();
+				em.persist(user);
+				em.flush();
+				accountActivation.setIdUser(user.getId());
+				em.persist(accountActivation);
+				em.flush();
+				em.getTransaction().commit();
 
-			response.setId(user.getId());
-			response.setEmail(user.getEmail());
-			response.setRole(user.getRole());
+				response.setId(user.getId());
+				response.setEmail(user.getEmail());
+				response.setRole(user.getRole());
+
+				log.info("Successful registration : " + response);
+			} catch (Exception e) {
+				em.getTransaction().rollback();
+				log.error("Error occured while registering the user with id: " + user.getId() + " - "
+						+ e.getStackTrace());
+				response.setId(-1);
+				return response;
+			}
 
 			Email activationEmail = new Email();
 			activationEmail.send("zoltanaty@gmail.com", "FiYoTeam Account Activation",
 					activationEmail.composeActivationEmail(user.getFirstName(), accountActivation.getActivationCode()));
-
-			log.info("Successful registration : " + response);
 
 			return response;
 		}

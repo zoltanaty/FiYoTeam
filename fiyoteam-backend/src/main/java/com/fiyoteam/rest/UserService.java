@@ -1,7 +1,5 @@
 package com.fiyoteam.rest;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
@@ -55,6 +52,7 @@ public class UserService {
 	public List<User> getAllUser() {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+
 		Query query = em.createQuery("FROM User");
 
 		@SuppressWarnings("unchecked")
@@ -71,6 +69,7 @@ public class UserService {
 	public User getUser(@PathParam("id") Integer id) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+		em.clear();
 		User user = em.find(User.class, id);
 
 		log.info("Returned the User with id: " + id);
@@ -85,6 +84,7 @@ public class UserService {
 	public User updateUser(@PathParam("id") Integer id, User user) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+
 		User _user = em.find(User.class, id);
 
 		_user.setFirstName(user.getFirstName());
@@ -103,6 +103,7 @@ public class UserService {
 			return _user;
 
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			log.error("Error occured while updating the user with id: " + id + " - " + e);
 			return user;
 		}
@@ -185,7 +186,11 @@ public class UserService {
 	public List<UserLanguageResponse.Language> getUserLanguage(@PathParam("id") Integer id) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+
+		em.getTransaction().begin();
+		em.clear();
 		User user = em.find(User.class, id);
+		em.getTransaction().commit();
 
 		UserLanguageResponse userLanguageResponse = new UserLanguageResponse();
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
@@ -193,9 +198,11 @@ public class UserService {
 					userLanguage.getLanguage().getLanguage(), userLanguage.getLevel());
 		}
 
-		log.info("Returned languages of the User with id: " + id);
+		List<UserLanguageResponse.Language> ret = userLanguageResponse.getLanguages();
 
-		return userLanguageResponse.getLanguages();
+		log.info("Returned languages of the User with id: " + id + " - nr: " + ret.size());
+
+		return ret;
 	}
 
 	@POST
@@ -206,6 +213,7 @@ public class UserService {
 			List<UserLanguageResponse.Language> languages) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+
 		User user = em.find(User.class, id);
 
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
@@ -225,6 +233,7 @@ public class UserService {
 			log.info("Languages Updated of the User with id: " + id);
 			return getUserLanguage(id);
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			log.error("Error occured while updating the User's Languages with id: " + id + " - " + e);
 			return languages;
 		}
@@ -246,16 +255,22 @@ public class UserService {
 		newUserLanguage.setLanguage(language);
 		newUserLanguage.setLevel(newLanguage.getLevel());
 
+		user.getUserLanguage().add(newUserLanguage);
+		language.getUserLanguage().add(newUserLanguage);
+
 		try {
 			em.getTransaction().begin();
 			em.persist(newUserLanguage);
 			em.flush();
+			em.merge(user);
+			em.flush();
+			em.merge(language);
+			em.flush();
 			em.getTransaction().commit();
-
-			user.getUserLanguage().add(newUserLanguage);
 
 			log.info("New language added to the User with id: " + id);
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			log.error("Error occured while adding new Language to the User with id: " + id + " - " + e);
 		}
 
@@ -269,15 +284,21 @@ public class UserService {
 			@PathParam("language") Integer language) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		User user = em.find(User.class, id);
 
-		for (UserLanguage userLanguage : user.getUserLanguage()) {
+		User _user = em.find(User.class, id);
+		com.fiyoteam.model.Language _language = em.find(com.fiyoteam.model.Language.class, language);
+
+		for (UserLanguage userLanguage : _user.getUserLanguage()) {
 			if (userLanguage.getLanguage().getId() == language) {
-				try {
-					user.getUserLanguage().remove(userLanguage);
 
+				_user.getUserLanguage().remove(userLanguage);
+				_language.getUserLanguage().remove(userLanguage);
+
+				try {
 					em.getTransaction().begin();
-					em.merge(user);
+					em.merge(_user);
+					em.flush();
+					em.merge(_language);
 					em.flush();
 					em.remove(userLanguage);
 					em.flush();
@@ -285,6 +306,7 @@ public class UserService {
 
 					log.info("Language deleted of the User with id: " + id);
 				} catch (Exception e) {
+					em.getTransaction().rollback();
 					log.error("Error occured while deleting Language of the User with id: " + id + " - " + e);
 				}
 
@@ -305,7 +327,11 @@ public class UserService {
 	public List<UserSkillResponse.Skill> getUserSkill(@PathParam("id") Integer id) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+
+		em.getTransaction().begin();
+		em.clear();
 		User user = em.find(User.class, id);
+		em.getTransaction().commit();
 
 		UserSkillResponse userSkillResponse = new UserSkillResponse();
 		for (UserSkill userSkill : user.getUserSkill()) {
@@ -313,9 +339,11 @@ public class UserService {
 					userSkill.getLevel());
 		}
 
-		log.info("Returned Skills of the User with id: " + id);
+		List<UserSkillResponse.Skill> ret = userSkillResponse.getSkills();
 
-		return userSkillResponse.getSkills();
+		log.info("Returned skills of the User with id: " + id + " - nr: " + ret.size());
+
+		return ret;
 	}
 
 	@POST
@@ -326,6 +354,7 @@ public class UserService {
 			List<UserSkillResponse.Skill> skills) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
+
 		User user = em.find(User.class, id);
 
 		for (UserSkill userSkill : user.getUserSkill()) {
@@ -345,6 +374,7 @@ public class UserService {
 			log.info("Skills Updated of the User with id: " + id);
 			return getUserSkill(id);
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			log.error("Error occured while updating the User's Skills with id: " + id + " - " + e);
 			return skills;
 		}
@@ -366,17 +396,23 @@ public class UserService {
 		newUserSkill.setSkill(skill);
 		newUserSkill.setLevel(newSkill.getLevel());
 
+		user.getUserSkill().add(newUserSkill);
+		skill.getUserSkill().add(newUserSkill);
+
 		try {
 			em.getTransaction().begin();
 			em.persist(newUserSkill);
 			em.flush();
+			em.merge(user);
+			em.flush();
+			em.merge(skill);
+			em.flush();
 			em.getTransaction().commit();
 
-			user.getUserSkill().add(newUserSkill);
-
-			log.info("New skill added to the User with id: " + id);
+			log.info("New Skill added to the User with id: " + id);
 		} catch (Exception e) {
-			log.error("Error occured while adding new skill to the User with id: " + id + " - " + e);
+			em.getTransaction().rollback();
+			log.error("Error occured while adding New Skill to the User with id: " + id + " - " + e);
 		}
 
 		return getUserSkill(id);
@@ -389,15 +425,21 @@ public class UserService {
 			@PathParam("skill") Integer skill) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		User user = em.find(User.class, id);
 
-		for (UserSkill userSkill : user.getUserSkill()) {
+		User _user = em.find(User.class, id);
+		com.fiyoteam.model.Skill _skill = em.find(com.fiyoteam.model.Skill.class, skill);
+
+		for (UserSkill userSkill : _user.getUserSkill()) {
 			if (userSkill.getSkill().getId() == skill) {
-				try {
-					user.getUserSkill().remove(userSkill);
 
+				_user.getUserSkill().remove(userSkill);
+				_skill.getUserSkill().remove(userSkill);
+
+				try {
 					em.getTransaction().begin();
-					em.merge(user);
+					em.merge(_user);
+					em.flush();
+					em.merge(_skill);
 					em.flush();
 					em.remove(userSkill);
 					em.flush();
@@ -405,6 +447,7 @@ public class UserService {
 
 					log.info("Skill deleted of the User with id: " + id);
 				} catch (Exception e) {
+					em.getTransaction().rollback();
 					log.error("Error occured while deleting Skill of the User with id: " + id + " - " + e);
 				}
 
