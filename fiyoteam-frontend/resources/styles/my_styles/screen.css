@@ -22,6 +22,16 @@
 	cursor: default;
 }
 
+.navbar-brand-1 {
+	position: fixed;
+	width: 100%;
+	font-family: fantasy;
+	font-size: 32px !important;
+	font-variant: small-caps;
+	color: white !important;
+	cursor: default;
+}
+
 .navbar-element {
 	font-size: 24px !important;
 	color: white !important;
@@ -47,6 +57,11 @@
 	font-size: 24px;
 	font-weight: 100;
 	color: #F0E2FF;
+}
+
+.jumbotron .container {
+	max-width: 100%;
+	padding-top: 50px;
 }
 
 .fiyoteam-text{
@@ -219,6 +234,10 @@
 	padding: 3px 10px 2px;
 }
 
+.navbar-login-form {
+	margin-top: 4px !important;
+}
+
 /**************************************************************************
 *					CSS CLASSES FOR MORE RESPONSIVITY
 ***************************************************************************/
@@ -229,7 +248,7 @@
 
 #page-wrapper {
 	width: 100%;
-	padding: 65px;
+	padding: 25px;
 	padding-top: 100px;
 }
 
@@ -241,6 +260,8 @@
 @media(min-width:768px) {
 	#page-wrapper {
 		padding-left: 225px;
+		padding-right: 65px;
+		padding-bottom: 35px;
 	}
 }
 
@@ -265,6 +286,7 @@
 
 .nav-logo {
 	background-color: #33293e;
+	padding-left: 10px;
 }
 
 .top-nav {
@@ -386,7 +408,7 @@ ul.alert-dropdown {
 }
 
 .navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover {
-    background-color: #33293e !important;
+	background-color: #33293e !important;
 }
 
 
