@@ -4,93 +4,108 @@
 
   <div class="row">
 
-    <!-- left column -->
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <div class="text-center">
-        <img *ngIf="profilePicURL" [src]="profilePicURL" class="avatar img-thumbnail profile-pic" alt="avatar">
-        <img *ngIf="profilePicURL == null" src="./resources/images/default_avatar.jpg" class="avatar img-thumbnail profile-pic" alt="avatar">
-        <h6>Upload a different photo...</h6>
-        
-        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-          <div class="form-control" data-trigger="fileinput">
-            <i class="glyphicon glyphicon-file fileinput-exists"></i>
-            <span class="fileinput-filename"></span>
+  <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading personal-information-panel">
+          <h3 class="panel-title"><i class="fa fa-user"></i> Personal Information</h3>
+        </div>
+        <div class="panel-body">
+
+
+          <!-- left column -->
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="text-center">
+              <img *ngIf="profilePicURL" [src]="profilePicURL" class="avatar img-thumbnail profile-pic" alt="avatar">
+              <img *ngIf="profilePicURL == null" src="./resources/images/default_avatar.jpg" class="avatar img-thumbnail profile-pic" alt="avatar">
+              <h6>Upload a different photo...</h6>
+
+              <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <div class="form-control" data-trigger="fileinput">
+                  <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                  <span class="fileinput-filename"></span>
+                </div>
+
+                <span class="input-group-addon btn btn-default btn-file">
+                  <span class="fileinput-new">Select file</span>
+                  <span class="fileinput-exists">Change</span>
+                  <input #fileInput (change)="fileChangeEvent($event)"  type="file">
+                </span>
+              </div>
+
+              <input (click)="upload()" class="btn btn-primary save-button" value="Upload" type="submit">
+
+            </div>
           </div>
 
-          <span class="input-group-addon btn btn-default btn-file">
-            <span class="fileinput-new">Select file</span>
-            <span class="fileinput-exists">Change</span>
-            <input #fileInput (change)="fileChangeEvent($event)"  type="file">
-          </span>
+
+
+          <!-- Personal Info form column -->
+          <div class="col-md-9 col-sm-6 col-xs-12 personal-info">
+
+            <div *ngIf="showUpdatedUserMessage == true" class="alert alert-info">
+              <a (click)="hideUpdatedMessage()" class="close">×</a> 
+              <i class="fa fa-info"></i>
+              Personal info was <strong>successfully</strong> updated.
+            </div>
+
+            <form class="form-horizontal" role="form" data-toggle="validator">
+              <div class="form-group">
+                <label class="col-lg-3 control-label personal-data">First name:</label>
+                <div class="col-lg-8">
+                  <input [(ngModel)]="user.firstName" class="form-control" type="text" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-3 control-label personal-data">Last name:</label>
+                <div class="col-lg-8">
+                  <input [(ngModel)]="user.lastName" class="form-control" type="text" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-3 control-label personal-data">Country:</label>
+                <div class="col-lg-8">
+                  <input [(ngModel)]="user.country" class="form-control" type="text" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-3 control-label personal-data">City:</label>
+                <div class="col-lg-8">
+                  <input [(ngModel)]="user.city" class="form-control" type="text" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-3 control-label personal-data">Email:</label>
+                <div class="col-lg-8">
+                  <input [(ngModel)]="user.email" class="form-control" type="email" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-8">
+                  <input (click)="updateUser()" class="btn btn-primary save-button" value="Save Changes" type="submit">
+                  <span></span>
+                  <input class="btn btn-default" value="Cancel" type="reset">
+                </div>
+              </div>
+
+            </form>
+
+            <rating></rating>
+
+          </div>
         </div>
 
-        <input (click)="upload()" class="btn btn-primary save-button" value="Upload" type="submit">
 
       </div>
-
-
-    </div>
-
-    <!-- Personal Info form column -->
-    <div class="col-md-9 col-sm-6 col-xs-12 personal-info">
-
-      <div *ngIf="showUpdatedUserMessage == true" class="alert alert-info">
-        <a (click)="hideUpdatedMessage()" class="close">×</a> 
-        <i class="fa fa-info"></i>
-        Personal info was <strong>successfully</strong> updated.
-      </div>
-
-      <form class="form-horizontal" role="form" data-toggle="validator">
-        <div class="form-group">
-          <label class="col-lg-3 control-label personal-data">First name:</label>
-          <div class="col-lg-8">
-            <input [(ngModel)]="user.firstName" class="form-control" type="text" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-lg-3 control-label personal-data">Last name:</label>
-          <div class="col-lg-8">
-            <input [(ngModel)]="user.lastName" class="form-control" type="text" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-lg-3 control-label personal-data">Country:</label>
-          <div class="col-lg-8">
-            <input [(ngModel)]="user.country" class="form-control" type="text" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-lg-3 control-label personal-data">City:</label>
-          <div class="col-lg-8">
-            <input [(ngModel)]="user.city" class="form-control" type="text" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-lg-3 control-label personal-data">Email:</label>
-          <div class="col-lg-8">
-            <input [(ngModel)]="user.email" class="form-control" type="email" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-3 control-label"></label>
-          <div class="col-md-8">
-            <input (click)="updateUser()" class="btn btn-primary save-button" value="Save Changes" type="submit">
-            <span></span>
-            <input class="btn btn-default" value="Cancel" type="reset">
-          </div>
-        </div>
-
-      </form>
-
-      <rating></rating>
-      
     </div>
   </div>
+
+
 
 
   <h1 class="page-header">Personal Skills</h1>
