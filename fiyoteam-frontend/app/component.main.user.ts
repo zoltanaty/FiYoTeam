@@ -3,11 +3,12 @@ import {GetAndPostService} from './service.getandpost'
 import {Router} from 'angular2/router';
 import 'rxjs/Rx';
 import {UserProfileComponent} from './component.userprofile';
+import {UsersComponent} from './component.users'
 
 @Component({
     selector: 'main-user',
     templateUrl: 'app/templates/main.user.template.html',
-    directives: [UserProfileComponent],
+    directives: [UserProfileComponent, UsersComponent],
     providers: [GetAndPostService]
 
 })

@@ -27,11 +27,30 @@
 	<link rel="stylesheet" href="/resources/styles/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/resources/styles/jasny-bootstrap/css/jasny-bootstrap.min.css">
 	<!-- Custom Fonts -->
-    <link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	
 	<link rel="stylesheet" href="/resources/styles/my_styles/screen.css">
 	<link rel="stylesheet" href="/resources/styles/my_styles/userprofile.css">
 	<link rel="stylesheet" href="/resources/styles/my_styles/rating.css">
+	<link rel="stylesheet" href="/resources/styles/my_styles/rotating-card.css">
+
+	<!-- Javascript for rotating cards -->
+	<script type="text/javascript">
+		$().ready(function(){
+			$('[rel="tooltip"]').tooltip();
+
+		});
+
+		function rotateCard(btn){
+			var $card = $(btn).closest('.card-container');
+			if($card.hasClass('hover')){
+				$card.removeClass('hover');
+			} else {
+				$card.addClass('hover');
+			}
+		}
+	</script>
+
 
 	<!-- 2. Configure SystemJS -->
 	<script>
