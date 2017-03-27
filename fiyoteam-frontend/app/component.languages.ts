@@ -31,7 +31,6 @@ export class LanguageTemplateComponent {
   .subscribe(
     (res) => {
       this.languages = res;
-      console.log("LANGUAGES: " + this.languages);
     }
     );
 }
