@@ -1,6 +1,6 @@
 import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
-import {Observable} from 'rxjs/Rx';
+import {Observable, Subject} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 
 @Component({
@@ -14,8 +14,8 @@ export class UsersComponent {
 
 	private userId;
 	private users: Array<User> = [];
-	private profilePicUrls: Array<File> = [];
-	
+	private profilePicUrls  = [];
+	private subject = new Subject();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
@@ -30,7 +30,10 @@ export class UsersComponent {
 		.subscribe(
 			(res) => {
 				this.users = res;
-				console.log(res);
+
+				for(var user of this.users){
+					this.createImageURL(user);
+				}
 			}
 			);
 	}
@@ -50,15 +53,11 @@ export class UsersComponent {
 		});
 	}
 
-	createImageURL(){
-		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
-			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
-		});
-	}
+	createImageURL(user){
 
-	createAllImageUrls(users: Array<User>){
-		
+		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + user.id).subscribe(imageData =>{
+			user.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+		});	
 	}
-
 
 }

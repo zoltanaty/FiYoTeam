@@ -2,6 +2,7 @@ package com.fiyoteam.rest;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -161,14 +162,21 @@ public class UserService {
 	@GET
 	@Path("/profilepic/{id}")
 	@Produces("image/png")
-	public byte[] getFullImage(@PathParam("id") int id) {
-		byte[] file = null;
+	public File getFullImage(@PathParam("id") int id) {
+		File file = null;
 
-		try {
-			String fileExtension = ".jpg";
-			java.nio.file.Path path = Paths.get(CATALINA_BASE + "/FiYoTeam/photos/user_" + id + fileExtension);
-			file = Files.readAllBytes(path);
-			log.info("File successfully loaded.");
+		try {			
+			String fileName = "user_" + id;
+			File dir = new File(CATALINA_BASE + "/FiYoTeam/photos");
+			File[] files = dir.listFiles(new FilenameFilter() {
+			    public boolean accept(File dir, String name) {
+			        return name.startsWith(fileName);
+			    }
+			});
+			
+			file = files[0];
+
+			log.info("File successfully loaded of the user: " + id);
 		} catch (Exception e) {
 			log.error("Failed to load the file. - " + e);
 		}

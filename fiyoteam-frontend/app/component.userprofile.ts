@@ -17,9 +17,9 @@ import {RatingComponent} from './component.rating'
 export class UserProfileComponent { 
 
 	private userId;
-	private user = new User(null, '', '', '','', '', '', '');
+	private user = new User(null, '', '', '','', '', '', '', '');
 	private filesToUpload: Array<File> = [];
-	private profilePicURL = null;
+	private profilePicURL: string = null;
 
 	private showUpdatedUserMessage = false;
 
