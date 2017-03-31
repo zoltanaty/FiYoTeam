@@ -6,8 +6,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -54,7 +52,7 @@ public class UserService {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 
-		Query query = em.createQuery("FROM User");
+		Query query = em.createQuery("FROM User u WHERE u.role != 'admin'");
 
 		@SuppressWarnings("unchecked")
 		List<User> personList = (List<User>) query.getResultList();

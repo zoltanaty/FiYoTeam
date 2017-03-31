@@ -16,7 +16,7 @@ export class Skill {
 @Injectable()
 export class GetAndPostService{
 
-  private ipv4 = '192.168.96.55';
+  private ipv4 = 'localhost';//'192.168.96.55';
   public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
 
   constructor(private _http: Http){}
@@ -68,19 +68,6 @@ export class GetAndPostService{
       return url;
     })
   }
-
-  /*uploadFile(fileToUpload, url){
-    var headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
-
-    let formData = new FormData();
-    formData.append("file", fileToUpload);
-    var json = JSON.stringify(formData);
-
-    console.log(fileToUpload);
-
-    return this._http.post(url, json, {headers: headers});
-  }*/
 
 }
 

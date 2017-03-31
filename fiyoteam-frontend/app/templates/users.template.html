@@ -1,44 +1,49 @@
 <div id="page-wrapper">
 
-    <div *ngFor="let user of users" class="card-container manual-flip">
-        <div class="card">
-            <div class="front">
-                <div class="cover">
-                    <img class="card-cover-blur"[src]="user.profilePicURL"/>
-                </div>
-                <div class="user">
-                    <img class="img-circle card-cover-no-blur" [src]="user.profilePicURL"/>
-                </div>
-                <div class="content">
-                    <div class="main">
-                        <h3 class="name">{{user.firstName}} {{user.lastName}}</h3>
-                        <p class="location">{{user.city}} ({{user.country}})</p>
-                        <p class="text-center">Web design, Angular2, HTML5 and many others...</p>
-                    </div>
-                    <div class="footer">
-                        <button class="btn btn-simple" onclick="rotateCard(this)">
-                            <i class="fa fa-mail-forward"></i> Flip Card
-                        </button>
-                    </div>
-                </div>
-            </div> <!-- end front panel -->
-            <div class="back">
-                <div class="header">
-                    <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                </div>
-                <div class="content">
-                    <div class="main">
-                        <h4 class="text-center">Job Description</h4>
-                        <p class="text-center">Web design, Angular2, HTML5 and many others...</p>
-                    </div>
-                </div>
-                <div class="footer">
-                    <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
-                        <i class="fa fa-reply"></i> Back
-                    </button>
-                </div>
-            </div> <!-- end back panel -->
-        </div> <!-- end card -->
-    </div> <!-- end card-container -->
-    
+    <div class="im-centered">
+        <div class="row">
+            <div *ngFor="let user of users" class="card-container manual-flip">
+                <div class="card">
+                    <div class="front">
+                        <div class="cover">
+                            <img *ngIf="user.profilePicURL != null" class="card-cover-blur" [src]="user.profilePicURL"/>
+                            <img *ngIf="user.profilePicURL == null" class="card-cover-blur" src="./resources/images/default_avatar.jpg" />
+                        </div>
+                        <div class="user">
+                            <img *ngIf="user.profilePicURL != null" class="img-circle card-cover-no-blur" [src]="user.profilePicURL"/>
+                            <img *ngIf="user.profilePicURL == null" src="./resources/images/default_avatar.jpg"  class="img-circle card-cover-no-blur" />
+                        </div>
+                        <div class="content">
+                            <div class="main">
+                                <h3 class="name">{{user.firstName}} {{user.lastName}}</h3>
+                                <p class="location">{{user.city}} ({{user.country}})</p>
+                                <p class="text-center">Web design, Angular2, HTML5 and many others...</p>
+                            </div>
+                            <div class="footer">
+                                <button class="btn btn-simple" onclick="rotateCard(this)">
+                                    <i class="fa fa-mail-forward"></i> Flip Card
+                                </button>
+                            </div>
+                        </div>
+                    </div> <!-- end front panel -->
+                    <div class="back">
+                        <div class="header">
+                            <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                        </div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center">Job Description</h4>
+                                <p class="text-center">Web design, Angular2, HTML5 and many others...</p>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+                                <i class="fa fa-reply"></i> Back
+                            </button>
+                        </div>
+                    </div> <!-- end back panel -->
+                </div> <!-- end card -->
+            </div> <!-- end card-container -->
+        </div>
+    </div>
 </div>

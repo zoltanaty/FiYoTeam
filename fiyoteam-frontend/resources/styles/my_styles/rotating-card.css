@@ -87,7 +87,7 @@
 .card-container, .front, .back {
     width: 175px;
     height: 225px;
-    margin-right: 30px;
+    margin-right: 25px;
     float: left;
 }
 
@@ -337,6 +337,10 @@ pre.prettyprint{
 }
 
 
+.im-centered { 
+    margin: auto;
+    max-width: 90%;
+}
 
 
 /*       Fix bug for IE      */
@@ -360,5 +364,3 @@ pre.prettyprint{
         visibility: visible;
     }
 }
-
-
