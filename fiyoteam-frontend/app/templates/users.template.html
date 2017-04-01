@@ -15,7 +15,7 @@
                     </div>
                     <div class="content">
                         <div class="main">
-                            <h3 class="name">{{user.firstName}} {{user.lastName}}</h3>
+                            <h3 class="name" (click)="changeSelectedUser(user.id)">{{user.firstName}} {{user.lastName}}</h3>
                             <p *ngIf="user.city.length > 3" class="location">{{user.city}} ({{user.country}})</p>
                             <p *ngIf="user.city.length <= 3" class="location">Location not published</p>
                             <p *ngIf="user.description != null" class="text-center">{{user.description.substring(0, 45)}}...</p>

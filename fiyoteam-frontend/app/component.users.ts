@@ -1,4 +1,4 @@
-import {Component, ViewChild } from 'angular2/core';
+import {Component, ViewChild,  EventEmitter, Output } from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
@@ -15,6 +15,7 @@ export class UsersComponent {
 	private userId;
 	private users: Array<User> = [];
 	private profilePicUrls  = [];
+	@Output() onChange = new EventEmitter();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
@@ -58,5 +59,10 @@ export class UsersComponent {
 			user.profilePicURL = URL.createObjectURL(new Blob([imageData]));
 		});	
 	}
+
+	changeSelectedUser(selectedUser) {
+		localStorage.setItem("SELECTEDUSER", selectedUser);
+        this.onChange.emit({value: selectedUser});
+    }
 
 }

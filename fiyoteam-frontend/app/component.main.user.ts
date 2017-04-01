@@ -3,12 +3,13 @@ import {GetAndPostService} from './service.getandpost'
 import {Router} from 'angular2/router';
 import 'rxjs/Rx';
 import {UserProfileComponent} from './component.userprofile';
-import {UsersComponent} from './component.users'
+import {UsersComponent} from './component.users';
+import {OthersProfileComponent} from './component.othersprofile';
 
 @Component({
     selector: 'main-user',
     templateUrl: 'app/templates/main.user.template.html',
-    directives: [UserProfileComponent, UsersComponent],
+    directives: [UserProfileComponent, UsersComponent, OthersProfileComponent],
     providers: [GetAndPostService]
 
 })
@@ -21,6 +22,7 @@ export class MainUserComponent {
     *   Defines which menu is active
     */
     private activeMenu = 1;
+    private selectedUser = -1;
 
     private isUserClicked = false;
 
@@ -49,5 +51,7 @@ export class MainUserComponent {
 
     switchMenu(menuToActivate){
         this.activeMenu = menuToActivate;
+        this.selectedUser = -1;
     }
+
 }

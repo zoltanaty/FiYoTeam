@@ -57,6 +57,7 @@
 	</nav>
 
 	<userprofile *ngIf="activeMenu==1"></userprofile>
-	<users *ngIf="activeMenu==4"></users>
+	<users *ngIf="activeMenu==4 && selectedUser == -1" (onChange)="selectedUser = $event.value"></users>
+	<othersprofile  *ngIf="activeMenu==4 && selectedUser != -1"></othersprofile>
 
 </div>

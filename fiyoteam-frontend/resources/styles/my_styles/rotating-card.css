@@ -7,11 +7,11 @@
 
 /* entire container, keeps perspective */
 .card-container {
-   -webkit-perspective: 800px;
-   -moz-perspective: 800px;
-   -o-perspective: 800px;
-   perspective: 800px;
-   margin-bottom: 30px;
+ -webkit-perspective: 800px;
+ -moz-perspective: 800px;
+ -o-perspective: 800px;
+ perspective: 800px;
+ margin-bottom: 30px;
 }
 
 /* flip the pane when hovered */
@@ -146,6 +146,12 @@
     margin: 3px 0 0;
     text-align: center;
     text-transform: capitalize;
+    cursor: pointer;
+    color: #848484;
+}
+
+.card .name:hover {
+    color: #000000;
 }
 
 .card h5{
@@ -275,7 +281,7 @@ pre.prettyprint{
 }
 
 .tag, .pln, .kwd{
- color: #3472F7;
+   color: #3472F7;
 }
 
 .atn{
@@ -283,7 +289,7 @@ pre.prettyprint{
 }
 
 .pln{
-   color: #333;
+ color: #333;
 }
 
 .com{
