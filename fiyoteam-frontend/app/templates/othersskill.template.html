@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading language-box">
+    <h3 class="language-box-title">Known Programming Languages / Technologies</h3>
+  </div>
+
+  <div class="panel-body no-padding-bottom">
+
+    <div *ngFor="let skill of skills">
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.level}}%"></div>
+        <span class="progress-type"> {{skill.skill}}</span>
+        <span class="progress-completed">({{skill.level}}%)</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel-heading language-box languages-box-footer"></div>
