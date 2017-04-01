@@ -21,8 +21,6 @@ export class OthersProfileComponent {
 	private filesToUpload: Array<File> = [];
 	private profilePicURL: string = null;
 
-	private showUpdatedUserMessage = false;
-
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
 	ngOnInit(){
