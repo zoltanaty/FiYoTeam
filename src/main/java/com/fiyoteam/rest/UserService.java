@@ -42,6 +42,20 @@ public class UserService {
 	private static final String CATALINA_BASE = System.getProperty("catalina.base");
 
 	/*
+	*	Test Service
+	*/
+
+	@GET
+	@Path("/test")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String testRest() {
+
+		String person = '{ "name":"John", "age":31, "city":"New York" }';
+
+		return person;
+	}
+
+	/*
 	 * Services of the User
 	 */
 
