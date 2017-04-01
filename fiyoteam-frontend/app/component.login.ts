@@ -12,10 +12,11 @@ import {GetAndPostService, User} from './service.getandpost'
 
 export class LoginComponent { 
 
-	private user = new User(null, '', '', '','', '', '', '');
-	private userToRegister = new User(null, '', '', '','', '', '', '');
+	private user = new User(null, '', '', '','', '', '', '', '', '');
+	private userToRegister = new User(null, '', '', '','', '', '', '', '', '');
 
 	private loginError = false;
+	private passwordAgainError = false;
 	private successfulRegistration = false;
 	private unsuccessfulRegistration = false;
 

@@ -134,6 +134,12 @@
     margin: 0 0 0px;
 }
 
+.card .text-center2 {
+    text-align: center;
+    margin: 0 0 0px;
+    padding: 12px;
+}
+
 .card .name {
     font-size: 18px;
     line-height: 28px;
@@ -339,7 +345,7 @@ pre.prettyprint{
 
 .im-centered { 
     margin: auto;
-    max-width: 90%;
+    max-width: 100%;
 }
 
 

@@ -91,6 +91,7 @@ public class UserService {
 		_user.setCountry(user.getCountry());
 		_user.setCity(user.getCity());
 		_user.setEmail(user.getEmail());
+		_user.setDescription(user.getDescription());
 
 		try {
 			em.getTransaction().begin();

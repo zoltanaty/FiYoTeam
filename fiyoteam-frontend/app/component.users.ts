@@ -1,6 +1,6 @@
 import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
-import {Observable, Subject} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 
 @Component({
@@ -15,7 +15,6 @@ export class UsersComponent {
 	private userId;
 	private users: Array<User> = [];
 	private profilePicUrls  = [];
-	private subject = new Subject();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 

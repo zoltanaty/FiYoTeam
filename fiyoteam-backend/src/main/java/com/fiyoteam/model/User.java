@@ -42,6 +42,9 @@ public class User implements Serializable{
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "description")
+	private String description;
+	
 	@Column(name = "password")
 	private String password;
 	
@@ -58,7 +61,7 @@ public class User implements Serializable{
 		super();
 	}
 
-	public User(int id, String firstName, String lastName, String country, String city, String email, String password,
+	public User(int id, String firstName, String lastName, String country, String city, String email, String description,  String password,
 			String role, List<UserLanguage> userLanguage, List<UserSkill> userSkill) {
 		super();
 		this.id = id;
@@ -67,6 +70,7 @@ public class User implements Serializable{
 		this.country = country;
 		this.city = city;
 		this.email = email;
+		this.description = description;
 		this.password = password;
 		this.role = role;
 		this.userLanguage = userLanguage;
@@ -120,6 +124,14 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getDescription(){
+		return this.description;
+	}
+	
+	public void setDescription(String description){
+		this.description = description; 
+	}
 
 	@JsonIgnore 
 	public String getPassword() {
@@ -159,7 +171,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", country=" + country
-				+ ", city=" + city + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", city=" + city + ", email=" + email + ", description=" + description + ", password=" + password + ", role=" + role
 				+ ", userLanguage=" + userLanguage + ", userSkill=" + userSkill + "]";
 	}
 
