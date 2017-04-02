@@ -3,7 +3,9 @@ package com.fiyoteam.utils;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerResponse;
 import com.sun.jersey.spi.container.ContainerResponseFilter;
+import javax.ws.rs.ext.Provider;
 
+@Provider
 public class CorsFilter implements ContainerResponseFilter {
 	
 	@Override
