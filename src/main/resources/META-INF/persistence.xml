@@ -8,7 +8,7 @@
 	<persistence-unit name="FiYoTeamPersistence">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<properties>
-			<property name="hibernate.connection.url" value="jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_155a11f3b41e000?reconnect=true" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://eu-cdbr-west-01.cleardb.com" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.username" value="bdfa2af49c0eab" />
 			<property name="hibernate.connection.password" value="373fc2d8e5c69b4" />
