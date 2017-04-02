@@ -31,6 +31,8 @@ public class SkillService {
 	    @SuppressWarnings("unchecked")
 		List<Skill> skillList = (List<Skill>) query.getResultList();
 	    
+	    Entitymanager.closeEntityManager();
+	    
 	    log.info("Returned all of the Skills");
 	    
 	    return skillList;

@@ -73,6 +73,8 @@ public class UserService {
 		List<User> personList = (List<User>) query.getResultList();
 
 		log.info("Returned all of the Users");
+		
+		Entitymanager.closeEntityManager();
 
 		return personList;
 	}
@@ -87,6 +89,8 @@ public class UserService {
 		User user = em.find(User.class, id);
 
 		log.info("Returned the User with id: " + id);
+		
+		Entitymanager.closeEntityManager();
 
 		return user;
 	}
@@ -115,11 +119,13 @@ public class UserService {
 			em.getTransaction().commit();
 
 			log.info("User with id: " + id + " updated.");
+			Entitymanager.closeEntityManager();
 			return _user;
 
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			log.error("Error occured while updating the user with id: " + id + " - " + e);
+			Entitymanager.closeEntityManager();
 			return user;
 		}
 
@@ -223,6 +229,8 @@ public class UserService {
 		List<UserLanguageResponse.Language> ret = userLanguageResponse.getLanguages();
 
 		log.info("Returned languages of the User with id: " + id + " - nr: " + ret.size());
+		
+		Entitymanager.closeEntityManager();
 
 		return ret;
 	}
@@ -253,10 +261,14 @@ public class UserService {
 			em.getTransaction().commit();
 
 			log.info("Languages Updated of the User with id: " + id);
+			
+			Entitymanager.closeEntityManager();
 			return getUserLanguage(id);
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			log.error("Error occured while updating the User's Languages with id: " + id + " - " + e);
+			
+			Entitymanager.closeEntityManager();
 			return languages;
 		}
 	}
@@ -295,6 +307,8 @@ public class UserService {
 			em.getTransaction().rollback();
 			log.error("Error occured while adding new Language to the User with id: " + id + " - " + e);
 		}
+		
+		Entitymanager.closeEntityManager();
 
 		return getUserLanguage(id);
 	}
@@ -335,6 +349,8 @@ public class UserService {
 				break;
 			}
 		}
+		
+		Entitymanager.closeEntityManager();
 
 		return getUserLanguage(id);
 	}
@@ -364,6 +380,8 @@ public class UserService {
 		List<UserSkillResponse.Skill> ret = userSkillResponse.getSkills();
 
 		log.info("Returned skills of the User with id: " + id + " - nr: " + ret.size());
+		
+		Entitymanager.closeEntityManager();
 
 		return ret;
 	}
@@ -394,10 +412,14 @@ public class UserService {
 			em.getTransaction().commit();
 
 			log.info("Skills Updated of the User with id: " + id);
+			
+			Entitymanager.closeEntityManager();
 			return getUserSkill(id);
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			log.error("Error occured while updating the User's Skills with id: " + id + " - " + e);
+			
+			Entitymanager.closeEntityManager();
 			return skills;
 		}
 	}
@@ -437,6 +459,7 @@ public class UserService {
 			log.error("Error occured while adding New Skill to the User with id: " + id + " - " + e);
 		}
 
+		Entitymanager.closeEntityManager();
 		return getUserSkill(id);
 	}
 
@@ -477,6 +500,7 @@ public class UserService {
 			}
 		}
 
+		Entitymanager.closeEntityManager();
 		return getUserSkill(id);
 	}
 }
