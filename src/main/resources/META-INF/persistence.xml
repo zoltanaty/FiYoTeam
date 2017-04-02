@@ -8,13 +8,21 @@
 	<persistence-unit name="FiYoTeamPersistence">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<properties>
-			<property name="hibernate.connection.url" value="jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_155a11f3b41e000?reconnect=true" />
+			<property name="hibernate.connection.url"
+				value="jdbc:mysql://eu-cdbr-west-01.cleardb.com/heroku_155a11f3b41e000?reconnect=true" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.username" value="bdfa2af49c0eab" />
 			<property name="hibernate.connection.password" value="373fc2d8e5c69b4" />
 			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hbm2ddl.auto" value="update" />
+
+			<!-- Configuring Connection Pool -->
+			<property name="hibernate.c3p0.min_size" value="5" />
+			<property name="hibernate.c3p0.max_size" value="20" />
+			<property name="hibernate.c3p0.timeout" value="500" />
+			<property name="hibernate.c3p0.max_statements" value="50" />
+			<property name="hibernate.c3p0.idle_test_period" value="2000" />
 		</properties>
 	</persistence-unit>
 </persistence>
