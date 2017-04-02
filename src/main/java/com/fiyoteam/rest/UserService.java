@@ -66,7 +66,8 @@ public class UserService {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 
-		Query query = em.createQuery("FROM User u WHERE u.role != 'admin'");
+		Query query = em.createQuery("FROM User u WHERE u.role != :role");
+		query.setParameter("role", "admin");
 
 		@SuppressWarnings("unchecked")
 		List<User> personList = (List<User>) query.getResultList();
