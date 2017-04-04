@@ -1,5 +1,0 @@
-
-# .gitignore for *.js, *.map 
-
-app/*.js
-app/*.map
