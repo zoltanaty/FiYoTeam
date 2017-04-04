@@ -77,7 +77,6 @@ public class AuthenticationService {
 		}
 		
 		Entitymanager.closeEntityManager();
-
 		return response;
 
 	}
@@ -144,8 +143,7 @@ public class AuthenticationService {
 			activationEmail.send("zoltanaty@gmail.com", "FiYoTeam Account Activation",
 					activationEmail.composeActivationEmail(user.getFirstName(), accountActivation.getActivationCode()));
 
-			Entitymanager.closeEntityManager();
-			
+			Entitymanager.closeEntityManager();	
 			return response;
 		}
 	}

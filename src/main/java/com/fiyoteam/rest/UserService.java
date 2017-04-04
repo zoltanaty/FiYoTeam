@@ -215,10 +215,8 @@ public class UserService {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 
-		//em.getTransaction().begin();
 		em.clear();
 		User user = em.find(User.class, id);
-		//em.getTransaction().commit();
 
 		UserLanguageResponse userLanguageResponse = new UserLanguageResponse();
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
@@ -309,7 +307,6 @@ public class UserService {
 		}
 		
 		Entitymanager.closeEntityManager();
-
 		return getUserLanguage(id);
 	}
 
@@ -351,7 +348,6 @@ public class UserService {
 		}
 		
 		Entitymanager.closeEntityManager();
-
 		return getUserLanguage(id);
 	}
 
@@ -365,11 +361,8 @@ public class UserService {
 	public List<UserSkillResponse.Skill> getUserSkill(@PathParam("id") Integer id) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-
-		//em.getTransaction().begin();
 		em.clear();
 		User user = em.find(User.class, id);
-		//em.getTransaction().commit();
 
 		UserSkillResponse userSkillResponse = new UserSkillResponse();
 		for (UserSkill userSkill : user.getUserSkill()) {
@@ -382,7 +375,6 @@ public class UserService {
 		log.info("Returned skills of the User with id: " + id + " - nr: " + ret.size());
 		
 		Entitymanager.closeEntityManager();
-
 		return ret;
 	}
 

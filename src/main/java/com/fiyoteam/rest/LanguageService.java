@@ -31,10 +31,9 @@ public class LanguageService {
 	    @SuppressWarnings("unchecked")
 		List<Language> languageList = (List<Language>) query.getResultList();
 	    
-	    Entitymanager.closeEntityManager();
-	    
 	    log.info("Returned all of the Languages");
 	    
+	    Entitymanager.closeEntityManager();
 	    return languageList;
 	}
 
