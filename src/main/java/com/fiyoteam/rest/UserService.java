@@ -50,7 +50,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String testRest() {
 
-		String person = "{ 'name':'John', 'age':31, 'city':'New York' }";
+		String person = "{ 'name':'John', 'age':31, 'city':'Cluj Napoca' }";
 
 		return person;
 	}
