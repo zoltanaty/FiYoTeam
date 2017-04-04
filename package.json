@@ -1,0 +1,16 @@
+{
+  "name": "FiYoTeam",
+  "description": "FiYoTeam",
+  "version": "1.0.0",
+  "author": "zmate",
+  "private": true,
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "engines": {
+    "node": "> 0.10.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
