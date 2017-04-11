@@ -140,7 +140,7 @@ public class AuthenticationService {
 			}
 
 			Email activationEmail = new Email();
-			activationEmail.send("zoltanaty@gmail.com", "FiYoTeam Account Activation",
+			activationEmail.send(user.getEmail(), "FiYoTeam Account Activation",
 					activationEmail.composeActivationEmail(user.getFirstName(), accountActivation.getActivationCode()));
 
 			Entitymanager.closeEntityManager();	

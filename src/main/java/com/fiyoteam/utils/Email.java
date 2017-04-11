@@ -11,8 +11,8 @@ public class Email {
 	
 	private static final String SMTP_HOSTNAME = "smtp.gmail.com";
 	private static final int SMTP_PORT = 587;
-	private static final String AUTH_EMAIL = "***";
-	private static final String AUTH_PASSWORD = "***";
+	private static final String AUTH_EMAIL = "auth.fiyoteam@gmail.com";
+	private static final String AUTH_PASSWORD = "tuna-repel-fled-neuron";
 	
 	private HtmlEmail email;
 	
@@ -36,7 +36,7 @@ public class Email {
 			this.email.send();
 			
 			log.info("Registration Confirmation email sent to: " + recipient);
-		} catch (EmailException e) {
+		} catch (Exception e) {
 			log.debug("Failed to send Registration Confirmation email to: " + recipient + " - " + e);
 		}	
 	}
