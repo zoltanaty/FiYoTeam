@@ -419,7 +419,12 @@ ul.alert-dropdown {
 }
 
 .navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover {
+	
 	background-color: #33293e !important;
+}
+
+.fa-custom {
+    width: 40px;
 }
 
 
