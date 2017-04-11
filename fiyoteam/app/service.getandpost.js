@@ -56,12 +56,12 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             }());
             exports_1("Skill", Skill);
             GetAndPostService = (function () {
-                //private ipv4 = 'https://fiyoteam-backend.herokuapp.com';
-                //public baseUrl = this.ipv4 + '/rest/';
                 function GetAndPostService(_http) {
                     this._http = _http;
-                    this.ipv4 = '192.168.96.55';
-                    this.baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
+                    //private ipv4 = '192.168.96.55';
+                    //public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/'
+                    this.ipv4 = 'https://fiyoteam-backend.herokuapp.com';
+                    this.baseUrl = this.ipv4 + '/rest/';
                 }
                 GetAndPostService.prototype.getData = function (url) {
                     var headers = new http_1.Headers();
