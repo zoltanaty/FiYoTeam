@@ -1,0 +1,41 @@
+.rating-box {
+    background-color: #fbfbfb !important;
+}
+
+.fa {
+    margin-right: 5px;
+}
+
+.rating {
+    color: gold;
+}
+
+.rating .fa {
+    font-size: 22px;
+}
+
+.rating-num {
+    margin-top: 0px;
+    font-size: 60px;
+}
+
+.progress-type-custom {
+    padding: 3px 10px 2px 10px;
+    background-color: rgba(25, 25, 25, 0) !important;
+}
+
+.progress-custom {
+    margin-right: 50px;
+    margin-bottom: 5px;
+    background-color: rgba(25, 25, 25, 0.2);
+}
+
+.progress-bar {
+    text-align: left;
+}
+
+.dark-star{
+    float: left;
+    padding-left: 50px;
+    padding-right: 10px;
+}
