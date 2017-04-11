@@ -1,0 +1,166 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading language-box">
+    <h3 class="language-box-title">Known Languages</h3>
+  </div>
+
+
+  <div class="panel-body no-padding-bottom">
+
+    <div *ngFor="let language of languages">
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{language.level}}%"></div>
+        <span class="progress-type"> {{language.language}}</span>
+        <span class="progress-completed">({{language.level}}%)</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel-heading language-box languages-box-footer">
+
+    <button id="btnAdd" class="pull-right fa fa-plus-square-o fa-2x  button-languages" data-toggle="modal" data-target="#addLanguagesModal"></button>
+    <button id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages" data-toggle="modal" data-target="#editlanguage"></button>
+
+    <!-- ------------------------------------------------------------------------------------ -->
+    <!--                                  Language Options Modal                              -->
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    <div class="modal fade" id="editlanguage" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Languages</h4>
+          </div>
+          <div class="modal-body">
+
+            <!--- ********************************************************************** -->
+
+            <div class="container">
+
+              <div class="row">
+                <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
+                  <h4>Language:</h4>
+                </div>
+
+                <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
+                  <h4>Knowledge Level:</h4>
+                </div>
+              </div>
+
+              <div *ngFor="let language of languages">
+                <br>
+
+                <div class="row">
+
+                  <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
+                    <input [(ngModel)]="language.name" type="text" value={{language.language}} class="form-control" name="languagename" id="languagename" readonly/> 
+                  </div>
+
+                  <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="range range-primary">
+                        <div class="col-xs-6 col-sm-5 col-md-5 col-lg-3">
+                          <input [(ngModel)]="language.level" type="range" name="range" min="0" max="100" step="5" value="{{language.level}}" onchange="rangePrimary.value=value">
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                          <output class="language-level-text" value="{{language.level}}" id="rangePrimary"></output>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                        <button id="btnRemove" (click)="deleteLanguage(language)" class="fa fa-times fa-2x  button-languages"></button> 
+                      </div>
+                    </div>
+                  </div>
+
+                  <br>
+                </div>
+              </div> 
+
+            </div>
+
+            <!--- ********************************************************************** -->
+
+          </div>
+          <div class="modal-footer">
+            <button (click)="updateLanguages()" type="button" class="btn btn-primary" data-dismiss="modal" >Save Changes</button>
+            <button (click)="getUsersLanguages()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ------------------------------------------------------------------------------------ -->
+    <!--                                   Add Language Modal                                 -->
+    <!-- ------------------------------------------------------------------------------------ -->
+
+
+    <div class="modal fade" id="addLanguagesModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add New language</h4>
+          </div>
+          <div class="modal-body">
+
+           <div class="container">
+
+             <div class="row">
+              <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
+                <h4>Language:</h4>
+              </div>
+
+              <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
+                <h4>Knowledge Level:</h4>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+
+              <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
+                <select class="form-control" [(ngModel)]="newLanguage.id">
+                  <option *ngFor="let availableLanguage of availableLanguages" value= {{availableLanguage.id}}>{{availableLanguage.language}}</option>
+                </select>
+              </div>
+
+              <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
+                <div class="row">
+                  <div class="range range-primary">
+                  <div class="col-xs-8 col-sm-6 col-md-6 col-lg-5">
+                      <input [(ngModel)]="newLanguage.level" type="range" name="range" min="0" max="100" step="5" value="{{newLanguage.level}}" onchange="rangePrimary.value=value">
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                      <output class="language-level-text" value="{{newLanguage.level}}" id="rangePrimary"></output>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <br>
+
+          <div class="modal-footer">
+            <button (click)="addNewLanguage()" type="button" class="btn btn-primary" data-dismiss="modal" >Add Language</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
