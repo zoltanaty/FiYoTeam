@@ -16,20 +16,20 @@
 
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div id="myNavbar" class="collapse navbar-collapse navbar-ex1-collapse">
-                <form (ngSubmit)="login()" id="login" class="navbar-form navbar-right navbar-login-form" role="form">
+                <form (ngSubmit)="login()" id="login" class="navbar-form navbar-right navbar-login-form" role="form" data-toggle="validator">
 
                     <div class="input-group input-margin"  [ngClass]="{'has-error': loginError }" >
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-user"></i>
                         </span>
-                        <input [(ngModel)]="user.email" id="email" type="email" class="form-control"  (ngModelChange)="disableLoginError()" name="email" value="" placeholder="Email Address">
+                        <input [(ngModel)]="user.email" id="email" type="email" class="form-control"  (ngModelChange)="disableLoginError()" name="email" placeholder="Email Address" autocomplete="off" required>
                     </div>
 
                     <div class="input-group input-margin" [ngClass]="{'has-error': loginError }">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-lock"></i>
                         </span>
-                        <input  [(ngModel)]="user.password" id="password" type="password" class="form-control"  (ngModelChange)="disableLoginError()" name="password" value="" placeholder="Password">
+                        <input  [(ngModel)]="user.password" id="password" type="password" class="form-control"  (ngModelChange)="disableLoginError()" name="password" placeholder="Password" autocomplete="off" required>
                     </div>
 
                     <div class="input-group input-margin">
@@ -71,7 +71,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input [(ngModel)]="userToRegister.email" type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address"required>
+                                        <input [(ngModel)]="userToRegister.email" type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" autocomplete="off" required>
                                     </div>
 
                                     <div class="row">
@@ -80,7 +80,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="glyphicon glyphicon-lock"></i>
                                                 </span>
-                                                <input [(ngModel)]="userToRegister.password" type="password" name="password" id="password2" class="form-control input-sm" placeholder="Password - Min 6 Characters (lowercase, upercase and special characters)" autocomplete="new-password"  required>
+                                                <input [(ngModel)]="userToRegister.password" type="password" name="password" id="password2" class="form-control input-sm" placeholder="Password - Min 6 Characters (lowercase, upercase and special characters)" autocomplete="off"  required>
                                             </div>
                                         </div>
                                     </div>
