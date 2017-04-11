@@ -32,7 +32,6 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     this.user = new service_getandpost_1.User(null, '', '', '', '', '', '', '', '', '');
                     this.userToRegister = new service_getandpost_1.User(null, '', '', '', '', '', '', '', '', '');
                     this.loginError = false;
-                    this.passwordAgainError = false;
                     this.successfulRegistration = false;
                     this.unsuccessfulRegistration = false;
                 }
@@ -61,43 +60,44 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                 };
                 LoginComponent.prototype.register = function () {
                     var _this = this;
-                    if (this.userToRegister.password == this.userToRegister.passwordAgain) {
-                        this.getAndPostService.postData(this.userToRegister, this.getAndPostService.baseUrl + 'authentication/register').map(function (res) { return res.json(); })
-                            .subscribe(function (res) {
-                            if (res.id >= 0) {
-                                _this.successfulRegistration = true;
-                                _this.unsuccessfulRegistration = false;
-                            }
-                            else {
-                                _this.unsuccessfulRegistration = true;
-                                _this.successfulRegistration = false;
-                            }
-                        });
-                    }
-                    else {
-                        this.passwordAgainError = true;
-                    }
+                    this.getAndPostService.postData(this.userToRegister, this.getAndPostService.baseUrl + 'authentication/register').map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        if (res.id >= 0) {
+                            _this.successfulRegistration = true;
+                            _this.unsuccessfulRegistration = false;
+                        }
+                        else {
+                            _this.unsuccessfulRegistration = true;
+                            _this.successfulRegistration = false;
+                        }
+                    });
                 };
                 LoginComponent.prototype.disableLoginError = function () {
                     this.loginError = false;
                 };
+                LoginComponent.prototype.hasLowerCase = function (str) {
+                    return str.toUpperCase() != str;
+                };
+                LoginComponent.prototype.hasUpperCase = function (str) {
+                    return str.toLowerCase() != str;
+                };
                 LoginComponent.prototype.validatePassword = function () {
+                    var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
                     if (this.userToRegister.password.length == 0) {
                         return 0;
                     }
                     else if (this.userToRegister.password.length >= 6) {
-                        return 1;
-                    }
-                    else {
-                        return -1;
-                    }
-                };
-                LoginComponent.prototype.validatePasswordAgain = function () {
-                    if (this.userToRegister.passwordAgain.length == 0) {
-                        return 0;
-                    }
-                    else if (this.userToRegister.password.valueOf() == this.userToRegister.passwordAgain.valueOf()) {
-                        return 1;
+                        if (this.hasLowerCase(this.userToRegister.password) && this.hasUpperCase(this.userToRegister.password)) {
+                            if (format.test(this.userToRegister.password)) {
+                                return 1;
+                            }
+                            else {
+                                return -1;
+                            }
+                        }
+                        else {
+                            return -1;
+                        }
                     }
                     else {
                         return -1;

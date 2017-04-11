@@ -15,7 +15,7 @@
 .navbar-brand {
 	position: fixed;
 	width: 100%;
-	font-family: fantasy;
+	font-family: Impact, Charcoal, sans-serif;
 	font-size: 32px !important;
 	font-variant: small-caps;
 	color: white !important;
@@ -25,7 +25,7 @@
 .navbar-brand-1 {
 	position: fixed;
 	width: 100%;
-	font-family: fantasy;
+	font-family: Impact, Charcoal, sans-serif;
 	font-size: 32px !important;
 	font-variant: small-caps;
 	color: white !important;
@@ -66,7 +66,7 @@
 
 .fiyoteam-text{
 	color: #85cea9;
-	font-family: fantasy;
+	font-family: Impact, Charcoal, sans-serif;
 	font-variant: small-caps;
 	font-size: 28px;
 }
@@ -117,7 +117,7 @@
 }
 
 .panel-heading {
-	background-color: #02af59 !important;
+	background-color: #d3c8de !important;
 }
 
 .panel-heading-1 {

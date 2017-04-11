@@ -16,7 +16,6 @@ export class LoginComponent {
 	private userToRegister = new User(null, '', '', '','', '', '', '', '', '');
 
 	private loginError = false;
-	private passwordAgainError = false;
 	private successfulRegistration = false;
 	private unsuccessfulRegistration = false;
 
@@ -49,23 +48,21 @@ export class LoginComponent {
 	}
 
 	register(){
-		if(this.userToRegister.password == this.userToRegister.passwordAgain){
-			this.getAndPostService.postData(this.userToRegister, this.getAndPostService.baseUrl + 'authentication/register').map(res => res.json())
+		
+		this.getAndPostService.postData(this.userToRegister, this.getAndPostService.baseUrl + 'authentication/register').map(res => res.json())
 
-			.subscribe(
-				(res) => {
-					if(res.id >= 0){
-						this.successfulRegistration = true;
-						this.unsuccessfulRegistration = false;
-					}else{
-						this.unsuccessfulRegistration = true;
-						this.successfulRegistration = false;
-					}
+		.subscribe(
+			(res) => {
+				if(res.id >= 0){
+					this.successfulRegistration = true;
+					this.unsuccessfulRegistration = false;
+				}else{
+					this.unsuccessfulRegistration = true;
+					this.successfulRegistration = false;
 				}
-				);
-		}else{
-			this.passwordAgainError = true;
-		}	
+			}
+			);
+
 	}
 
 
@@ -73,25 +70,32 @@ export class LoginComponent {
 		this.loginError = false;
 	}
 
+	hasLowerCase(str) {
+		return str.toUpperCase() != str;
+	}
+
+	hasUpperCase(str) {
+		return str.toLowerCase() != str;
+	}
+
 	validatePassword(){
+		var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
 		if(this.userToRegister.password.length == 0){
 			return 0;
 		}
 		else if(this.userToRegister.password.length >= 6){
-			return 1;
+			if(this.hasLowerCase(this.userToRegister.password) && this.hasUpperCase(this.userToRegister.password)){
+				if(format.test(this.userToRegister.password)){
+					return 1;
+				}else{
+					return -1;
+				}
+			}else{
+				return -1;
+			}
 		}else{
 			return -1;
 		}
-	}
-
-	validatePasswordAgain(){
-		if(this.userToRegister.passwordAgain.length == 0){
-			return 0;
-		}
-		else if(this.userToRegister.password.valueOf() == this.userToRegister.passwordAgain.valueOf()){
-			return 1;
-		}else{
-			return -1;
-		}
-	}
+	}	
 }
