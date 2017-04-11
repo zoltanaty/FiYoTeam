@@ -7,7 +7,7 @@
         <div class="panel-heading panel-heading-1 personal-information-panel">
           <h3 class="panel-title"><i class="fa fa-user"></i> Personal Information</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body panel-body-1">
 
 
           <!-- left column -->
@@ -21,52 +21,32 @@
           <!-- Personal Info form column -->
           <div class="col-md-9 col-sm-6 col-xs-12 personal-info">
 
-            <div *ngIf="showUpdatedUserMessage == true" class="alert alert-info">
-              <a (click)="hideUpdatedMessage()" class="close">×</a> 
-              <i class="fa fa-info"></i>
-              Personal info was <strong>successfully</strong> updated.
-            </div>
-
             <form class="form-horizontal" role="form" data-toggle="validator">
               <div class="form-group">
-                <label class="col-lg-3 control-label personal-data">First name:</label>
+                <label class="col-lg-3 control-label personal-data">Name:</label>
                 <div class="col-lg-8">
-                  <input [(ngModel)]="user.firstName" class="form-control" type="text" readonly="true">
+                  <input value="{{user.firstName}} {{user.lastName}}" class="form-control otheruser-profile-textbox" type="text" readonly="true">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-3 control-label personal-data">Last name:</label>
+                <label class="col-lg-3 control-label personal-data">Location:</label>
                 <div class="col-lg-8">
-                  <input [(ngModel)]="user.lastName" class="form-control" type="text" readonly="true">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-lg-3 control-label personal-data">Country:</label>
-                <div class="col-lg-8">
-                  <input [(ngModel)]="user.country" class="form-control" type="text" readonly="true">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-lg-3 control-label personal-data">City:</label>
-                <div class="col-lg-8">
-                  <input [(ngModel)]="user.city" class="form-control" type="text" readonly="true">
+                  <input value="{{user.city}} ({{user.country}})" class="form-control otheruser-profile-textbox" type="text" readonly="true">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-lg-3 control-label personal-data">Email:</label>
                 <div class="col-lg-8">
-                  <input [(ngModel)]="user.email" class="form-control" type="email" readonly="true">
+                  <input [(ngModel)]="user.email" class="form-control otheruser-profile-textbox" type="text" readonly="true">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-3 control-label personal-data">Short description:</label>
+                <label class="col-lg-3 control-label personal-data">Description:</label>
                 <div class="col-lg-8">
-                  <textarea [(ngModel)]="user.description" class="form-control" rows="3" placeholder="No description provided..." readonly="true"></textarea>
+                  <textarea [(ngModel)]="user.description" class="form-control otheruser-profile-textbox" rows="5" placeholder="No description provided..." readonly="true"></textarea>
                 </div>
               </div>
             </form>

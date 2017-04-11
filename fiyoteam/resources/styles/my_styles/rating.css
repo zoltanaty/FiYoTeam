@@ -1,3 +1,7 @@
+.rating-box {
+    background-color: #fbfbfb !important;
+}
+
 .fa {
     margin-right: 5px;
 }
@@ -21,6 +25,7 @@
 }
 
 .progress-custom {
+    margin-right: 50px;
     margin-bottom: 5px;
     background-color: rgba(25, 25, 25, 0.2);
 }
@@ -29,12 +34,8 @@
     text-align: left;
 }
 
-.rating-desc .col-md-3 {
-    padding-right: 0px;
-}
-
-.sr-only {
-    margin-left: 5px;
-    overflow: visible;
-    clip: auto;
+.dark-star{
+    float: left;
+    padding-left: 50px;
+    padding-right: 10px;
 }
