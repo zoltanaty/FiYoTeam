@@ -66,28 +66,38 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
                 GetAndPostService.prototype.getData = function (url) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
+                    headers.append('authorization', localStorage.getItem("TOKEN"));
+                    headers.append('identifier', localStorage.getItem("USERID"));
                     return this._http.get(url, { headers: headers });
                 };
                 GetAndPostService.prototype.postData = function (object, url) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
+                    headers.append('authorization', localStorage.getItem("TOKEN"));
+                    headers.append('identifier', localStorage.getItem("USERID"));
                     var json = JSON.stringify(object);
                     return this._http.post(url, json, { headers: headers });
                 };
                 GetAndPostService.prototype.putData = function (object, url) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
+                    headers.append('authorization', localStorage.getItem("TOKEN"));
+                    headers.append('identifier', localStorage.getItem("USERID"));
                     var json = JSON.stringify(object);
                     return this._http.put(url, json, { headers: headers });
                 };
                 GetAndPostService.prototype.delete = function (url) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
+                    headers.append('authorization', localStorage.getItem("TOKEN"));
+                    headers.append('identifier', localStorage.getItem("USERID"));
                     return this._http.delete(url, { headers: headers });
                 };
                 GetAndPostService.prototype.getFile = function (url) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'image/jpg');
+                    headers.append('authorization', localStorage.getItem("TOKEN"));
+                    headers.append('identifier', localStorage.getItem("USERID"));
                     this._http.get(url, { headers: headers })
                         .map(function (res) {
                         return new Blob([res], {

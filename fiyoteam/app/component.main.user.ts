@@ -15,7 +15,6 @@ import {OthersProfileComponent} from './component.othersprofile';
 })
 export class MainUserComponent { 
 
-	private userEmail : string;
     private userName : string;
 
     /*
@@ -29,18 +28,18 @@ export class MainUserComponent {
     constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
     ngOnInit(){
-        if (localStorage.getItem("USEREMAIL") === null){
+        if (localStorage.getItem("USERID") === null){
             this._router.navigate(['Login']);
         }
         
-        this.userEmail = localStorage.getItem("USEREMAIL");
         this.userName = localStorage.getItem("USERNAME");
     }
 
     logout() {
-        localStorage.removeItem("USEREMAIL");
         localStorage.removeItem("USERID");
         localStorage.removeItem("USERNAME");
+        localStorage.removeItem("SELECTEDUSER");
+        localStorage.removeItem("TOKEN");
 
         this._router.navigate(['Login']);
     }

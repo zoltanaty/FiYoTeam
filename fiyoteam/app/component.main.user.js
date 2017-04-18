@@ -46,16 +46,16 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
                     this.isUserClicked = false;
                 }
                 MainUserComponent.prototype.ngOnInit = function () {
-                    if (localStorage.getItem("USEREMAIL") === null) {
+                    if (localStorage.getItem("USERID") === null) {
                         this._router.navigate(['Login']);
                     }
-                    this.userEmail = localStorage.getItem("USEREMAIL");
                     this.userName = localStorage.getItem("USERNAME");
                 };
                 MainUserComponent.prototype.logout = function () {
-                    localStorage.removeItem("USEREMAIL");
                     localStorage.removeItem("USERID");
                     localStorage.removeItem("USERNAME");
+                    localStorage.removeItem("SELECTEDUSER");
+                    localStorage.removeItem("TOKEN");
                     this._router.navigate(['Login']);
                 };
                 MainUserComponent.prototype.clickOnUser = function () {

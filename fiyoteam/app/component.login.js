@@ -42,14 +42,14 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         if (res.id >= 0 && res.role == "user") {
                             _this._router.navigate(['MainUser']);
                             localStorage.setItem("USERID", res.id);
-                            localStorage.setItem("USEREMAIL", res.email);
+                            localStorage.setItem("TOKEN", res.token);
                             localStorage.setItem("USERNAME", res.firstName + " " + res.lastName);
                             _this.loginError = false;
                         }
                         else if (res.id >= 0 && res.role == "admin") {
                             _this._router.navigate(['MainAdmin']);
                             localStorage.setItem("USERID", res.id);
-                            localStorage.setItem("USEREMAIL", res.email);
+                            localStorage.setItem("TOKEN", res.token);
                             localStorage.setItem("USERNAME", res.firstName + " " + res.lastName);
                             _this.loginError = false;
                         }

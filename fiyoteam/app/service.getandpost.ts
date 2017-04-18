@@ -27,6 +27,8 @@ export class GetAndPostService{
   getData(url){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('authorization', localStorage.getItem("TOKEN"));
+    headers.append('identifier', localStorage.getItem("USERID"));
 
     return this._http.get(url,{headers: headers});
   }
@@ -34,6 +36,8 @@ export class GetAndPostService{
   postData(object, url){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('authorization', localStorage.getItem("TOKEN"));
+    headers.append('identifier', localStorage.getItem("USERID"));
     var json = JSON.stringify(object);
 
     return this._http.post(url, json, {headers: headers});
@@ -42,6 +46,8 @@ export class GetAndPostService{
   putData(object, url){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('authorization', localStorage.getItem("TOKEN"));
+    headers.append('identifier', localStorage.getItem("USERID"));
     var json = JSON.stringify(object);
 
     return this._http.put(url, json, {headers: headers});
@@ -50,6 +56,8 @@ export class GetAndPostService{
   delete(url){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('authorization', localStorage.getItem("TOKEN"));
+    headers.append('identifier', localStorage.getItem("USERID"));
 
     return this._http.delete(url, {headers: headers});
   }
@@ -57,6 +65,8 @@ export class GetAndPostService{
   getFile(url){
     var headers = new Headers();
     headers.append('Content-Type', 'image/jpg');
+    headers.append('authorization', localStorage.getItem("TOKEN"));
+    headers.append('identifier', localStorage.getItem("USERID"));
 
     this._http.get(url,  { headers: headers })
     .map(res => {

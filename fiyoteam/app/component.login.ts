@@ -29,14 +29,15 @@ export class LoginComponent {
 				if(res.id >= 0 && res.role=="user"){
 					this._router.navigate(['MainUser']); 
 					localStorage.setItem("USERID", res.id);
-					localStorage.setItem("USEREMAIL", res.email);
+					localStorage.setItem("TOKEN", res.token);
 					localStorage.setItem("USERNAME", res.firstName + " " + res.lastName);
+
 					this.loginError = false;
 
 				}else if(res.id >= 0 && res.role=="admin"){
 					this._router.navigate(['MainAdmin']);    
 					localStorage.setItem("USERID", res.id);
-					localStorage.setItem("USEREMAIL", res.email);
+					localStorage.setItem("TOKEN", res.token);
 					localStorage.setItem("USERNAME", res.firstName + " " + res.lastName);
 					this.loginError = false;
 
