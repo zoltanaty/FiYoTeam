@@ -1,6 +1,7 @@
 package com.fiyoteam.rest;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fiyoteam.model.AccountActivation;
+import com.fiyoteam.model.AuthToken;
 import com.fiyoteam.model.User;
 import com.fiyoteam.model.response.AuthenticationResponse;
 import com.fiyoteam.persistence.Entitymanager;
@@ -51,17 +53,31 @@ public class AuthenticationService {
 					response.setFirstName(userList.get(0).getFirstName());
 					response.setLastName(userList.get(0).getLastName());
 					response.setRole(userList.get(0).getRole());
+					
+					/*
+					 * Generating the authentication token
+					 */
+					
+					try {
+						AuthToken token = new AuthToken(UUID.randomUUID().toString(), response.getId());
+						
+						em.getTransaction().begin();
+						em.merge(token);
+						em.flush();
+						em.getTransaction().commit();
+						
+						response.setToken(token.getToken());
+						log.info("Logged in: " + response);
+					} catch (Exception e) {
+						em.getTransaction().rollback();
+						failedToLogin = true;
+					}
 
-					log.info("Logged in: " + response);
 				} else {
 					failedToLogin = true;
-
-					log.debug("Failed to Login: " + user.getEmail());
 				}
 			} catch (CannotPerformOperationException | InvalidHashException e) {
 				failedToLogin = true;
-
-				log.debug("Failed to Login: " + user.getEmail() + " - " + e);
 			}
 
 		} else {
@@ -74,6 +90,8 @@ public class AuthenticationService {
 			response.setId(-1);
 			response.setEmail("none");
 			response.setRole("none");
+			
+			log.debug("Failed to Login: " + user.getEmail());
 		}
 		
 		Entitymanager.closeEntityManager();

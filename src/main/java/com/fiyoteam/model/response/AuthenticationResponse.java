@@ -11,9 +11,21 @@ public class AuthenticationResponse implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String role;
+	private String token;
+
 	
 	public AuthenticationResponse(){
 		
+	}
+
+	public AuthenticationResponse(int id, String email, String firstName, String lastName, String role, String token) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.token = token;
 	}
 
 	public int getId() {
@@ -56,10 +68,18 @@ public class AuthenticationResponse implements Serializable{
 		this.lastName = lastName;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	@Override
 	public String toString() {
 		return "AuthenticationResponse [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", role=" + role + "]";
+				+ lastName + ", role=" + role + ", token=" + token + "]";
 	}
 
 }

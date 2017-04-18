@@ -1,6 +1,5 @@
 package com.fiyoteam.utils;
 
-import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
