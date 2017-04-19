@@ -17,6 +17,7 @@
 
 .project-buttons {
 	padding-top: 50px;
+	padding-right: 0px;
 }
 
 .project-page-header {
@@ -35,6 +36,7 @@
 		width: 47%;
 		display: inline-block;
 		margin-right: 30px;
+		text-align: left;
 	}
 }
 
@@ -43,10 +45,15 @@
 		width: 100%;
 		display: inline-block;
 		margin-right: 30px;
+		text-align: left;
 	}
 }
 
-.page-wrapper-project {
-	padding-right: 20px;
+.im-centered-project {
+	height: 100px;
+	width: 100%;
+	margin: 10px;
+	position: relative;
+	text-align: center;
 }
 

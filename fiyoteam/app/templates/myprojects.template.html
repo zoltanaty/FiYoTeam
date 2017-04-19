@@ -19,9 +19,9 @@
     This is an <strong>alert</strong>. Use this to show important messages to the user.
   </div>
 
-  <div class="im-centered page-wrapper-project">
+  <div class="im-centered-project">
 
-  <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
+    <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
 
       <div class="panel-heading language-box">
         <h3 class="language-box-title project-name">{{project.project.name}}</h3>
@@ -39,7 +39,7 @@
               <h4 class="page-header-custom">Project Description</h4>
 
               <div class="form-group">
-                <textarea [(ngModel)]="project.project.description" class="form-control otheruser-profile-textbox" rows="4" readonly="true" placeholder="Describe your project here..."></textarea>
+                <textarea [(ngModel)]="project.project.description" class="form-control otheruser-profile-textbox" rows="5" readonly="true" placeholder="Describe your project here..."></textarea>
               </div>
 
             </div>
