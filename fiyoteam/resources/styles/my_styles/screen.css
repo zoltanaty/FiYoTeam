@@ -259,7 +259,7 @@
 #page-wrapper {
 	width: 100%;
 	padding: 25px;
-	padding-top: 125px;
+	padding-top: 75px;
 }
 
 .huge {
@@ -269,7 +269,7 @@
 
 @media(min-width:768px) {
 	#page-wrapper {
-		padding-top: 100px;
+		padding-top: 75px;
 		padding-left: 225px;
 		padding-right: 65px;
 		padding-bottom: 35px;
@@ -427,7 +427,6 @@ ul.alert-dropdown {
     width: 40px;
 }
 
-
-
-
-
+.box-panel {
+	box-shadow: 3px 3px 10px rgba(0,0,0,0.15) !important;
+}

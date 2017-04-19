@@ -1,0 +1,30 @@
+.page-header-custom {
+	padding-bottom: 9px;
+	border-bottom: 1px solid #eee;
+}
+
+.progress-project {
+	position: relative;
+	height: 20px;
+	font-size: 12px;
+	margin-bottom: 10px !important;
+}
+
+.project-name {
+	margin-top: 10px !important;
+	margin-bottom: 5px !important;
+}
+
+.project-buttons {
+	padding-top: 50px;
+}
+
+.project-page-header {
+	margin-bottom: 20px !important;
+	border-bottom: 1px solid #eee;
+}
+
+.project-page-header-title {
+	border-bottom: 0px solid #eee !important;
+	margin: 40px 0 0px !important;
+}

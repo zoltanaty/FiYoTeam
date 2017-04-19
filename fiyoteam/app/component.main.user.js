@@ -1,4 +1,4 @@
-System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rxjs/Rx', './component.userprofile', './component.users', './component.othersprofile'], function(exports_1, context_1) {
+System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rxjs/Rx', './component.userprofile', './component.myprojects', './component.users', './component.othersprofile'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, service_getandpost_1, router_1, component_userprofile_1, component_users_1, component_othersprofile_1;
+    var core_1, service_getandpost_1, router_1, component_userprofile_1, component_myprojects_1, component_users_1, component_othersprofile_1;
     var MainUserComponent;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
             function (_1) {},
             function (component_userprofile_1_1) {
                 component_userprofile_1 = component_userprofile_1_1;
+            },
+            function (component_myprojects_1_1) {
+                component_myprojects_1 = component_myprojects_1_1;
             },
             function (component_users_1_1) {
                 component_users_1 = component_users_1_1;
@@ -69,7 +72,7 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
                     core_1.Component({
                         selector: 'main-user',
                         templateUrl: 'app/templates/main.user.template.html',
-                        directives: [component_userprofile_1.UserProfileComponent, component_users_1.UsersComponent, component_othersprofile_1.OthersProfileComponent],
+                        directives: [component_userprofile_1.UserProfileComponent, component_myprojects_1.MyProjectsComponent, component_users_1.UsersComponent, component_othersprofile_1.OthersProfileComponent],
                         providers: [service_getandpost_1.GetAndPostService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, service_getandpost_1.GetAndPostService])
