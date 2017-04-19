@@ -16,6 +16,7 @@
 			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hbm2ddl.auto" value="update" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
 
 			<!-- Configuring Connection Pool -->
 			<property name="hibernate.c3p0.min_size" value="1" />

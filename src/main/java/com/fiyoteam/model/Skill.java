@@ -34,15 +34,19 @@ public class Skill implements Serializable{
 	@OneToMany(mappedBy = "skill")
 	private List<UserSkill> userSkill = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "skill")
+	private List<ProjectSkill> projectSkill = new ArrayList<>();
+	
 	public Skill(){
 		super();
 	}
 
-	public Skill(int id, String skill, List<UserSkill> userSkill) {
+	public Skill(int id, String skill, List<UserSkill> userSkill, List<ProjectSkill> projectSkill) {
 		super();
 		this.id = id;
 		this.skill = skill;
 		this.userSkill = userSkill;
+		this.projectSkill = projectSkill;
 	}
 
 	public int getId() {
@@ -69,9 +73,19 @@ public class Skill implements Serializable{
 	public void setUserSkill(List<UserSkill> userSkill) {
 		this.userSkill = userSkill;
 	}
+	
+	@JsonIgnore 
+	public List<ProjectSkill> getProjectSkill() {
+		return projectSkill;
+	}
+
+	public void setProjectSkill(List<ProjectSkill> projectSkill) {
+		this.projectSkill = projectSkill;
+	}
 
 	@Override
 	public String toString() {
-		return "Skill [id=" + id + ", skill=" + skill + ", userSkill=" + userSkill + "]";
+		return "Skill [id=" + id + ", skill=" + skill + ", userSkill=" + userSkill + ", projectSkill=" + projectSkill
+				+ "]";
 	}
 }

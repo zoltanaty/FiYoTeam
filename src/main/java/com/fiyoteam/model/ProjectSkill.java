@@ -15,38 +15,34 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "user_skill")
+@Table(name = "project_skill")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserSkill implements Serializable{
+public class ProjectSkill implements Serializable{
 
-	private static final long serialVersionUID = -6136261065399502920L;
-
+	private static final long serialVersionUID = -794959948422837062L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "id", unique=true, nullable=false)
 	private int id;
 	
 	@ManyToOne()
-    @JoinColumn(name = "user_id")  
-	private User user;
+    @JoinColumn(name = "project_id")  
+	private Project project;
 	
 	@ManyToOne()
     @JoinColumn(name = "skill_id")  
 	private Skill skill;
-	
-	@Column(name = "level")
-	private int level;
-	
-	public UserSkill(){
+
+	public ProjectSkill() {
 		super();
 	}
 
-	public UserSkill(int id, User user, Skill skill, int level) {
+	public ProjectSkill(int id, Project project, Skill skill) {
 		super();
 		this.id = id;
-		this.user = user;
+		this.project = project;
 		this.skill = skill;
-		this.level = level;
 	}
 
 	public int getId() {
@@ -58,12 +54,12 @@ public class UserSkill implements Serializable{
 	}
 
 	@JsonIgnore 
-	public User getUser() {
-		return user;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	public Skill getSkill() {
@@ -74,17 +70,9 @@ public class UserSkill implements Serializable{
 		this.skill = skill;
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
 	@Override
 	public String toString() {
-		return "UserSkill[id=" + id + ", user=" + user + ", skill=" + skill.getSkill() + ", level=" + level + "]";
+		return "ProjectSkill [id=" + id + ", project=" + project + ", skill=" + skill.getSkill() + "]";
 	}
 	
 }

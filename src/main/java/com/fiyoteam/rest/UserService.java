@@ -27,11 +27,14 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fiyoteam.model.Project;
+import com.fiyoteam.model.ProjectSkill;
 import com.fiyoteam.model.User;
 import com.fiyoteam.model.UserLanguage;
 import com.fiyoteam.model.UserSkill;
 import com.fiyoteam.model.response.UserLanguageResponse;
 import com.fiyoteam.model.response.UserLanguageResponse.Language;
+import com.fiyoteam.model.response.UserProjectResponse;
 import com.fiyoteam.model.response.UserSkillResponse;
 import com.fiyoteam.model.response.UserSkillResponse.Skill;
 import com.fiyoteam.persistence.Entitymanager;
@@ -659,6 +662,60 @@ public class UserService {
 
 				Entitymanager.closeEntityManager();
 				return getUserSkill(headers, id);
+
+			} else {
+				return Response.noContent().build();
+			}
+		} else {
+			return Response.noContent().build();
+		}
+	}
+
+	/*
+	 * Services for projects of the User
+	 */
+
+	@GET
+	@Path("/projects/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id) {
+
+		if (headers.getRequestHeader("authorization") != null && headers.getRequestHeader("identifier") != null) {
+			String token = headers.getRequestHeader("authorization").get(0);
+			Integer identifier = Integer.parseInt(headers.getRequestHeader("identifier").get(0));
+
+			if (Authentication.isTokenAllowed(token, identifier)) {
+
+				EntityManager em = Entitymanager.getEntityManagerInstance();
+				em.clear();
+				User user = em.find(User.class, id);
+
+				if (null != user) {
+					List<UserProjectResponse> userProjectResponse = new ArrayList<>();
+					for (Project project : user.getUserProjects()) {
+						UserProjectResponse uPR = new UserProjectResponse();
+						List<Skill> projectSkillList = new ArrayList<>();
+
+						for (ProjectSkill projectSkill : project.getProjectSkill()) {
+							Skill skill = new Skill();
+							skill.setId(projectSkill.getSkill().getId());
+							skill.setSkill(projectSkill.getSkill().getSkill());
+							projectSkillList.add(skill);
+						}
+
+						uPR.setProject(project);
+						uPR.setSkill(projectSkillList);
+
+						userProjectResponse.add(uPR);
+					}
+
+					log.info("Returned skills of the Project with id: " + id + " - nr: " + userProjectResponse.size());
+
+					Entitymanager.closeEntityManager();
+					return Response.ok(userProjectResponse).build();
+				} else {
+					return Response.noContent().build();
+				}
 
 			} else {
 				return Response.noContent().build();
