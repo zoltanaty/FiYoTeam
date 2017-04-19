@@ -28,3 +28,25 @@
 	border-bottom: 0px solid #eee !important;
 	margin: 40px 0 0px !important;
 }
+
+
+@media (min-width: 1550px) {
+	.project-panel-big {
+		width: 47%;
+		display: inline-block;
+		margin-right: 30px;
+	}
+}
+
+@media (max-width: 1550px) {
+	.project-panel-small {
+		width: 100%;
+		display: inline-block;
+		margin-right: 30px;
+	}
+}
+
+.page-wrapper-project {
+	padding-right: 20px;
+}
+

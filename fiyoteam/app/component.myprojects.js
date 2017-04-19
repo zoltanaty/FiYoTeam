@@ -31,14 +31,14 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 }
                 MyProjectsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
-                    this.getUserSkills();
+                    this.getProjectSkills();
                     this.getAvailableSkills();
                 };
-                MyProjectsComponent.prototype.getUserSkills = function () {
+                MyProjectsComponent.prototype.getProjectSkills = function () {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
-                        _this.skills = res;
+                        _this.projects = res;
                     });
                 };
                 MyProjectsComponent.prototype.getAvailableSkills = function () {
@@ -46,13 +46,6 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/').map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.availableSkills = res;
-                    });
-                };
-                MyProjectsComponent.prototype.updateSkills = function () {
-                    var _this = this;
-                    this.getAndPostService.postData(this.skills, this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(function (res) { return res.json(); })
-                        .subscribe(function (res) {
-                        _this.skills = res;
                     });
                 };
                 MyProjectsComponent.prototype.addNewSkill = function () {

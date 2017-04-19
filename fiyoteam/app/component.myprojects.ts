@@ -15,27 +15,28 @@ import {LanguageTemplateComponent} from './component.languages';
 
 export class MyProjectsComponent { 
 
-	private private userId;
+	private userId;
 	private skills: Skill[];
 	private availableSkills: Skill[];
 	private newSkill = new Skill(null, '', 50);
+	private projects;
 
 	constructor(private getAndPostService: GetAndPostService){}
 
 	ngOnInit(){
 		this.userId = localStorage.getItem("USERID");
 
-		this.getUserSkills();
+		this.getProjectSkills();
 		this.getAvailableSkills();
 
 	}
 
-	getUserSkills(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(res => res.json())
+	getProjectSkills(){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(res => res.json())
 
 		.subscribe(
 			(res) => {
-				this.skills = res;
+				this.projects = res;
 			}
 			);
 	}
@@ -46,17 +47,6 @@ export class MyProjectsComponent {
 		.subscribe(
 			(res) => {
 				this.availableSkills = res;
-			}
-			);
-	}
-
-	updateSkills() {
-
-		this.getAndPostService.postData(this.skills, this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(res => res.json())
-
-		.subscribe(
-			(res) => {
-				this.skills = res;
 			}
 			);
 	}

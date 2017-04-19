@@ -424,9 +424,11 @@ ul.alert-dropdown {
 }
 
 .fa-custom {
-    width: 40px;
+	width: 40px;
 }
 
 .box-panel {
 	box-shadow: 3px 3px 10px rgba(0,0,0,0.15) !important;
 }
+
+
