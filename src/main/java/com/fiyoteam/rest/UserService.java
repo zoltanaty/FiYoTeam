@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,6 +41,7 @@ import com.fiyoteam.model.response.UserSkillResponse;
 import com.fiyoteam.model.response.UserSkillResponse.Skill;
 import com.fiyoteam.persistence.Entitymanager;
 import com.fiyoteam.utils.Authentication;
+import com.fiyoteam.utils.ProjectDateSorter;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 
@@ -692,6 +695,9 @@ public class UserService {
 
 				if (null != user) {
 					List<UserProjectResponse> userProjectResponse = new ArrayList<>();
+
+					Collections.sort(user.getUserProjects(), new ProjectDateSorter());
+
 					for (Project project : user.getUserProjects()) {
 						UserProjectResponse uPR = new UserProjectResponse();
 						List<Skill> projectSkillList = new ArrayList<>();
@@ -704,7 +710,7 @@ public class UserService {
 						}
 
 						uPR.setProject(project);
-						uPR.setSkill(projectSkillList);
+						uPR.setSkills(projectSkillList);
 
 						userProjectResponse.add(uPR);
 					}
@@ -716,6 +722,54 @@ public class UserService {
 				} else {
 					return Response.noContent().build();
 				}
+
+			} else {
+				return Response.noContent().build();
+			}
+		} else {
+			return Response.noContent().build();
+		}
+	}
+
+	@PUT
+	@Path("/projects/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id, Project newProject) {
+
+		if (headers.getRequestHeader("authorization") != null && headers.getRequestHeader("identifier") != null) {
+			String token = headers.getRequestHeader("authorization").get(0);
+			Integer identifier = Integer.parseInt(headers.getRequestHeader("identifier").get(0));
+
+			if (Authentication.isTokenAllowed(token, identifier)) {
+				EntityManager em = Entitymanager.getEntityManagerInstance();
+				
+				User user = em.find(User.class, id);
+
+				newProject.setCreatedAt(new Date());
+				newProject.setUser(user);
+				
+				try {
+					em.getTransaction().begin();
+					em.persist(newProject);
+					em.flush();
+					
+					user.getUserProjects().add(newProject);
+					em.merge(user);
+					em.flush();
+
+					log.info("New Project assigned to the User with id: " + id);
+					
+					em.getTransaction().commit();
+
+					log.info("New Project added to the Database with id: " + newProject.getId());
+				} catch (Exception e) {
+					em.getTransaction().rollback();
+					log.error("Error occured while adding New Project to the Database. " + e);
+				}
+
+				Entitymanager.closeEntityManager();
+				return getUserProject(headers, id);
 
 			} else {
 				return Response.noContent().build();

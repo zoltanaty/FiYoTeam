@@ -1,6 +1,7 @@
 package com.fiyoteam.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class Project implements Serializable{
 	@Column(name = "status")
 	private String status;
 	
+	@Column(name = "created_at")
+	private Date createdAt;
+	
 	@ManyToOne()
     @JoinColumn(name = "user_id") 
 	private User user;
@@ -49,12 +53,13 @@ public class Project implements Serializable{
 		super();
 	}
 
-	public Project(int id, String name, String description, String status, User user,  List<ProjectSkill> projectSkill) {
+	public Project(int id, String name, String description, String status, User user, Date createdAt, List<ProjectSkill> projectSkill) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.status = status;
+		this.createdAt = createdAt;
 		this.user = user;
 		this.projectSkill = projectSkill;
 	}
@@ -91,6 +96,14 @@ public class Project implements Serializable{
 		this.status = status;
 	}
 	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	@JsonIgnore 
 	public List<ProjectSkill> getProjectSkill() {
 		return projectSkill;
@@ -112,7 +125,7 @@ public class Project implements Serializable{
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", status=" + status
-				+ ", user=" + user + ", projectSkill=" + projectSkill + "]";
+				+ ", createdAt=" + createdAt + ", user=" + user + ", projectSkill=" + projectSkill + "]";
 	}
 
 }

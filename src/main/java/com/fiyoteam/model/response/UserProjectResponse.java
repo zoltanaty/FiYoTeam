@@ -11,16 +11,16 @@ public class UserProjectResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Project project;
-	private List<Skill> skill;
+	private List<Skill> skills;
 	
 	public UserProjectResponse() {
 		super();
 	}
 
-	public UserProjectResponse(Project project, List<Skill> skill) {
+	public UserProjectResponse(Project project, List<Skill> skills) {
 		super();
 		this.project = project;
-		this.skill = skill;
+		this.skills = skills;
 	}
 
 	public Project getProject() {
@@ -31,17 +31,17 @@ public class UserProjectResponse implements Serializable{
 		this.project = project;
 	}
 
-	public List<Skill> getSkill() {
-		return skill;
+	public List<Skill> getSkills() {
+		return skills;
 	}
 
-	public void setSkill(List<Skill> skill) {
-		this.skill = skill;
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 
 	@Override
 	public String toString() {
-		return "UserProjectResponse [project=" + project + ", skill=" + skill + "]";
+		return "UserProjectResponse [project=" + project + ", skill=" + skills + "]";
 	}
 	
 }
