@@ -3,9 +3,12 @@ package com.fiyoteam.model.response;
 import java.io.Serializable;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.fiyoteam.model.Project;
 import com.fiyoteam.model.response.UserSkillResponse.Skill;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProjectResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;

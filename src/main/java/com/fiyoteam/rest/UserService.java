@@ -735,8 +735,8 @@ public class UserService {
 	@Path("/projects/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id, Project newProject) {
-
+	public Response addUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id, UserProjectResponse newProject) {
+		
 		if (headers.getRequestHeader("authorization") != null && headers.getRequestHeader("identifier") != null) {
 			String token = headers.getRequestHeader("authorization").get(0);
 			Integer identifier = Integer.parseInt(headers.getRequestHeader("identifier").get(0));
@@ -746,15 +746,44 @@ public class UserService {
 				
 				User user = em.find(User.class, id);
 
-				newProject.setCreatedAt(new Date());
-				newProject.setUser(user);
+				newProject.getProject().setCreatedAt(new Date());
+				newProject.getProject().setUser(user);
 				
 				try {
+					Project _newProject = newProject.getProject();
 					em.getTransaction().begin();
-					em.persist(newProject);
+					em.persist(_newProject);
 					em.flush();
 					
-					user.getUserProjects().add(newProject);
+					user.getUserProjects().add(_newProject);
+					em.merge(user);
+					em.flush();
+					
+					List<ProjectSkill> projectSkill = new ArrayList<>();
+					for(Skill skill :newProject.getSkills()){
+						Query query = em.createQuery("FROM Skill s WHERE s.id != :id");
+						query.setParameter("id", skill.getId());
+						@SuppressWarnings("unchecked")
+						List<com.fiyoteam.model.Skill> resultList = query.getResultList();
+						
+						ProjectSkill projSkill = new ProjectSkill();
+						projSkill.setProject(newProject.getProject());
+						projSkill.setSkill(resultList.get(0));
+						
+						try {
+							em.persist(projSkill);
+							em.flush();
+							projectSkill.add(projSkill);
+							
+							log.info("Skills assigned to New Project to the User with id: " + id);
+						} catch (Exception e) {
+							em.getTransaction().rollback();
+							log.error("Error occured while adding New Project to the Database. " + e);
+						}
+						
+					}
+					
+					_newProject.setProjectSkill(projectSkill);
 					em.merge(user);
 					em.flush();
 
@@ -762,7 +791,7 @@ public class UserService {
 					
 					em.getTransaction().commit();
 
-					log.info("New Project added to the Database with id: " + newProject.getId());
+					log.info("New Project added to the Database with id: " + newProject.getProject().getId());
 				} catch (Exception e) {
 					em.getTransaction().rollback();
 					log.error("Error occured while adding New Project to the Database. " + e);
