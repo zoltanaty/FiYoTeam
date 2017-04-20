@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1;
-    var User, Language, Skill, GetAndPostService;
+    var User, Language, Skill, Project, ProjectResponse, GetAndPostService;
     return {
         setters:[
             function (core_1_1) {
@@ -55,6 +55,24 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
                 return Skill;
             }());
             exports_1("Skill", Skill);
+            Project = (function () {
+                function Project(id, name, description, status) {
+                    this.id = id;
+                    this.name = name;
+                    this.description = description;
+                    this.status = status;
+                }
+                return Project;
+            }());
+            exports_1("Project", Project);
+            ProjectResponse = (function () {
+                function ProjectResponse(project, skills) {
+                    this.project = project;
+                    this.skills = skills;
+                }
+                return ProjectResponse;
+            }());
+            exports_1("ProjectResponse", ProjectResponse);
             GetAndPostService = (function () {
                 function GetAndPostService(_http) {
                     this._http = _http;

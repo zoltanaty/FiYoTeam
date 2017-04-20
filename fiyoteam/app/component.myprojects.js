@@ -28,6 +28,7 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 function MyProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
                     this.newSkill = new service_getandpost_1.Skill(null, '', 50);
+                    this.newProject = new service_getandpost_1.Project(null, '', '', 'active');
                 }
                 MyProjectsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
@@ -37,6 +38,13 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 MyProjectsComponent.prototype.getProjectSkills = function () {
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.projects = res;
+                    });
+                };
+                MyProjectsComponent.prototype.addNewProject = function () {
+                    var _this = this;
+                    this.getAndPostService.putData(this.newProject, this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.projects = res;
                     });

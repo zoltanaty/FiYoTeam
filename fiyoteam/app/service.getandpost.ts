@@ -13,6 +13,14 @@ export class Skill {
   constructor(public id: number, public skill: string, public level: number) { }
 }
 
+export class Project {
+  constructor(public id: number, public name: string, public description: string, public status: string) { }
+}
+
+export class ProjectResponse {
+  constructor(public project: Project, public skills: Skill[]) {}
+}
+
 @Injectable()
 export class GetAndPostService{
 

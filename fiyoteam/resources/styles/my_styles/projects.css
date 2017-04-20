@@ -49,6 +49,20 @@
 	}
 }
 
+@media (max-width: 768px) {
+	.add-project-modal {
+		padding-left: 35px;
+		padding-right: 35px;
+	}
+}
+
+@media (min-width: 768px) {
+	.add-project-modal-description {
+		padding-left: 8px !important;
+		padding-right: 13px !important;
+	}
+}
+
 .im-centered-project {
 	height: 100px;
 	width: 100%;
@@ -57,3 +71,10 @@
 	text-align: center;
 }
 
+.project-panel-active {
+	background-color: #d8e5f0 !important;
+}
+
+.project-panel-closed {
+	background-color: #f3c0c0 !important;
+}

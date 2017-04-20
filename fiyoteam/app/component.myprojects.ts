@@ -1,7 +1,7 @@
 import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
-import {GetAndPostService, Skill} from './service.getandpost'
+import {GetAndPostService, Skill, ProjectResponse, Project} from './service.getandpost'
 import {LanguageTemplateComponent} from './component.languages';
 
 
@@ -19,7 +19,8 @@ export class MyProjectsComponent {
 	private skills: Skill[];
 	private availableSkills: Skill[];
 	private newSkill = new Skill(null, '', 50);
-	private projects;
+	private projects: ProjectResponse[];
+	private newProject = new Project(null, '', '', 'active');
 
 	constructor(private getAndPostService: GetAndPostService){}
 
@@ -33,6 +34,17 @@ export class MyProjectsComponent {
 
 	getProjectSkills(){
 		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.projects = res;
+			}
+			);
+	}
+
+	addNewProject() {
+
+		this.getAndPostService.putData(this.newProject, this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(res => res.json())
 
 		.subscribe(
 			(res) => {
