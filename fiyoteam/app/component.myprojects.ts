@@ -1,7 +1,7 @@
 import {Component, ViewChild } from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
-import {GetAndPostService, Skill, ProjectResponse, Project} from './service.getandpost'
+import {GetAndPostService, Skill, Project, ProjectResponse} from './service.getandpost'
 import {LanguageTemplateComponent} from './component.languages';
 
 
@@ -16,11 +16,10 @@ import {LanguageTemplateComponent} from './component.languages';
 export class MyProjectsComponent { 
 
 	private userId;
-	private skills: Skill[];
 	private availableSkills: Skill[];
-	private newSkill = new Skill(null, '', 50);
 	private projects: ProjectResponse[];
-	private newProject = new Project(null, '', '', 'active');
+	private newProject = new ProjectResponse(new Project(null, '', '', 'active'), new Array<Skill>());
+	private projectToEdit = new Project(null, '', '', '');
 
 	constructor(private getAndPostService: GetAndPostService){}
 
@@ -29,7 +28,6 @@ export class MyProjectsComponent {
 
 		this.getProjectSkills();
 		this.getAvailableSkills();
-
 	}
 
 	getProjectSkills(){
@@ -43,7 +41,6 @@ export class MyProjectsComponent {
 	}
 
 	addNewProject() {
-
 		this.getAndPostService.putData(this.newProject, this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(res => res.json())
 
 		.subscribe(
@@ -51,6 +48,47 @@ export class MyProjectsComponent {
 				this.projects = res;
 			}
 			);
+	}
+
+	addSkillToNewProject(skillId){
+		var existsAlready = false;
+		for (var _i = 0; _i <this.newProject.skills.length; _i++) {
+			var skill = this.availableSkills[_i];
+			if(skill.id == skillId){
+				existsAlready = true;
+				break;
+			}
+		}
+
+		if(existsAlready == false){
+			var selectedSkill = new Skill(null, '', null);
+
+			for (var _i = 0; _i < this.availableSkills.length; _i++) {
+				var skill = this.availableSkills[_i];
+				if(skill.id == skillId){
+					selectedSkill.id = skill.id;
+					selectedSkill.skill = skill.skill;
+					selectedSkill.level = 100;
+				}
+
+			}
+
+			this.newProject.skills.push(selectedSkill);
+		}
+	}
+
+	removeSkillFromNewProject(skill: Skill){
+		let index: number = this.newProject.skills.indexOf(skill);
+		if (index !== -1) {
+			this.newProject.skills.splice(index, 1);
+		}  
+	}
+
+	resetNewProject(){
+		this.newProject = new ProjectResponse(new Project(null, '', '', 'active'), new Array<Skill>());
+		this.newProject.project.name = "";
+		this.newProject.project.description = "";
+		this.newProject.skills = [];
 	}
 
 	getAvailableSkills(){
@@ -63,25 +101,8 @@ export class MyProjectsComponent {
 			);
 	}
 
-	addNewSkill() {
-
-		this.getAndPostService.putData(this.newSkill, this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(res => res.json())
-
-		.subscribe(
-			(res) => {
-				this.skills = res;
-			}
-			);
+	setProjectToEdit(prj: Project){
+		this.projectToEdit = prj;
 	}
 
-	deleteSkill(skill){
-
-		this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/skills/' + this.userId + '/' + skill.id).map(res => res.json())
-
-		.subscribe(
-			(res) => {
-				this.skills = res;
-			}
-			);
-	}
 }

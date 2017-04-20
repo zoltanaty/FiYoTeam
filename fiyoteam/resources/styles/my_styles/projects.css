@@ -54,12 +54,21 @@
 		padding-left: 35px;
 		padding-right: 35px;
 	}
+
+	.project-add-modal-descr {
+		margin-left: 6px !important;
+		margin-right: 6px !important;
+	}
+
+	.project-name-label {
+		padding-left: 0px !important;
+	}
 }
 
 @media (min-width: 768px) {
 	.add-project-modal-description {
-		padding-left: 8px !important;
-		padding-right: 13px !important;
+		padding-left: 0px !important;
+		padding-right: 0px !important;
 	}
 }
 
@@ -77,4 +86,60 @@
 
 .project-panel-closed {
 	background-color: #f3c0c0 !important;
+}
+
+.edit-project-button {
+	padding-top: 17px;
+}
+
+.needed-technologies-select {
+	margin-left: 25px !important;
+	width: 90%;
+}
+
+.needed-tecnologies {
+	margin-bottom: 15px;
+}
+
+.tag-div{
+	float:left; 
+	height:22px; margin-right:5px; 
+	margin-left:1px; margin-bottom:10px;
+	background-color: #8f7aa7; 
+	border-radius: 5px;
+}
+
+.tag {
+	font-size: 14px;
+	padding: .3em .4em .4em;
+	margin: 0 .1em;
+	color: #fff;
+}
+
+.tag a {
+	color: #bbb;
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+.tag a:hover {
+	opacity: 1.0
+}
+
+.tag .remove {
+	vertical-align: bottom;
+	top: 3;
+}
+
+.tag a {
+	margin: 0 0 0 .3em;
+}
+
+.tag a .glyphicon-white {
+	color: #fff;
+	margin-bottom: 4px;
+}
+
+.label{
+	margin-bottom: 15px;
 }

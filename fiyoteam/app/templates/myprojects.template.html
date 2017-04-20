@@ -6,22 +6,15 @@
     </div>
 
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 project-buttons">
-      <button id="btnAddProject" class="pull-right fa fa-plus-square-o fa-2x  button-languages" data-toggle="modal" data-target="#addnewproject"></button>
+      <button (click)="resetNewProject()" id="btnAddProject" class="pull-right fa fa-plus-square-o fa-2x  button-languages" data-toggle="modal" data-target="#addnewproject"></button>
     </div>
-  </div>
-
-  
-
-
-  <div class="alert alert-info alert-dismissable"  style="display: none;">
-    <a class="panel-close close" data-dismiss="alert">×</a> 
-    <i class="fa fa-coffee"></i>
-    This is an <strong>alert</strong>. Use this to show important messages to the user.
   </div>
 
   <div class="im-centered-project">
 
     <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
+
+      <button (click)="setProjectToEdit(project.project)" id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages edit-project-button" data-toggle="modal" data-target="#editproject"></button>
 
       <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
         <h3 class="language-box-title project-name">{{project.project.name}}</h3>
@@ -37,233 +30,136 @@
 
           <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="well well-sm rating-box">
-
-              <button id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages" data-toggle="modal" data-target="#editskill"></button>
-
               <h4 class="page-header-custom">Project Description</h4>
-
               <div class="form-group">
                 <textarea [(ngModel)]="project.project.description" class="form-control otheruser-profile-textbox" rows="5" readonly="true" placeholder="Describe your project here..."></textarea>
               </div>
-
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-6 col-lg-6">
-            <div class="well well-sm rating-box">
-
-              <button id="btnAdd" class="pull-right fa fa-plus-square-o fa-2x  button-languages" data-toggle="modal" data-target="#addnewskill"></button>
-              <button id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages" data-toggle="modal" data-target="#editskill"></button>
-
-              <h4 class="page-header-custom">Needed Technologies</h4>
-
-              <div *ngFor="let skill of project.skills">
-                <div class="progress progress-project">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                  <span class="progress-type"> {{skill.skill}}</span>
-                </div>
+          <div class="col-sm-12 col-md-6 col-lg-6 well well-sm rating-box">
+            <h4 class="page-header-custom">Needed Technologies</h4>
+            <div *ngFor="let skill of project.skills">
+              <div class="progress progress-project">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                <span class="progress-type"> {{skill.skill}}</span>
               </div>
-
             </div>
           </div>
 
         </div>
 
       </div>
-
     </div>
-
   </div>
-
-  <!-- ------------------------------------------------------------------------------------ -->
-  <!--                                   Add New Project Modal                              -->
-  <!-- ------------------------------------------------------------------------------------ -->
+</div>
 
 
-  <div class="modal fade" id="addnewproject" role="dialog">
-    <div class="modal-dialog">
+<!-- ------------------------------------------------------------------------------------ -->
+<!--                                   Add New Project Modal                              -->
+<!-- ------------------------------------------------------------------------------------ -->
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add New Project</h4>
-        </div>
-        <div class="modal-body">
-          <form class="form-horizontal" (ngSubmit)="addNewProject()"  id="addnewproject" data-toggle="validator">
 
+<div class="modal fade" id="addnewproject" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Project</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" (ngSubmit)="addNewProject()"  id="addnewproject" data-toggle="validator">
+
+          <div class="well well-sm">
             <div class="row add-project-modal">
-              <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label personal-data">Name:</label>
+              <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label personal-data project-name-label">Name:</label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="form-group">
-                  <input [(ngModel)]="newProject.name" id="projectname" class="form-control" type="text" required>
+                  <input [(ngModel)]="newProject.project.name" id="projectname" class="form-control" type="text" required>
                 </div>
               </div>
             </div>
 
-            <div class="row add-project-modal">
+            <div class="form-group project-add-modal-descr">
+              <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label personal-data">Description:</label>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 add-project-modal-description">
+                <textarea [(ngModel)]="newProject.project.description" id="projectdescription" class="form-control" rows="5" placeholder="Describe your project here..." required></textarea>
+              </div>
+            </div>
+
+            <div class="form-group needed-technologies-select">
+              <label class="control-label personal-data" for="skill">Needed Technologies:</label>
+              <select class="form-control needed-tecnologies" #skill (change)="addSkillToNewProject(skill.value)">
+                <option value="" selected disabled>Add the needed technologies..</option>
+                <option *ngFor="let availableSkill of availableSkills" value={{availableSkill.id}}>{{availableSkill.skill}}</option>
+              </select>
+
+              <div *ngFor="let skill of newProject.skills" style="float:left; height:22px; margin-right:5px; margin-left:1px; margin-bottom:10px; background-color: #8f7aa7; border-radius: 5px;">
+                <span class="tag label">
+                  <span>{{skill.skill}}</span>
+                  <a><i (click)="removeSkillFromNewProject(skill)" class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a> 
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Add Project</button>
+            <button (click)="resetNewProject()" type="button" class="btn btn-default" data-dismiss="modal">Finish</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------ -->
+<!--                                   EditProject Modal                              -->
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+<div class="modal fade" id="editproject" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Project</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" (ngSubmit)="addNewProject()"  id="projectedit" data-toggle="validator">
+
+          <div class="row add-project-modal">
+            <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label personal-data">Name:</label>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
               <div class="form-group">
-                <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label personal-data">Description:</label>
-                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 add-project-modal-description">
-                  <textarea [(ngModel)]="newProject.description" id="projectdescription" class="form-control" rows="5" placeholder="Describe your project here..." required></textarea>
-                </div>
+                <input [(ngModel)]="projectToEdit.name" id="projectname" class="form-control" type="text" required>
               </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Add Project</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Finish</button>
-            </div>
-
-          </form>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-<!-- ------------------------------------------------------------------------------------ -->
-<!--                                  Skill Options Modal                              -->
-<!-- ------------------------------------------------------------------------------------ -->
-
-<div class="modal fade" id="editskill" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Skills</h4>
-      </div>
-      <div class="modal-body">
-
-        <!--- ********************************************************************** -->
-
-
-
-        <div class="container">
-
-          <div class="row">
-            <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
-              <h4>Skill:</h4>
-            </div>
-
-            <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
-              <h4>Knowledge Level:</h4>
             </div>
           </div>
 
-          <div *ngFor="let skill of skills">
-            <br>
-
-            <div class="row">
-
-              <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
-                <input type="text" value={{skill.skill}} class="form-control" name="skillname" id="skillname" readonly/> 
+          <div class="row add-project-modal">
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label personal-data">Description:</label>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 add-project-modal-description">
+                <textarea [(ngModel)]="projectToEdit.description" id="projectdescription" class="form-control" rows="5" placeholder="Describe your project here..." required></textarea>
               </div>
-
-              <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
-                <div class="row">
-                  <div class="range range-primary">
-                    <div class="col-xs-6 col-sm-5 col-md-5 col-lg-3">
-                      <input [(ngModel)]="skill.level" type="range" name="range" min="0" max="100" step="5" value="{{skill.level}}" onchange="rangePrimary.value=value">
-                    </div>
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                      <output class="language-level-text" value="{{skill.level}}" id="rangePrimary"></output>
-                    </div>
-                  </div>
-
-                  <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                    <button id="btnRemove" (click)="deleteSkill(skill)" class="fa fa-times fa-2x  button-languages"></button> 
-                  </div>
-                </div>
-              </div>
-
-              <br>
             </div>
-          </div> 
+          </div>
 
-        </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Finish</button>
+          </div>
 
-        <!--- ********************************************************************** -->
-
-      </div>
-      <div class="modal-footer">
-        <button (click)="updateSkills()" type="button" class="btn btn-primary" data-dismiss="modal" >Save Changes</button>
-        <button (click)="getUserSkills()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </form>
       </div>
     </div>
 
   </div>
-</div>
-
-
-<!-- ------------------------------------------------------------------------------------ -->
-<!--                                   Add Skill Modal                                 -->
-<!-- ------------------------------------------------------------------------------------ -->
-
-
-<div class="modal fade" id="addnewskill" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add New Skill</h4>
-      </div>
-      <div class="modal-body">
-
-        <div class="container">
-
-         <div class="row">
-          <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
-            <h4>Skill:</h4>
-          </div>
-
-          <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
-            <h4>Knowledge Level:</h4>
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-
-          <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
-            <select class="form-control" [(ngModel)]="newSkill.id">
-              <option *ngFor="let availableSkill of availableSkills" value= {{availableSkill.id}}>{{availableSkill.skill}}</option>
-            </select>
-          </div>
-
-          <div class="col-xs-7 col-sm-8 col-md-6 col-lg-6">
-            <div class="row">
-              <div class="range range-primary">
-                <div class="col-xs-8 col-sm-6 col-md-6 col-lg-5">
-                  <input [(ngModel)]="newSkill.level" type="range" name="range" min="0" max="100" step="5" value="{{newSkill.level}}" onchange="rangePrimary.value=value">
-                </div>
-                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                  <output class="language-level-text" value="{{newSkill.level}}" id="rangePrimary"></output>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <br>
-
-      <div class="modal-footer">
-        <button (click)="addNewSkill()" type="button" class="btn btn-primary" data-dismiss="modal" >Add Skill</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 </div>

@@ -24,7 +24,7 @@ export class ProjectResponse {
 @Injectable()
 export class GetAndPostService{
 
-  //private ipv4 = '192.168.96.55';
+  //private ipv4 = 'localhost';
   //public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/'
 
   private ipv4 = 'https://fiyoteam-backend.herokuapp.com';

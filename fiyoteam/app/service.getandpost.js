@@ -76,7 +76,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             GetAndPostService = (function () {
                 function GetAndPostService(_http) {
                     this._http = _http;
-                    //private ipv4 = '192.168.96.55';
+                    //private ipv4 = 'localhost';
                     //public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/'
                     this.ipv4 = 'https://fiyoteam-backend.herokuapp.com';
                     this.baseUrl = this.ipv4 + '/rest/';

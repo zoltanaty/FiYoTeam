@@ -27,8 +27,8 @@ System.register(['angular2/core', './service.getandpost', './component.languages
             MyProjectsComponent = (function () {
                 function MyProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
-                    this.newSkill = new service_getandpost_1.Skill(null, '', 50);
-                    this.newProject = new service_getandpost_1.Project(null, '', '', 'active');
+                    this.newProject = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', 'active'), new Array());
+                    this.projectToEdit = new service_getandpost_1.Project(null, '', '', '');
                 }
                 MyProjectsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
@@ -49,6 +49,40 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                         _this.projects = res;
                     });
                 };
+                MyProjectsComponent.prototype.addSkillToNewProject = function (skillId) {
+                    var existsAlready = false;
+                    for (var _i = 0; _i < this.newProject.skills.length; _i++) {
+                        var skill = this.availableSkills[_i];
+                        if (skill.id == skillId) {
+                            existsAlready = true;
+                            break;
+                        }
+                    }
+                    if (existsAlready == false) {
+                        var selectedSkill = new service_getandpost_1.Skill(null, '', null);
+                        for (var _i = 0; _i < this.availableSkills.length; _i++) {
+                            var skill = this.availableSkills[_i];
+                            if (skill.id == skillId) {
+                                selectedSkill.id = skill.id;
+                                selectedSkill.skill = skill.skill;
+                                selectedSkill.level = 100;
+                            }
+                        }
+                        this.newProject.skills.push(selectedSkill);
+                    }
+                };
+                MyProjectsComponent.prototype.removeSkillFromNewProject = function (skill) {
+                    var index = this.newProject.skills.indexOf(skill);
+                    if (index !== -1) {
+                        this.newProject.skills.splice(index, 1);
+                    }
+                };
+                MyProjectsComponent.prototype.resetNewProject = function () {
+                    this.newProject = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', 'active'), new Array());
+                    this.newProject.project.name = "";
+                    this.newProject.project.description = "";
+                    this.newProject.skills = [];
+                };
                 MyProjectsComponent.prototype.getAvailableSkills = function () {
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/').map(function (res) { return res.json(); })
@@ -56,19 +90,8 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                         _this.availableSkills = res;
                     });
                 };
-                MyProjectsComponent.prototype.addNewSkill = function () {
-                    var _this = this;
-                    this.getAndPostService.putData(this.newSkill, this.getAndPostService.baseUrl + 'user/skills/' + this.userId).map(function (res) { return res.json(); })
-                        .subscribe(function (res) {
-                        _this.skills = res;
-                    });
-                };
-                MyProjectsComponent.prototype.deleteSkill = function (skill) {
-                    var _this = this;
-                    this.getAndPostService.delete(this.getAndPostService.baseUrl + 'user/skills/' + this.userId + '/' + skill.id).map(function (res) { return res.json(); })
-                        .subscribe(function (res) {
-                        _this.skills = res;
-                    });
+                MyProjectsComponent.prototype.setProjectToEdit = function (prj) {
+                    this.projectToEdit = prj;
                 };
                 MyProjectsComponent = __decorate([
                     core_1.Component({
