@@ -11,8 +11,8 @@
 }
 
 .project-name {
-	margin-top: 10px !important;
-	margin-bottom: 5px !important;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
 }
 
 .project-buttons {
@@ -89,7 +89,7 @@
 }
 
 .edit-project-button {
-	padding-top: 17px;
+	padding-top: 10px;
 }
 
 .needed-technologies-select {
