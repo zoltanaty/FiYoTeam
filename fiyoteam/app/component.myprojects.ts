@@ -19,7 +19,8 @@ export class MyProjectsComponent {
 	private availableSkills: Skill[];
 	private projects: ProjectResponse[];
 	private newProject = new ProjectResponse(new Project(null, '', '', 'active'), new Array<Skill>());
-	private projectToEdit = new Project(null, '', '', '');
+	private projectToEdit = new ProjectResponse(new Project(null, '', '', ''), new Array<Skill>());
+	private projectToEditCopy = new ProjectResponse(new Project(null, '', '', ''), new Array<Skill>());
 
 	constructor(private getAndPostService: GetAndPostService){}
 
@@ -50,6 +51,16 @@ export class MyProjectsComponent {
 			);
 	}
 
+	editProject() {
+		this.getAndPostService.postData(this.projectToEdit, this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.projects = res;
+			}
+			);
+	}
+
 	addSkillToNewProject(skillId){
 		var existsAlready = false;
 		for (var _i = 0; _i <this.newProject.skills.length; _i++) {
@@ -66,6 +77,7 @@ export class MyProjectsComponent {
 			for (var _i = 0; _i < this.availableSkills.length; _i++) {
 				var skill = this.availableSkills[_i];
 				if(skill.id == skillId){
+
 					selectedSkill.id = skill.id;
 					selectedSkill.skill = skill.skill;
 					selectedSkill.level = 100;
@@ -77,10 +89,46 @@ export class MyProjectsComponent {
 		}
 	}
 
+	addSkillToEditedProject(skillId){
+		var existsAlready = false;
+		for (var _i = 0; _i <this.projectToEdit.skills.length; _i++) {
+			var skill = this.availableSkills[_i];
+			if(skill.id == skillId){
+				existsAlready = true;
+				break;
+			}
+		}
+
+		console.log(existsAlready);
+
+		if(existsAlready == false){
+			var selectedSkill = new Skill(null, '', null);
+
+			for (var _i = 0; _i < this.availableSkills.length; _i++) {
+				var skill = this.availableSkills[_i];
+				if(skill.id == skillId){
+					selectedSkill.id = skill.id;
+					selectedSkill.skill = skill.skill;
+					selectedSkill.level = 100;
+				}
+
+			}
+
+			this.projectToEdit.skills.push(selectedSkill);
+		}
+	}
+
 	removeSkillFromNewProject(skill: Skill){
 		let index: number = this.newProject.skills.indexOf(skill);
 		if (index !== -1) {
 			this.newProject.skills.splice(index, 1);
+		}  
+	}
+
+	removeSkillFromEditedProject(skill: Skill){
+		let index: number = this.projectToEdit.skills.indexOf(skill);
+		if (index !== -1) {
+			this.projectToEdit.skills.splice(index, 1);
 		}  
 	}
 
@@ -91,6 +139,15 @@ export class MyProjectsComponent {
 		this.newProject.skills = [];
 	}
 
+	resetEditedProject(){
+		this.projectToEdit = this.projectToEditCopy;
+	}
+
+	setProjectToEdit(prj: ProjectResponse){
+		this.projectToEdit = JSON.parse(JSON.stringify(prj));
+		this.projectToEditCopy = JSON.parse(JSON.stringify(prj));
+	}
+
 	getAvailableSkills(){
 		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/').map(res => res.json())
 
@@ -99,10 +156,6 @@ export class MyProjectsComponent {
 				this.availableSkills = res;
 			}
 			);
-	}
-
-	setProjectToEdit(prj: Project){
-		this.projectToEdit = prj;
 	}
 
 }

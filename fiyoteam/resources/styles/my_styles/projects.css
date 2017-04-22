@@ -92,6 +92,10 @@
 	padding-top: 10px;
 }
 
+.project-name-label {
+	padding-right: 57px !important;
+}
+
 .needed-technologies-select {
 	margin-left: 25px !important;
 	width: 90%;
@@ -111,7 +115,7 @@
 
 .tag {
 	font-size: 14px;
-	padding: .3em .4em .4em;
+	padding-right: 0px;
 	margin: 0 .1em;
 	color: #fff;
 }
@@ -137,6 +141,7 @@
 
 .tag a .glyphicon-white {
 	color: #fff;
+	margin-top: 3px;
 	margin-bottom: 4px;
 }
 

@@ -28,7 +28,8 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 function MyProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
                     this.newProject = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', 'active'), new Array());
-                    this.projectToEdit = new service_getandpost_1.Project(null, '', '', '');
+                    this.projectToEdit = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', ''), new Array());
+                    this.projectToEditCopy = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', ''), new Array());
                 }
                 MyProjectsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
@@ -45,6 +46,13 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 MyProjectsComponent.prototype.addNewProject = function () {
                     var _this = this;
                     this.getAndPostService.putData(this.newProject, this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.projects = res;
+                    });
+                };
+                MyProjectsComponent.prototype.editProject = function () {
+                    var _this = this;
+                    this.getAndPostService.postData(this.projectToEdit, this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.projects = res;
                     });
@@ -71,10 +79,39 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                         this.newProject.skills.push(selectedSkill);
                     }
                 };
+                MyProjectsComponent.prototype.addSkillToEditedProject = function (skillId) {
+                    var existsAlready = false;
+                    for (var _i = 0; _i < this.projectToEdit.skills.length; _i++) {
+                        var skill = this.availableSkills[_i];
+                        if (skill.id == skillId) {
+                            existsAlready = true;
+                            break;
+                        }
+                    }
+                    console.log(existsAlready);
+                    if (existsAlready == false) {
+                        var selectedSkill = new service_getandpost_1.Skill(null, '', null);
+                        for (var _i = 0; _i < this.availableSkills.length; _i++) {
+                            var skill = this.availableSkills[_i];
+                            if (skill.id == skillId) {
+                                selectedSkill.id = skill.id;
+                                selectedSkill.skill = skill.skill;
+                                selectedSkill.level = 100;
+                            }
+                        }
+                        this.projectToEdit.skills.push(selectedSkill);
+                    }
+                };
                 MyProjectsComponent.prototype.removeSkillFromNewProject = function (skill) {
                     var index = this.newProject.skills.indexOf(skill);
                     if (index !== -1) {
                         this.newProject.skills.splice(index, 1);
+                    }
+                };
+                MyProjectsComponent.prototype.removeSkillFromEditedProject = function (skill) {
+                    var index = this.projectToEdit.skills.indexOf(skill);
+                    if (index !== -1) {
+                        this.projectToEdit.skills.splice(index, 1);
                     }
                 };
                 MyProjectsComponent.prototype.resetNewProject = function () {
@@ -83,15 +120,19 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                     this.newProject.project.description = "";
                     this.newProject.skills = [];
                 };
+                MyProjectsComponent.prototype.resetEditedProject = function () {
+                    this.projectToEdit = this.projectToEditCopy;
+                };
+                MyProjectsComponent.prototype.setProjectToEdit = function (prj) {
+                    this.projectToEdit = JSON.parse(JSON.stringify(prj));
+                    this.projectToEditCopy = JSON.parse(JSON.stringify(prj));
+                };
                 MyProjectsComponent.prototype.getAvailableSkills = function () {
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/').map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.availableSkills = res;
                     });
-                };
-                MyProjectsComponent.prototype.setProjectToEdit = function (prj) {
-                    this.projectToEdit = prj;
                 };
                 MyProjectsComponent = __decorate([
                     core_1.Component({
