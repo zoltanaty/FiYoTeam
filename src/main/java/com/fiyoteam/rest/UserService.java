@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -715,7 +716,7 @@ public class UserService {
 						userProjectResponse.add(uPR);
 					}
 
-					log.info("Returned skills of the Project with id: " + id + " - nr: " + userProjectResponse.size());
+					log.info("Returned Projects of the User with id: " + id + " - nr: " + userProjectResponse.size());
 
 					Entitymanager.closeEntityManager();
 					return Response.ok(userProjectResponse).build();
@@ -735,66 +736,128 @@ public class UserService {
 	@Path("/projects/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id, UserProjectResponse newProject) {
-		
+	public Response addUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id,
+			UserProjectResponse newProject) {
+
+		log.info(newProject.toString());
+
 		if (headers.getRequestHeader("authorization") != null && headers.getRequestHeader("identifier") != null) {
 			String token = headers.getRequestHeader("authorization").get(0);
 			Integer identifier = Integer.parseInt(headers.getRequestHeader("identifier").get(0));
 
 			if (Authentication.isTokenAllowed(token, identifier)) {
 				EntityManager em = Entitymanager.getEntityManagerInstance();
-				
+				em.clear();
 				User user = em.find(User.class, id);
 
 				newProject.getProject().setCreatedAt(new Date());
 				newProject.getProject().setUser(user);
-				
+
 				try {
 					Project _newProject = newProject.getProject();
 					em.getTransaction().begin();
 					em.persist(_newProject);
 					em.flush();
-					
-					user.getUserProjects().add(_newProject);
-					em.merge(user);
-					em.flush();
-					
+
 					List<ProjectSkill> projectSkill = new ArrayList<>();
-					for(Skill skill :newProject.getSkills()){
-						Query query = em.createQuery("FROM Skill s WHERE s.id != :id");
-						query.setParameter("id", skill.getId());
-						@SuppressWarnings("unchecked")
-						List<com.fiyoteam.model.Skill> resultList = query.getResultList();
-						
+					for (Skill skill : newProject.getSkills()) {
 						ProjectSkill projSkill = new ProjectSkill();
 						projSkill.setProject(newProject.getProject());
-						projSkill.setSkill(resultList.get(0));
-						
+						projSkill.setSkill(new com.fiyoteam.model.Skill(skill.getId(), skill.getSkill()));
+
 						try {
 							em.persist(projSkill);
 							em.flush();
 							projectSkill.add(projSkill);
-							
+
 							log.info("Skills assigned to New Project to the User with id: " + id);
 						} catch (Exception e) {
 							em.getTransaction().rollback();
 							log.error("Error occured while adding New Project to the Database. " + e);
 						}
-						
-					}
-					
-					_newProject.setProjectSkill(projectSkill);
-					em.merge(user);
-					em.flush();
 
-					log.info("New Project assigned to the User with id: " + id);
-					
+					}
 					em.getTransaction().commit();
 
 					log.info("New Project added to the Database with id: " + newProject.getProject().getId());
 				} catch (Exception e) {
 					em.getTransaction().rollback();
 					log.error("Error occured while adding New Project to the Database. " + e);
+				}
+
+				Entitymanager.closeEntityManager();
+				return getUserProject(headers, id);
+
+			} else {
+				return Response.noContent().build();
+			}
+		} else {
+			return Response.noContent().build();
+		}
+
+	}
+
+	@POST
+	@Path("/projects/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response editUserProject(@Context HttpHeaders headers, @PathParam("id") Integer id,
+			UserProjectResponse projectToEdit) {
+
+		if (headers.getRequestHeader("authorization") != null && headers.getRequestHeader("identifier") != null) {
+			String token = headers.getRequestHeader("authorization").get(0);
+			Integer identifier = Integer.parseInt(headers.getRequestHeader("identifier").get(0));
+
+			if (Authentication.isTokenAllowed(token, identifier)) {
+				EntityManager em = Entitymanager.getEntityManagerInstance();
+				em.clear();
+				User user = em.find(User.class, id);
+				projectToEdit.getProject().setUser(user);
+
+				try {
+					Project _projectToEdit = projectToEdit.getProject();
+					_projectToEdit.setProjectSkill(new ArrayList<ProjectSkill>());
+
+					Iterator<Project> itr = user.getUserProjects().iterator();
+					while (itr.hasNext()) {
+						Project prj = itr.next();
+						if (prj.getId() == _projectToEdit.getId()) {
+							for (com.fiyoteam.model.ProjectSkill ps : prj.getProjectSkill()) {
+								em.getTransaction().begin();
+								Query query = em.createQuery("DELETE FROM ProjectSkill ps WHERE project = :project and skill = :skill");
+								query.setParameter("project", projectToEdit.getProject());
+								query.setParameter("skill", ps.getSkill());
+								query.executeUpdate();
+								em.getTransaction().commit();
+							}
+
+							prj.setProjectSkill(new ArrayList<ProjectSkill>());
+							break;
+						}
+					}
+
+					em.getTransaction().begin();
+					List<ProjectSkill> projectSkill = new ArrayList<>();
+					for (Skill skill : projectToEdit.getSkills()) {
+						ProjectSkill projSkill = new ProjectSkill();
+						projSkill.setProject(projectToEdit.getProject());
+						projSkill.setSkill(new com.fiyoteam.model.Skill(skill.getId(), skill.getSkill()));
+
+						try {
+							em.persist(projSkill);
+							em.flush();
+							projectSkill.add(projSkill);
+						} catch (Exception e) {
+							em.getTransaction().rollback();
+							log.error("Error occured while Editing Project. " + e);
+						}
+					}
+					em.getTransaction().commit();
+
+					log.info("Edited Project added to the Database with id: " + projectToEdit.getProject().getId());
+				} catch (Exception e) {
+					em.getTransaction().rollback();
+					log.error("Error occured while Editing Project. " + e);
 				}
 
 				Entitymanager.closeEntityManager();

@@ -48,6 +48,12 @@ public class Skill implements Serializable{
 		this.userSkill = userSkill;
 		this.projectSkill = projectSkill;
 	}
+	
+	public Skill(int id, String skill) {
+		super();
+		this.id = id;
+		this.skill = skill;
+	}
 
 	public int getId() {
 		return id;
