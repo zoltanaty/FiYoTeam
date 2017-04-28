@@ -116,6 +116,14 @@
 	color: red !important;
 }
 
+.well:hover {
+	box-shadow: 3px 3px 15px rgba(0,0,0,0.40) !important;
+}
+
+.panel:hover {
+	box-shadow: 3px 3px 15px rgba(0,0,0,0.40) !important;
+}
+
 .panel-heading {
 	background-color: #d3c8de !important;
 }

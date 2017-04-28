@@ -14,6 +14,10 @@
    margin-bottom: 30px;
 }
 
+.card-container:hover {
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.40) !important;
+}
+
 /* flip the pane when hovered */
 .card-container:not(.manual-flip):hover .card,
 .card-container.hover.manual-flip .card{

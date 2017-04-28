@@ -57,6 +57,29 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                         _this.projects = res;
                     });
                 };
+                MyProjectsComponent.prototype.setProjectToEditStatus = function () {
+                    this.projectToEditStatus = !this.projectToEditStatus;
+                    if (this.projectToEditStatus == true) {
+                        this.projectToEdit.project.status = 'active';
+                    }
+                    else {
+                        this.projectToEdit.project.status = 'closed';
+                    }
+                    console.log("STATUS: " + this.projectToEdit.project.status);
+                };
+                MyProjectsComponent.prototype.loadProjectToEditStatus = function () {
+                    if (this.projectToEdit.project.status == 'active') {
+                        this.projectToEditStatus = true;
+                    }
+                    else if (this.projectToEdit.project.status == 'closed') {
+                        this.projectToEditStatus = false;
+                    }
+                    return this.projectToEditStatus;
+                };
+                MyProjectsComponent.prototype.projectStatusChanged = function () {
+                    this.setProjectToEditStatus();
+                    return this.loadProjectToEditStatus();
+                };
                 MyProjectsComponent.prototype.addSkillToNewProject = function (skillId) {
                     var existsAlready = false;
                     for (var _i = 0; _i < this.newProject.skills.length; _i++) {

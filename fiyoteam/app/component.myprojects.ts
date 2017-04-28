@@ -21,6 +21,7 @@ export class MyProjectsComponent {
 	private newProject = new ProjectResponse(new Project(null, '', '', 'active'), new Array<Skill>());
 	private projectToEdit = new ProjectResponse(new Project(null, '', '', ''), new Array<Skill>());
 	private projectToEditCopy = new ProjectResponse(new Project(null, '', '', ''), new Array<Skill>());
+	private projectToEditStatus: boolean;
 
 	constructor(private getAndPostService: GetAndPostService){}
 
@@ -59,6 +60,33 @@ export class MyProjectsComponent {
 				this.projects = res;
 			}
 			);
+	}
+
+	setProjectToEditStatus(){
+		this.projectToEditStatus = !this.projectToEditStatus;
+
+		if(this.projectToEditStatus == true){
+			this.projectToEdit.project.status = 'active';
+		}else{
+			this.projectToEdit.project.status = 'closed';
+		}
+
+		console.log("STATUS: " + this.projectToEdit.project.status);
+	}
+
+	loadProjectToEditStatus(){
+		if(this.projectToEdit.project.status == 'active'){
+			this.projectToEditStatus = true;
+		}else if(this.projectToEdit.project.status == 'closed'){
+			this.projectToEditStatus = false;
+		}
+
+		return this.projectToEditStatus;
+	}
+
+	projectStatusChanged(){
+		this.setProjectToEditStatus();
+		return this.loadProjectToEditStatus();
 	}
 
 	addSkillToNewProject(skillId){
