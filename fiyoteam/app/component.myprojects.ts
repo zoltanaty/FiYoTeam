@@ -70,8 +70,6 @@ export class MyProjectsComponent {
 		}else{
 			this.projectToEdit.project.status = 'closed';
 		}
-
-		console.log("STATUS: " + this.projectToEdit.project.status);
 	}
 
 	loadProjectToEditStatus(){

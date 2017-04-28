@@ -65,7 +65,6 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                     else {
                         this.projectToEdit.project.status = 'closed';
                     }
-                    console.log("STATUS: " + this.projectToEdit.project.status);
                 };
                 MyProjectsComponent.prototype.loadProjectToEditStatus = function () {
                     if (this.projectToEdit.project.status == 'active') {
