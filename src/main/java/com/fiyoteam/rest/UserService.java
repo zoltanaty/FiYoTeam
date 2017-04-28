@@ -816,6 +816,17 @@ public class UserService {
 
 				try {
 					Project _projectToEdit = projectToEdit.getProject();
+					
+					try {
+						em.getTransaction().begin();
+						em.merge(_projectToEdit);
+						em.flush();
+						em.getTransaction().commit();
+					} catch (Exception e) {
+						em.getTransaction().rollback();
+						log.error("Error occured while Editing Project. " + e);
+					}
+					
 					_projectToEdit.setProjectSkill(new ArrayList<ProjectSkill>());
 
 					Iterator<Project> itr = user.getUserProjects().iterator();
