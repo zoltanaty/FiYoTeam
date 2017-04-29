@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost', './component.otherslanguages', './component.othersskills', './component.rating'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost', './component.otherslanguages', './component.othersskills', './component.othersprojects', './component.rating'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, service_getandpost_1, component_otherslanguages_1, component_othersskills_1, component_rating_1;
+    var core_1, router_1, Rx_1, service_getandpost_1, component_otherslanguages_1, component_othersskills_1, component_othersprojects_1, component_rating_1;
     var OthersProfileComponent;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
             },
             function (component_othersskills_1_1) {
                 component_othersskills_1 = component_othersskills_1_1;
+            },
+            function (component_othersprojects_1_1) {
+                component_othersprojects_1 = component_othersprojects_1_1;
             },
             function (component_rating_1_1) {
                 component_rating_1 = component_rating_1_1;
@@ -79,7 +82,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     core_1.Component({
                         selector: 'othersprofile',
                         templateUrl: 'app/templates/othersprofile.template.html',
-                        directives: [component_otherslanguages_1.OthersLanguageTemplateComponent, component_othersskills_1.OthersSkillTemplateComponent, component_rating_1.RatingComponent],
+                        directives: [component_otherslanguages_1.OthersLanguageTemplateComponent, component_othersskills_1.OthersSkillTemplateComponent, component_othersprojects_1.OthersProjectsComponent, component_rating_1.RatingComponent],
                         providers: [service_getandpost_1.GetAndPostService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, service_getandpost_1.GetAndPostService])

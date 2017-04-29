@@ -44,10 +44,10 @@
 					<a><i class="fa fa-user fa-lg fa-custom "></i> My Profile</a>
 				</li>
 				<li [ngClass]="{'active': activeMenu==2 }" (click)="switchMenu(2)">
-					<a><i class="fa fa-cubes fa-lg fa-custom "></i> My Projects</a>
+					<a><i class="fa fa-comment-o fa-lg fa-custom "></i> Messages</a>
 				</li>
 				<li [ngClass]="{'active': activeMenu==3 }" (click)="switchMenu(3)">
-					<a><i class="fa fa-comment-o fa-lg fa-custom "></i> Messages</a>
+					<a><i class="fa fa-cubes fa-lg fa-custom "></i> Projects</a>
 				</li>
 				<li [ngClass]="{'active': activeMenu==4 }" (click)="switchMenu(4)">
 					<a><i class="fa fa-users fa-lg fa-custom "></i> Developers</a>
@@ -61,7 +61,6 @@
 	</nav>
 
 	<userprofile *ngIf="activeMenu==1"></userprofile>
-	<myprojects *ngIf="activeMenu==2"></myprojects>
 	<users *ngIf="activeMenu==4 && selectedUser == -1" (onChange)="selectedUser = $event.value"></users>
 	<othersprofile  *ngIf="activeMenu==4 && selectedUser != -1"></othersprofile>
 

@@ -4,12 +4,13 @@ import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 import {OthersLanguageTemplateComponent} from './component.otherslanguages';
 import {OthersSkillTemplateComponent} from './component.othersskills';
+import {OthersProjectsComponent} from './component.othersprojects';
 import {RatingComponent} from './component.rating'
 
 @Component({
 	selector: 'othersprofile',
 	templateUrl: 'app/templates/othersprofile.template.html',
-	directives: [OthersLanguageTemplateComponent, OthersSkillTemplateComponent, RatingComponent],
+	directives: [OthersLanguageTemplateComponent, OthersSkillTemplateComponent, OthersProjectsComponent, RatingComponent],
 	providers: [GetAndPostService]
 
 })

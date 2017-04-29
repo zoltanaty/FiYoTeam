@@ -75,7 +75,13 @@
 .im-centered-project {
 	height: 100px;
 	width: 100%;
-	margin: 10px;
+	position: relative;
+	text-align: center;
+}
+
+.im-centered-others-project {
+	height: 100px;
+	width: 100%;
 	position: relative;
 	text-align: center;
 }

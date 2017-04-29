@@ -4,12 +4,13 @@ import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
 import {LanguageTemplateComponent} from './component.languages';
 import {SkillTemplateComponent} from './component.skills';
+import {MyProjectsComponent} from './component.myprojects'
 import {RatingComponent} from './component.rating'
 
 @Component({
 	selector: 'userprofile',
 	templateUrl: 'app/templates/userprofile.template.html',
-	directives: [LanguageTemplateComponent, SkillTemplateComponent, RatingComponent],
+	directives: [LanguageTemplateComponent, SkillTemplateComponent, MyProjectsComponent, RatingComponent],
 	providers: [GetAndPostService]
 
 })
