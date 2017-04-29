@@ -518,7 +518,7 @@ public class UserService {
 	@GET
 	@Path("/projects/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ResourceFilters(MyRequestFilter.class)
+	//@ResourceFilters(MyRequestFilter.class)
 	public Response getUserProject(@PathParam("id") Integer id) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
@@ -543,6 +543,9 @@ public class UserService {
 
 				uPR.setProject(project);
 				uPR.setSkills(projectSkillList);
+				uPR.setAuthorId(project.getUser().getId());
+				uPR.setAuthorName(project.getUser().getFirstName() + " " + project.getUser().getLastName());
+				uPR.setCreatedAt(project.getCreatedAt());
 
 				userProjectResponse.add(uPR);
 			}

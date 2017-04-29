@@ -1,6 +1,8 @@
 package com.fiyoteam.model.response;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -15,15 +17,25 @@ public class UserProjectResponse implements Serializable{
 	
 	private Project project;
 	private List<Skill> skills;
+	private String authorName;
+	private Integer authorId;
+	private String createdAt;
+	private SimpleDateFormat format;  
 	
 	public UserProjectResponse() {
 		super();
+		this.format = new SimpleDateFormat("dd-MM-yyyy");
 	}
 
-	public UserProjectResponse(Project project, List<Skill> skills) {
+	public UserProjectResponse(Project project, List<Skill> skills, String authorName, Integer authorId,
+			String createdAt) {
 		super();
 		this.project = project;
 		this.skills = skills;
+		this.authorName = authorName;
+		this.authorId = authorId;
+		this.createdAt = createdAt;
+		this.format = new SimpleDateFormat("dd-MM-yyyy at hh:mm:ss");
 	}
 
 	public Project getProject() {
@@ -40,6 +52,30 @@ public class UserProjectResponse implements Serializable{
 
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
+	}
+	
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public Integer getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = this.format.format(createdAt);
 	}
 
 	@Override
