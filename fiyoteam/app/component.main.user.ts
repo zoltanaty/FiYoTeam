@@ -5,11 +5,12 @@ import 'rxjs/Rx';
 import {UserProfileComponent} from './component.userprofile';
 import {UsersComponent} from './component.users';
 import {OthersProfileComponent} from './component.othersprofile';
+import {FindProjectsComponent} from './component.findprojects';
 
 @Component({
     selector: 'main-user',
     templateUrl: 'app/templates/main.user.template.html',
-    directives: [UserProfileComponent, UsersComponent, OthersProfileComponent],
+    directives: [UserProfileComponent, UsersComponent, OthersProfileComponent, FindProjectsComponent],
     providers: [GetAndPostService]
 
 })

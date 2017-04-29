@@ -10,12 +10,12 @@
 
   <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
     <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
-      <h3 class="language-box-title project-name">{{project.project.name}}</h3>
+      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
     </div>
 
     <div *ngIf="project.project.status == 'closed'" class="panel-heading project-panel-closed">
-      <h3 class="language-box-title project-name">{{project.project.name}}</h3>
-    </div>
+      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
+    </div>  
 
     <div class="panel-body no-padding-bottom">
 

@@ -24,7 +24,7 @@
 						<a (click)="switchMenu(1)" ><i class="fa fa-fw fa-user"></i> Profile</a>
 					</li>
 					<li>
-						<a (click)="switchMenu(3)" ><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+						<a (click)="switchMenu(2)" ><i class="fa fa-fw fa-envelope"></i> Inbox</a>
 					</li>
 					<li>
 						<a (click)="switchMenu(5)" ><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -61,6 +61,7 @@
 	</nav>
 
 	<userprofile *ngIf="activeMenu==1"></userprofile>
+	<findprojects *ngIf="activeMenu==3"></findprojects>
 	<users *ngIf="activeMenu==4 && selectedUser == -1" (onChange)="selectedUser = $event.value"></users>
 	<othersprofile  *ngIf="activeMenu==4 && selectedUser != -1"></othersprofile>
 

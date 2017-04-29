@@ -18,7 +18,7 @@ export class Project {
 }
 
 export class ProjectResponse {
-	constructor(public project: Project, public skills: Skill[]) {}
+	constructor(public project: Project, public skills: Skill[], public authorName: string, public authorId: number, public createdAt: string) {}
 }
 
 @Injectable()

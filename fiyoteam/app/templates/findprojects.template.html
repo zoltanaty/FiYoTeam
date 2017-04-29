@@ -1,0 +1,49 @@
+<div id="page-wrapper">
+  <div class="row project-page-header">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <h1 class="page-header project-page-header-title">Find Projects</h1>
+    </div>
+  </div>
+
+  <div class="im-centered-others-project">
+
+    <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
+      <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
+      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}, author: {{project.authorName}}</h3>
+      </div>
+
+      <div *ngIf="project.project.status == 'closed'" class="panel-heading project-panel-closed">
+        <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}, author: {{project.authorName}}</h3>
+      </div>  
+
+      <div class="panel-body no-padding-bottom">
+
+        <div class="row">
+
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="well well-sm rating-box">
+              <h4 class="page-header-custom">Project Description</h4>
+              <div class="form-group">
+                <textarea [(ngModel)]="project.project.description" class="form-control otheruser-profile-textbox" rows="5" readonly="true" placeholder="Describe your project here..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="well well-sm rating-box">
+              <h4 class="page-header-custom">Needed Technologies</h4>
+              <div *ngFor="let skill of project.skills">
+                <div class="progress progress-project">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                  <span class="progress-type"> {{skill.skill}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -66,9 +66,12 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             }());
             exports_1("Project", Project);
             ProjectResponse = (function () {
-                function ProjectResponse(project, skills) {
+                function ProjectResponse(project, skills, authorName, authorId, createdAt) {
                     this.project = project;
                     this.skills = skills;
+                    this.authorName = authorName;
+                    this.authorId = authorId;
+                    this.createdAt = createdAt;
                 }
                 return ProjectResponse;
             }());
