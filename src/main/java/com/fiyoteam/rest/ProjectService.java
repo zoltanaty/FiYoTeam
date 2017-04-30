@@ -81,7 +81,7 @@ public class ProjectService {
 		Long nrOfRows = (Long) query.getSingleResult();
 		
 		Long nrOfPages = 0L;
-		if(nrOfRows/NUMBER_OF_RECORDS_PER_PAGE == 0){
+		if(nrOfRows%NUMBER_OF_RECORDS_PER_PAGE == 0){
 			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE;
 		}else{
 			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE + 1;
