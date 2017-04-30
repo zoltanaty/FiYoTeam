@@ -79,7 +79,14 @@ public class ProjectService {
 		Query query = em.createQuery("SELECT COUNT(*) FROM Project p  WHERE p.status = :status");
 		query.setParameter("status", "active");
 		Long nrOfRows = (Long) query.getSingleResult();
-		Long nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE;
+		
+		Long nrOfPages = 0L;
+		if(nrOfRows/NUMBER_OF_RECORDS_PER_PAGE == 0){
+			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE;
+		}else{
+			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE + 1;
+		}
+		
 		Entitymanager.closeEntityManager();
 		
 		List<Long> pages = new ArrayList<>();
