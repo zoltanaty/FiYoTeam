@@ -1,4 +1,4 @@
-import {Component, ViewChild } from 'angular2/core';
+import {Component, ViewChild, EventEmitter, Output } from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, ProjectResponse} from './service.getandpost'
@@ -15,6 +15,7 @@ export class FindProjectsComponent {
 
 	private userId;
 	private projects: ProjectResponse[];
+	@Output() onChange = new EventEmitter();
 
 	constructor(private getAndPostService: GetAndPostService){}
 
@@ -31,5 +32,10 @@ export class FindProjectsComponent {
 			}
 			);
 	}
+
+	changeSelectedUser(selectedUser) {
+		localStorage.setItem("SELECTEDUSER", selectedUser);
+        this.onChange.emit({value: selectedUser});
+    }
 
 }

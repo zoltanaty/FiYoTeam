@@ -24,6 +24,7 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
             FindProjectsComponent = (function () {
                 function FindProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
+                    this.onChange = new core_1.EventEmitter();
                 }
                 FindProjectsComponent.prototype.ngOnInit = function () {
                     this.getUserProjects();
@@ -35,6 +36,14 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
                         _this.projects = res;
                     });
                 };
+                FindProjectsComponent.prototype.changeSelectedUser = function (selectedUser) {
+                    localStorage.setItem("SELECTEDUSER", selectedUser);
+                    this.onChange.emit({ value: selectedUser });
+                };
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], FindProjectsComponent.prototype, "onChange", void 0);
                 FindProjectsComponent = __decorate([
                     core_1.Component({
                         selector: 'findprojects',
