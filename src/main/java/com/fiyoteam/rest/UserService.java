@@ -518,7 +518,7 @@ public class UserService {
 	@GET
 	@Path("/projects/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	//@ResourceFilters(MyRequestFilter.class)
+	@ResourceFilters(MyRequestFilter.class)
 	public Response getUserProject(@PathParam("id") Integer id) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();

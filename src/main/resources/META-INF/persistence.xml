@@ -19,10 +19,10 @@
 			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
 
 			<!-- Configuring Connection Pool -->
-			<property name="hibernate.c3p0.min_size" value="1" />
+			<property name="hibernate.c3p0.min_size" value="0" />
 			<property name="hibernate.c3p0.max_size" value="10" />
-			<property name="hibernate.c3p0.timeout" value="30" />
 			<property name="hibernate.c3p0.max_statements" value="50" />
+			<property name="hibernate.c3p0.timeout" value="15" />
 			<property name="hibernate.c3p0.idle_test_period" value="2000" />
 		</properties>
 	</persistence-unit>

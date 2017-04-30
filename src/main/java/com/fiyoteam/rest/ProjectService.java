@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,19 +28,21 @@ import com.sun.jersey.spi.container.ResourceFilters;
 public class ProjectService {
 	
 	private static final Logger log = LoggerFactory.getLogger(ProjectService.class);
+	private final int NUMBER_OF_RECORDS_PER_PAGE = 2;
 	
 	@GET
-	@Path("/")
+	@Path("/{pageNumber}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response getAllProjects() {
+	public Response getAllProjects(@PathParam("pageNumber") Integer pageNumber) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM Project p WHERE p.status = :status");
+		Query query = em.createQuery("FROM Project p WHERE p.status = :status ORDER BY p.createdAt DESC");
 		query.setParameter("status", "active");
-
+		query.setFirstResult(NUMBER_OF_RECORDS_PER_PAGE * pageNumber);
+		query.setMaxResults(NUMBER_OF_RECORDS_PER_PAGE);
+		
 		@SuppressWarnings("unchecked")
 		List<Project> projectList = (List<Project>) query.getResultList();
-		Collections.sort(projectList, new ProjectDateSorter());
 		
 		List<UserProjectResponse> userProjectResponseList = new ArrayList<>();
 		for(Project project : projectList){
@@ -67,6 +70,28 @@ public class ProjectService {
 
 		Entitymanager.closeEntityManager();
 		return Response.ok(userProjectResponseList).build();
+	}
+	
+	@GET
+	@Path("/nrpages")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResourceFilters(MyRequestFilter.class)
+	public Response getNrOfPages() {
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		Query query = em.createQuery("SELECT COUNT(*) FROM Project p  WHERE p.status = :status");
+		query.setParameter("status", "active");
+		Long nrOfRows = (Long) query.getSingleResult();
+		Long nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE;
+		Entitymanager.closeEntityManager();
+		
+		List<Long> pages = new ArrayList<>();
+		for(Long i = 0L; i<nrOfPages; ++i){
+			pages.add(i);
+		}
+		
+		log.info("Returned the nr of Projects");
+		
+		return Response.ok(pages).build();
 	}
 
 }
