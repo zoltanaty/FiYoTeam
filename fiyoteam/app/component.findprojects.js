@@ -27,13 +27,23 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
                     this.onChange = new core_1.EventEmitter();
                 }
                 FindProjectsComponent.prototype.ngOnInit = function () {
-                    this.getUserProjects();
+                    this.getNrOfPages();
                 };
-                FindProjectsComponent.prototype.getUserProjects = function () {
+                FindProjectsComponent.prototype.getUserProjects = function (pageNumber) {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/').map(function (res) { return res.json(); })
+                    this.projects = null;
+                    this.currentPageNr = pageNumber;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/' + pageNumber).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.projects = res;
+                    });
+                };
+                FindProjectsComponent.prototype.getNrOfPages = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages').map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.nrOfPages = res;
+                        _this.getUserProjects(0);
                     });
                 };
                 FindProjectsComponent.prototype.changeSelectedUser = function (selectedUser) {

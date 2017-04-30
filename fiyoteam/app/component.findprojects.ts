@@ -13,22 +13,37 @@ import {GetAndPostService, ProjectResponse} from './service.getandpost'
 
 export class FindProjectsComponent { 
 
-	private userId;
 	private projects: ProjectResponse[];
+	private nrOfPages: number[];
+	private currentPageNr: number;
 	@Output() onChange = new EventEmitter();
 
 	constructor(private getAndPostService: GetAndPostService){}
 
 	ngOnInit(){
-		this.getUserProjects();
+		this.getNrOfPages();
 	}
 
-	getUserProjects(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/').map(res => res.json())
+	getUserProjects(pageNumber: number){
+		this.projects = null;
+		this.currentPageNr = pageNumber;
+
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/'+pageNumber).map(res => res.json())
 
 		.subscribe(
 			(res) => {
 				this.projects = res;
+			}
+			);
+	}
+
+	getNrOfPages(){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages').map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.nrOfPages = res;
+				this.getUserProjects(0);
 			}
 			);
 	}
