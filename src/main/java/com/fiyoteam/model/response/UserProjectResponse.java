@@ -24,7 +24,7 @@ public class UserProjectResponse implements Serializable{
 	
 	public UserProjectResponse() {
 		super();
-		this.format = new SimpleDateFormat("dd-MM-yyyy");
+		this.format = new SimpleDateFormat("yyyy-MM-dd");
 	}
 
 	public UserProjectResponse(Project project, List<Skill> skills, String authorName, Integer authorId,
