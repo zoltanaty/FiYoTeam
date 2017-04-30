@@ -1,7 +1,6 @@
 package com.fiyoteam.rest;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,14 +20,13 @@ import com.fiyoteam.model.ProjectSkill;
 import com.fiyoteam.model.response.UserProjectResponse;
 import com.fiyoteam.model.response.UserSkillResponse.Skill;
 import com.fiyoteam.persistence.Entitymanager;
-import com.fiyoteam.utils.ProjectDateSorter;
 import com.sun.jersey.spi.container.ResourceFilters;
 
 @Path("/project")
 public class ProjectService {
 	
 	private static final Logger log = LoggerFactory.getLogger(ProjectService.class);
-	private final int NUMBER_OF_RECORDS_PER_PAGE = 2;
+	private final int NUMBER_OF_RECORDS_PER_PAGE = 6;
 	
 	@GET
 	@Path("/{pageNumber}")
