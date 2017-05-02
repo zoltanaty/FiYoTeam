@@ -1,8 +1,8 @@
-package com.fiyoteam.model.response;
+package com.fiyoteam.model.DTO;
 
 import java.io.Serializable;
 
-public class AuthenticationResponse implements Serializable{
+public class AuthenticationDTO implements Serializable{
 	
 	private static final long serialVersionUID = 2256410848795209928L;
 	
@@ -14,11 +14,11 @@ public class AuthenticationResponse implements Serializable{
 	private String token;
 
 	
-	public AuthenticationResponse(){
+	public AuthenticationDTO(){
 		
 	}
 
-	public AuthenticationResponse(int id, String email, String firstName, String lastName, String role, String token) {
+	public AuthenticationDTO(int id, String email, String firstName, String lastName, String role, String token) {
 		super();
 		this.id = id;
 		this.email = email;

@@ -1,4 +1,4 @@
-package com.fiyoteam.model.response;
+package com.fiyoteam.model.DTO;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -8,10 +8,10 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.fiyoteam.model.Project;
-import com.fiyoteam.model.response.UserSkillResponse.Skill;
+import com.fiyoteam.model.DTO.UserSkillDTO.Skill;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserProjectResponse implements Serializable{
+public class UserProjectDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,12 +22,12 @@ public class UserProjectResponse implements Serializable{
 	private String createdAt;
 	private SimpleDateFormat format;  
 	
-	public UserProjectResponse() {
+	public UserProjectDTO() {
 		super();
 		this.format = new SimpleDateFormat("yyyy-MM-dd");
 	}
 
-	public UserProjectResponse(Project project, List<Skill> skills, String authorName, Integer authorId,
+	public UserProjectDTO(Project project, List<Skill> skills, String authorName, Integer authorId,
 			String createdAt) {
 		super();
 		this.project = project;

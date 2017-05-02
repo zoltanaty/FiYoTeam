@@ -1,16 +1,16 @@
-package com.fiyoteam.model.response;
+package com.fiyoteam.model.DTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserSkillResponse implements Serializable{
+public class UserSkillDTO implements Serializable{
 	
 	private static final long serialVersionUID = 7786084067507214571L;
 	
 	private List<Skill> skills;
 	
-	public UserSkillResponse() {
+	public UserSkillDTO() {
 		super();
 		skills = new ArrayList<>();
 	}

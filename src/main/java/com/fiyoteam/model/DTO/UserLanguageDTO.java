@@ -1,16 +1,16 @@
-package com.fiyoteam.model.response;
+package com.fiyoteam.model.DTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserLanguageResponse implements Serializable{
+public class UserLanguageDTO implements Serializable{
 	
 	private static final long serialVersionUID = -3049148222226326302L;
 	
 	private List<Language> languages;
 	
-	public UserLanguageResponse() {
+	public UserLanguageDTO() {
 		super();
 		languages = new ArrayList<>();
 	}

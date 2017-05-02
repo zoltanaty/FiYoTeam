@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fiyoteam.model.response.UserSkillResponse.Skill;
+import com.fiyoteam.model.DTO.UserSkillDTO.Skill;
 import com.fiyoteam.persistence.Entitymanager;
 import com.sun.jersey.spi.container.ResourceFilters;
 

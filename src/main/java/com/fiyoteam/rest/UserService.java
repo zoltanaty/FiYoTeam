@@ -33,11 +33,11 @@ import com.fiyoteam.model.ProjectSkill;
 import com.fiyoteam.model.User;
 import com.fiyoteam.model.UserLanguage;
 import com.fiyoteam.model.UserSkill;
-import com.fiyoteam.model.response.UserLanguageResponse;
-import com.fiyoteam.model.response.UserLanguageResponse.Language;
-import com.fiyoteam.model.response.UserProjectResponse;
-import com.fiyoteam.model.response.UserSkillResponse;
-import com.fiyoteam.model.response.UserSkillResponse.Skill;
+import com.fiyoteam.model.DTO.UserLanguageDTO;
+import com.fiyoteam.model.DTO.UserProjectDTO;
+import com.fiyoteam.model.DTO.UserSkillDTO;
+import com.fiyoteam.model.DTO.UserLanguageDTO.Language;
+import com.fiyoteam.model.DTO.UserSkillDTO.Skill;
 import com.fiyoteam.persistence.Entitymanager;
 import com.fiyoteam.utils.ProjectDateSorter;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -48,6 +48,7 @@ import com.sun.jersey.spi.container.ResourceFilters;
 public class UserService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
+	private final int NUMBER_OF_RECORDS_PER_PAGE = 8;
 
 	private static final String CATALINA_BASE = System.getProperty("catalina.base");
 
@@ -64,24 +65,54 @@ public class UserService {
 
 		return person;
 	}
+	
+	@GET
+	@Path("/nrpages")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResourceFilters(MyRequestFilter.class)
+	public Response getNrOfPages() {
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		Query query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role");
+		query.setParameter("role", "admin");
+		Long nrOfRows = (Long) query.getSingleResult();
+		
+		Long nrOfPages = 0L;
+		if(nrOfRows % NUMBER_OF_RECORDS_PER_PAGE == 0){
+			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE;
+		}else{
+			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE + 1;
+		}
+		
+		Entitymanager.closeEntityManager();
+		
+		List<Long> pages = new ArrayList<>();
+		for(Long i = 0L; i<nrOfPages; ++i){
+			pages.add(i);
+		}
+		
+		log.info("Returned the nr of pages with Users");
+		
+		return Response.ok(pages).build();
+	}
 
 	/*
 	 * Services of the User
 	 */
 
-	@SuppressWarnings("unchecked")
-	@GET
-	@Path("/")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ResourceFilters(MyRequestFilter.class)
-	public Response getAllUser() {
-		List<User> personList = new ArrayList<>();
 
+	@GET
+	@Path("/page/{pagenr}")
+	@Produces(MediaType.APPLICATION_JSON)
+	//@ResourceFilters(MyRequestFilter.class)
+	public Response getAPageOfUser(@PathParam("pagenr") Integer pageNumber) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		Query query = em.createQuery("FROM User u WHERE u.role != :role");
 		query.setParameter("role", "admin");
+		query.setFirstResult(NUMBER_OF_RECORDS_PER_PAGE * pageNumber);
+		query.setMaxResults(NUMBER_OF_RECORDS_PER_PAGE);
 
-		personList = (List<User>) query.getResultList();
+		@SuppressWarnings("unchecked")
+		List<User> personList = (List<User>) query.getResultList();
 
 		log.info("Returned all of the Users");
 
@@ -89,6 +120,7 @@ public class UserService {
 
 		return Response.ok(personList).build();
 	}
+	
 
 	@GET
 	@Path("/{id}")
@@ -231,13 +263,13 @@ public class UserService {
 		em.clear();
 		User user = em.find(User.class, id);
 
-		UserLanguageResponse userLanguageResponse = new UserLanguageResponse();
+		UserLanguageDTO userLanguageResponse = new UserLanguageDTO();
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
 			userLanguageResponse.addLanguage(userLanguage.getLanguage().getId(),
 					userLanguage.getLanguage().getLanguage(), userLanguage.getLevel());
 		}
 
-		List<UserLanguageResponse.Language> ret = userLanguageResponse.getLanguages();
+		List<UserLanguageDTO.Language> ret = userLanguageResponse.getLanguages();
 
 		log.info("Returned languages of the User with id: " + id + " - nr: " + ret.size());
 
@@ -251,13 +283,13 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response updateUserLanguage(@PathParam("id") Integer id, List<UserLanguageResponse.Language> languages) {
+	public Response updateUserLanguage(@PathParam("id") Integer id, List<UserLanguageDTO.Language> languages) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		User user = em.find(User.class, id);
 
 		for (UserLanguage userLanguage : user.getUserLanguage()) {
-			for (UserLanguageResponse.Language language : languages) {
+			for (UserLanguageDTO.Language language : languages) {
 				if (userLanguage.getLanguage().getId() == language.getId()) {
 					userLanguage.setLevel(language.getLevel());
 				}
@@ -378,13 +410,13 @@ public class UserService {
 		em.clear();
 		User user = em.find(User.class, id);
 
-		UserSkillResponse userSkillResponse = new UserSkillResponse();
+		UserSkillDTO userSkillResponse = new UserSkillDTO();
 		for (UserSkill userSkill : user.getUserSkill()) {
 			userSkillResponse.addSkill(userSkill.getSkill().getId(), userSkill.getSkill().getSkill(),
 					userSkill.getLevel());
 		}
 
-		List<UserSkillResponse.Skill> ret = userSkillResponse.getSkills();
+		List<UserSkillDTO.Skill> ret = userSkillResponse.getSkills();
 
 		log.info("Returned skills of the User with id: " + id + " - nr: " + ret.size());
 
@@ -397,14 +429,14 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response updateUserSkill(@PathParam("id") Integer id, List<UserSkillResponse.Skill> skills) {
+	public Response updateUserSkill(@PathParam("id") Integer id, List<UserSkillDTO.Skill> skills) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 
 		User user = em.find(User.class, id);
 
 		for (UserSkill userSkill : user.getUserSkill()) {
-			for (UserSkillResponse.Skill skill : skills) {
+			for (UserSkillDTO.Skill skill : skills) {
 				if (userSkill.getSkill().getId() == skill.getId()) {
 					userSkill.setLevel(skill.getLevel());
 				}
@@ -526,12 +558,12 @@ public class UserService {
 		User user = em.find(User.class, id);
 
 		if (null != user) {
-			List<UserProjectResponse> userProjectResponse = new ArrayList<>();
+			List<UserProjectDTO> userProjectResponse = new ArrayList<>();
 
 			Collections.sort(user.getUserProjects(), new ProjectDateSorter());
 
 			for (Project project : user.getUserProjects()) {
-				UserProjectResponse uPR = new UserProjectResponse();
+				UserProjectDTO uPR = new UserProjectDTO();
 				List<Skill> projectSkillList = new ArrayList<>();
 
 				for (ProjectSkill projectSkill : project.getProjectSkill()) {
@@ -564,7 +596,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response addUserProject(@PathParam("id") Integer id, UserProjectResponse newProject) {
+	public Response addUserProject(@PathParam("id") Integer id, UserProjectDTO newProject) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		em.clear();
@@ -614,7 +646,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response editUserProject(@PathParam("id") Integer id, UserProjectResponse projectToEdit) {
+	public Response editUserProject(@PathParam("id") Integer id, UserProjectDTO projectToEdit) {
 
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		em.clear();

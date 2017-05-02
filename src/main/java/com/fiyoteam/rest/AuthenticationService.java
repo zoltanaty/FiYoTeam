@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.fiyoteam.model.AccountActivation;
 import com.fiyoteam.model.AuthToken;
 import com.fiyoteam.model.User;
-import com.fiyoteam.model.response.AuthenticationResponse;
+import com.fiyoteam.model.DTO.AuthenticationDTO;
 import com.fiyoteam.persistence.Entitymanager;
 import com.fiyoteam.utils.Email;
 import com.fiyoteam.utils.PasswordStorage;
@@ -34,7 +34,7 @@ public class AuthenticationService {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public AuthenticationResponse login(User user) {
+	public AuthenticationDTO login(User user) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		Query query = em.createQuery("FROM User u WHERE u.email = :email");
 		query.setParameter("email", user.getEmail());
@@ -42,7 +42,7 @@ public class AuthenticationService {
 		@SuppressWarnings("unchecked")
 		List<User> userList = (List<User>) query.getResultList();
 
-		AuthenticationResponse response = new AuthenticationResponse();
+		AuthenticationDTO response = new AuthenticationDTO();
 		boolean failedToLogin = false;
 
 		if (userList.size() > 0) {
@@ -103,7 +103,7 @@ public class AuthenticationService {
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public AuthenticationResponse register(User user) {
+	public AuthenticationDTO register(User user) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		Query query = em.createQuery("FROM User u WHERE u.email = :email");
 		query.setParameter("email", user.getEmail());
@@ -111,7 +111,7 @@ public class AuthenticationService {
 		@SuppressWarnings("unchecked")
 		List<User> userList = (List<User>) query.getResultList();
 
-		AuthenticationResponse response = new AuthenticationResponse();
+		AuthenticationDTO response = new AuthenticationDTO();
 
 		if (userList.size() > 0) {
 			// the email is already in use

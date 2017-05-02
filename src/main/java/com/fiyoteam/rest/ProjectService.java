@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import com.fiyoteam.model.Project;
 import com.fiyoteam.model.ProjectSkill;
-import com.fiyoteam.model.response.UserProjectResponse;
-import com.fiyoteam.model.response.UserSkillResponse.Skill;
+import com.fiyoteam.model.DTO.UserProjectDTO;
+import com.fiyoteam.model.DTO.UserSkillDTO.Skill;
 import com.fiyoteam.persistence.Entitymanager;
 import com.sun.jersey.spi.container.ResourceFilters;
 
@@ -42,9 +42,9 @@ public class ProjectService {
 		@SuppressWarnings("unchecked")
 		List<Project> projectList = (List<Project>) query.getResultList();
 		
-		List<UserProjectResponse> userProjectResponseList = new ArrayList<>();
+		List<UserProjectDTO> userProjectResponseList = new ArrayList<>();
 		for(Project project : projectList){
-			UserProjectResponse upr = new UserProjectResponse();
+			UserProjectDTO upr = new UserProjectDTO();
 			
 			List<Skill> projectSkillList = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class ProjectService {
 			pages.add(i);
 		}
 		
-		log.info("Returned the nr of Projects");
+		log.info("Returned the nr of pages with Projects");
 		
 		return Response.ok(pages).build();
 	}
