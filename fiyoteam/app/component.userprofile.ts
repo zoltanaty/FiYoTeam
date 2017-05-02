@@ -91,6 +91,8 @@ export class UserProfileComponent {
 				}
 			}
 			xhr.open("POST", url, true);
+			xhr.setRequestHeader('authorization', localStorage.getItem("TOKEN"));
+			xhr.setRequestHeader('identifier', localStorage.getItem("USERID"));
 			xhr.send(formData);
 		});
 	}

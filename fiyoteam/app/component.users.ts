@@ -15,17 +15,22 @@ export class UsersComponent {
 	private userId;
 	private users: Array<User> = [];
 	private profilePicUrls  = [];
+	private nrOfPages: number[];
+	private currentPageNr: number;
 	@Output() onChange = new EventEmitter();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
 	ngOnInit(){
 		this.userId = localStorage.getItem("USERID");
-		this.getUsers();
+		this.getNrOfPages();
 	}
 
-	getUsers(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/').map(res => res.json())
+	getUsers(pageNumber: number){
+		this.users = null;
+		this.currentPageNr = pageNumber;
+		
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber).map(res => res.json())
 
 		.subscribe(
 			(res) => {
@@ -34,6 +39,17 @@ export class UsersComponent {
 				for(var user of this.users){
 					this.createImageURL(user);
 				}
+			}
+			);
+	}
+
+	getNrOfPages(){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages').map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.nrOfPages = res;
+				this.getUsers(0);
 			}
 			);
 	}

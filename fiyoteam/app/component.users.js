@@ -37,17 +37,27 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                 }
                 UsersComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
-                    this.getUsers();
+                    this.getNrOfPages();
                 };
-                UsersComponent.prototype.getUsers = function () {
+                UsersComponent.prototype.getUsers = function (pageNumber) {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/').map(function (res) { return res.json(); })
+                    this.users = null;
+                    this.currentPageNr = pageNumber;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.users = res;
                         for (var _i = 0, _a = _this.users; _i < _a.length; _i++) {
                             var user = _a[_i];
                             _this.createImageURL(user);
                         }
+                    });
+                };
+                UsersComponent.prototype.getNrOfPages = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages').map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.nrOfPages = res;
+                        _this.getUsers(0);
                     });
                 };
                 UsersComponent.prototype.downloadImage = function (url) {

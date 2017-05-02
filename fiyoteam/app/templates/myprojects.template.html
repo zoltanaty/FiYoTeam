@@ -16,11 +16,11 @@
     <button (click)="setProjectToEdit(project)" id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages edit-project-button" data-toggle="modal" data-target="#editproject"></button>
 
     <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
-      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
+      <h3 class="language-box-title project-name">{{project.project.name}}, {{project.createdAt}}</h3>
     </div>
 
     <div *ngIf="project.project.status == 'closed'" class="panel-heading project-panel-closed">
-      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
+      <h3 class="language-box-title project-name">{{project.project.name}}, {{project.createdAt}}</h3>
     </div>
 
     <div class="panel-body no-padding-bottom">
