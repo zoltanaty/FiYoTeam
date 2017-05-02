@@ -46,7 +46,7 @@
 
         <nav *ngIf="users != null" class="pag-cust">
           <ul class="pagination justify-content-center">
-            <li *ngFor="let page of nrOfPages" class="page-item" [ngClass]="{'active': currentPageNr == page }" (click)="getUsers(page)"><a class="page-link"> {{page}} </a></li>
+          <li *ngFor="let page of nrOfPages" class="page-item" [ngClass]="{'active': currentPageNr == page }" (click)="getUsers(page)"><a class="page-link"> {{page + 1}} </a></li>
         </ul>
     </nav>
 
