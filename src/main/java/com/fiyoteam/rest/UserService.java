@@ -75,7 +75,7 @@ public class UserService {
 		
 		Query query;
 		if((null != searchCriteria) && (!"".equals(searchCriteria))){
-			query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
+			query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia AND us.user = u) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
 			query.setParameter("role", "admin");
 			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
 		}else{
@@ -118,7 +118,7 @@ public class UserService {
 		
 		Query query;
 		if((null != searchCriteria) && (!"".equals(searchCriteria))){
-			query = em.createQuery("FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
+			query = em.createQuery("FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia AND us.user = u) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
 			query.setParameter("role", "admin");
 			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
 		}else{
