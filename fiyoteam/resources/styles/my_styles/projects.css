@@ -38,6 +38,12 @@
 		margin-right: 30px;
 		text-align: left;
 	}
+
+	.search {
+		padding-bottom: 15px !important;
+		padding-top: 40px !important;
+		padding-right: 40px !important;
+	}
 }
 
 @media (max-width: 1550px) {
@@ -62,6 +68,11 @@
 
 	.project-name-label {
 		padding-left: 0px !important;
+	}
+
+	.search {
+		padding-bottom: 15px !important;
+		padding-top: 0px !important;
 	}
 }
 
@@ -161,4 +172,9 @@
 
 .proj-owner:hover {
 	color: #2a89b9;
+}
+
+.search {
+	padding-bottom: 15px;
+	padding-top: 40px;
 }

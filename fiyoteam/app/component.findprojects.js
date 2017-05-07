@@ -24,6 +24,7 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
             FindProjectsComponent = (function () {
                 function FindProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
+                    this.searchCriteria = "";
                     this.onChange = new core_1.EventEmitter();
                 }
                 FindProjectsComponent.prototype.ngOnInit = function () {
@@ -33,14 +34,14 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
                     var _this = this;
                     this.projects = null;
                     this.currentPageNr = pageNumber;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/' + pageNumber).map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/' + pageNumber + '/' + this.searchCriteria).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.projects = res;
                     });
                 };
                 FindProjectsComponent.prototype.getNrOfPages = function () {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages').map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages/' + this.searchCriteria).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.nrOfPages = res;
                         _this.getUserProjects(0);

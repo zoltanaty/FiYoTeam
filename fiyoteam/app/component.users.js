@@ -33,6 +33,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     this.getAndPostService = getAndPostService;
                     this.users = [];
                     this.profilePicUrls = [];
+                    this.searchCriteria = "";
                     this.onChange = new core_1.EventEmitter();
                 }
                 UsersComponent.prototype.ngOnInit = function () {
@@ -43,7 +44,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     var _this = this;
                     this.users = null;
                     this.currentPageNr = pageNumber;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber).map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber + '/' + this.searchCriteria).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.users = res;
                         for (var _i = 0, _a = _this.users; _i < _a.length; _i++) {
@@ -54,7 +55,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                 };
                 UsersComponent.prototype.getNrOfPages = function () {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages').map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages/' + this.searchCriteria).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.nrOfPages = res;
                         _this.getUsers(0);

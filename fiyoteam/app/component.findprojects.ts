@@ -16,6 +16,7 @@ export class FindProjectsComponent {
 	private projects: ProjectResponse[];
 	private nrOfPages: number[];
 	private currentPageNr: number;
+	private searchCriteria = "";
 	@Output() onChange = new EventEmitter();
 
 	constructor(private getAndPostService: GetAndPostService){}
@@ -28,7 +29,7 @@ export class FindProjectsComponent {
 		this.projects = null;
 		this.currentPageNr = pageNumber;
 
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/'+pageNumber).map(res => res.json())
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/' + pageNumber + '/' + this.searchCriteria).map(res => res.json())
 
 		.subscribe(
 			(res) => {
@@ -38,7 +39,7 @@ export class FindProjectsComponent {
 	}
 
 	getNrOfPages(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages').map(res => res.json())
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages/' + this.searchCriteria).map(res => res.json())
 
 		.subscribe(
 			(res) => {

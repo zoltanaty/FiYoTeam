@@ -17,6 +17,7 @@ export class UsersComponent {
 	private profilePicUrls  = [];
 	private nrOfPages: number[];
 	private currentPageNr: number;
+	private searchCriteria = "";
 	@Output() onChange = new EventEmitter();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
@@ -30,7 +31,7 @@ export class UsersComponent {
 		this.users = null;
 		this.currentPageNr = pageNumber;
 		
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber).map(res => res.json())
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber + '/' + this.searchCriteria).map(res => res.json())
 
 		.subscribe(
 			(res) => {
@@ -44,7 +45,7 @@ export class UsersComponent {
 	}
 
 	getNrOfPages(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages').map(res => res.json())
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages/' + this.searchCriteria).map(res => res.json())
 
 		.subscribe(
 			(res) => {
