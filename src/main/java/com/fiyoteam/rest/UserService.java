@@ -48,7 +48,7 @@ import com.sun.jersey.spi.container.ResourceFilters;
 public class UserService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
-	private final int NUMBER_OF_RECORDS_PER_PAGE = 8;
+	private final int NUMBER_OF_RECORDS_PER_PAGE = 24;
 
 	private static final String CATALINA_BASE = System.getProperty("catalina.base");
 
@@ -67,13 +67,22 @@ public class UserService {
 	}
 	
 	@GET
-	@Path("/nrpages")
+	@Path("/nrpages/{searchCriteria : (.*)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response getNrOfPages() {
+	public Response getNrOfPages(@PathParam("searchCriteria") String searchCriteria) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role");
-		query.setParameter("role", "admin");
+		
+		Query query;
+		if((null != searchCriteria) && (!"".equals(searchCriteria))){
+			query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
+			query.setParameter("role", "admin");
+			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
+		}else{
+			query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role");
+			query.setParameter("role", "admin");
+		}
+		
 		Long nrOfRows = (Long) query.getSingleResult();
 		
 		Long nrOfPages = 0L;
@@ -101,13 +110,22 @@ public class UserService {
 
 
 	@GET
-	@Path("/page/{pagenr}")
+	@Path("/page/{pagenr}/{searchCriteria : (.*)?}")
 	@Produces(MediaType.APPLICATION_JSON)
-	//@ResourceFilters(MyRequestFilter.class)
-	public Response getAPageOfUser(@PathParam("pagenr") Integer pageNumber) {
+	@ResourceFilters(MyRequestFilter.class)
+	public Response getAPageOfUser(@PathParam("pagenr") Integer pageNumber, @PathParam("searchCriteria") String searchCriteria) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM User u WHERE u.role != :role");
-		query.setParameter("role", "admin");
+		
+		Query query;
+		if((null != searchCriteria) && (!"".equals(searchCriteria))){
+			query = em.createQuery("FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
+			query.setParameter("role", "admin");
+			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
+		}else{
+			query = em.createQuery("FROM User u WHERE u.role != :role");
+			query.setParameter("role", "admin");
+		}
+		
 		query.setFirstResult(NUMBER_OF_RECORDS_PER_PAGE * pageNumber);
 		query.setMaxResults(NUMBER_OF_RECORDS_PER_PAGE);
 

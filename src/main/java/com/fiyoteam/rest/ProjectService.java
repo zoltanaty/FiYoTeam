@@ -29,16 +29,25 @@ public class ProjectService {
 	private final int NUMBER_OF_RECORDS_PER_PAGE = 6;
 	
 	@GET
-	@Path("/{pageNumber}")
+	@Path("/{pageNumber}/{searchCriteria : (.*)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response getAllProjects(@PathParam("pageNumber") Integer pageNumber) {
+	public Response getAllProjects(@PathParam("pageNumber") Integer pageNumber, @PathParam("searchCriteria") String searchCriteria) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM Project p WHERE p.status = :status ORDER BY p.createdAt DESC");
-		query.setParameter("status", "active");
+		
+		Query query;
+		if((null != searchCriteria) && (!"".equals(searchCriteria))){
+			query = em.createQuery("FROM Project p WHERE p.status = :status AND ((SELECT COUNT(*) FROM ProjectSkill ps  WHERE ps.project = p AND ps.skill.skill LIKE :searchCritearia) > 0 OR p.description LIKE :searchCritearia)  ORDER BY p.createdAt DESC");
+			query.setParameter("status", "active");
+			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
+		}else{
+			query = em.createQuery("FROM Project p WHERE p.status = :status ORDER BY p.createdAt DESC");
+			query.setParameter("status", "active");
+		}
+		
 		query.setFirstResult(NUMBER_OF_RECORDS_PER_PAGE * pageNumber);
 		query.setMaxResults(NUMBER_OF_RECORDS_PER_PAGE);
-		
+				
 		@SuppressWarnings("unchecked")
 		List<Project> projectList = (List<Project>) query.getResultList();
 		
@@ -71,13 +80,22 @@ public class ProjectService {
 	}
 	
 	@GET
-	@Path("/nrpages")
+	@Path("/nrpages/{searchCriteria : (.*)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response getNrOfPages() {
+	public Response getNrOfPages(@PathParam("searchCriteria") String searchCriteria) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("SELECT COUNT(*) FROM Project p  WHERE p.status = :status");
-		query.setParameter("status", "active");
+		
+		Query query;
+		if((null != searchCriteria) && (!"".equals(searchCriteria))){
+			query = em.createQuery("SELECT COUNT(*) FROM Project p WHERE p.status = :status AND ((SELECT COUNT(*) FROM ProjectSkill ps  WHERE ps.project = p AND ps.skill.skill LIKE :searchCritearia) > 0 OR p.description LIKE :searchCritearia)");
+			query.setParameter("status", "active");
+			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
+		}else{
+			query = em.createQuery("SELECT COUNT(*) FROM Project p WHERE p.status = :status");
+			query.setParameter("status", "active");
+		}
+
 		Long nrOfRows = (Long) query.getSingleResult();
 		
 		Long nrOfPages = 0L;
