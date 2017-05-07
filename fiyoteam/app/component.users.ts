@@ -15,7 +15,7 @@ export class UsersComponent {
 	private userId;
 	private users: Array<User> = [];
 	private profilePicUrls  = [];
-	private nrOfPages: number[];
+	private nrOfPages: number[] = [];
 	private currentPageNr: number;
 	private searchCriteria = "";
 	@Output() onChange = new EventEmitter();

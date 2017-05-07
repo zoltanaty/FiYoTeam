@@ -33,6 +33,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     this.getAndPostService = getAndPostService;
                     this.users = [];
                     this.profilePicUrls = [];
+                    this.nrOfPages = [];
                     this.searchCriteria = "";
                     this.onChange = new core_1.EventEmitter();
                 }

@@ -14,7 +14,7 @@ import {GetAndPostService, ProjectResponse} from './service.getandpost'
 export class FindProjectsComponent { 
 
 	private projects: ProjectResponse[];
-	private nrOfPages: number[];
+	private nrOfPages: number[] = [];
 	private currentPageNr: number;
 	private searchCriteria = "";
 	@Output() onChange = new EventEmitter();

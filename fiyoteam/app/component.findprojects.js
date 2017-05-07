@@ -24,6 +24,7 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
             FindProjectsComponent = (function () {
                 function FindProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
+                    this.nrOfPages = [];
                     this.searchCriteria = "";
                     this.onChange = new core_1.EventEmitter();
                 }

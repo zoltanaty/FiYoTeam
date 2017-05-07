@@ -57,7 +57,7 @@
         </div> <!-- end card -->
     </div> <!-- end card-container -->
 
-    <nav *ngIf="users != null" class="pag-cust">
+    <nav *ngIf="nrOfPages.length > 1" class="pag-cust">
       <ul class="pagination justify-content-center">
           <li *ngFor="let page of nrOfPages" class="page-item" [ngClass]="{'active': currentPageNr == page }" (click)="getUsers(page)"><a class="page-link"> {{page + 1}} </a></li>
       </ul>
