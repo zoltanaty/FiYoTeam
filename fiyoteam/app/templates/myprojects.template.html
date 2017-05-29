@@ -9,9 +9,9 @@
   </div>
 </div>
 
-<div class="im-centered-project">
+<div class="flex-container">
 
-  <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
+  <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small flex-element">
 
     <button (click)="setProjectToEdit(project)" id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages edit-project-button" data-toggle="modal" data-target="#editproject"></button>
 

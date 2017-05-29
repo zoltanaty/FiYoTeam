@@ -443,4 +443,11 @@ ul.alert-dropdown {
 .pag-cust {
 	margin-right: 25px;
 	cursor: pointer;
+	text-align: center;
+}
+
+.flex-container-developers {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
 }

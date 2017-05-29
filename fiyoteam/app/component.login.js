@@ -35,9 +35,9 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     this.successfulRegistration = false;
                     this.unsuccessfulRegistration = false;
                 }
-                LoginComponent.prototype.login = function () {
+                LoginComponent.prototype.login = function (user) {
                     var _this = this;
-                    this.getAndPostService.postData(this.user, this.getAndPostService.baseUrl + 'authentication/login').map(function (res) { return res.json(); })
+                    this.getAndPostService.postData(user, this.getAndPostService.baseUrl + 'authentication/login').map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         if (res.id >= 0 && res.role == "user") {
                             _this._router.navigate(['MainUser']);
@@ -63,8 +63,9 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     this.getAndPostService.postData(this.userToRegister, this.getAndPostService.baseUrl + 'authentication/register').map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         if (res.id >= 0) {
-                            _this.successfulRegistration = true;
-                            _this.unsuccessfulRegistration = false;
+                            //this.successfulRegistration = true;
+                            //this.unsuccessfulRegistration = false;
+                            _this.login(_this.userToRegister);
                         }
                         else {
                             _this.unsuccessfulRegistration = true;

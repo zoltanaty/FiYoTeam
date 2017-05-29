@@ -6,9 +6,9 @@
   </div>
 </div>
 
-<div class="im-centered-others-project">
+<div class="flex-container">
 
-  <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small">
+  <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small flex-element">
     <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
       <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
     </div>
@@ -44,6 +44,7 @@
 
       </div>
     </div>
+
   </div>
 </div>
 

@@ -21,8 +21,8 @@ export class LoginComponent {
 
 	constructor(private _router: Router, private getAndPostService:GetAndPostService) {}
 
-	login() {
-		this.getAndPostService.postData(this.user, this.getAndPostService.baseUrl + 'authentication/login').map(res => res.json())
+	login(user: User) {
+		this.getAndPostService.postData(user, this.getAndPostService.baseUrl + 'authentication/login').map(res => res.json())
 
 		.subscribe(
 			(res) => {
@@ -55,8 +55,10 @@ export class LoginComponent {
 		.subscribe(
 			(res) => {
 				if(res.id >= 0){
-					this.successfulRegistration = true;
-					this.unsuccessfulRegistration = false;
+					//this.successfulRegistration = true;
+					//this.unsuccessfulRegistration = false;
+					this.login(this.userToRegister);
+
 				}else{
 					this.unsuccessfulRegistration = true;
 					this.successfulRegistration = false;

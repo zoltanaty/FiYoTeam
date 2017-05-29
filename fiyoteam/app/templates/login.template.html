@@ -16,7 +16,7 @@
 
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div id="myNavbar" class="collapse navbar-collapse navbar-ex1-collapse">
-                <form (ngSubmit)="login()" id="login" class="navbar-form navbar-right navbar-login-form" role="form" data-toggle="validator">
+                <form (ngSubmit)="login(user)" id="login" class="navbar-form navbar-right navbar-login-form" role="form" data-toggle="validator">
 
                     <div class="input-group input-margin"  [ngClass]="{'has-error': loginError }" >
                         <span class="input-group-addon">

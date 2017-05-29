@@ -33,24 +33,19 @@
 
 @media (min-width: 1550px) {
 	.project-panel-big {
-		width: 47%;
-		display: inline-block;
-		margin-right: 30px;
+		width: 49%;ssss
 		text-align: left;
 	}
 
 	.search {
 		padding-bottom: 15px !important;
 		padding-top: 40px !important;
-		padding-right: 40px !important;
 	}
 }
 
 @media (max-width: 1550px) {
 	.project-panel-small {
 		width: 100%;
-		display: inline-block;
-		margin-right: 30px;
 		text-align: left;
 	}
 }
@@ -103,6 +98,25 @@
 
 .project-panel-closed {
 	background-color: #f3c0c0 !important;
+}
+
+.project-panel-active .project-title {
+	float: left;
+	font-size: 1.3em;
+}
+
+.project-panel-active .proj-owner {
+	float: center;
+	font-size: 1.3em;
+}
+
+.project-panel-active .project-creation-date {
+	float: right;
+	font-size: 1.2em;
+}
+
+.project-panel-active .project-othertext {
+	font-size: 1.2em;
 }
 
 .edit-project-button {
@@ -177,4 +191,34 @@
 .search {
 	padding-bottom: 15px;
 	padding-top: 40px;
+}
+
+.find-projects-box-footer {
+	height: 35px;
+	background-color: #d8e5f0 !important;
+	padding-top: 6px !important;
+	padding-right: 10px !important;
+}
+
+.request-collaboration {
+	font-size: 1.3em;
+}
+
+.request-collaboration:hover {
+	color: #224423;
+}
+
+.request-collaboration-alert {
+	box-shadow: 10px 10px 10px rgba(51, 51, 51, 0.37);
+}
+
+.flex-container {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: flex-end;
+}
+
+.flex-element {
+	max-height: fit-content;
 }
