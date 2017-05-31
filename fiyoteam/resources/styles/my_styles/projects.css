@@ -94,15 +94,22 @@
 
 .project-panel-active {
 	background-color: #d8e5f0 !important;
+	height: 40px;
 }
 
 .project-panel-closed {
 	background-color: #f3c0c0 !important;
+	height: 40px;
 }
 
 .project-panel-active .project-title {
 	float: left;
 	font-size: 1.3em;
+	cursor:pointer;
+}
+
+.project-title:hover {
+	color: #2a89b9;
 }
 
 .project-panel-active .proj-owner {
@@ -117,10 +124,32 @@
 
 .project-panel-active .project-othertext {
 	font-size: 1.2em;
+	color: #1e5f80;
+}
+
+.project-panel-closed .project-title {
+	float: left;
+	font-size: 1.3em;
+	cursor:pointer;
+}
+
+.project-panel-closed .proj-owner {
+	float: center;
+	font-size: 1.3em;
+}
+
+.project-panel-closed .project-creation-date {
+	float: right;
+	font-size: 1.2em;
+}
+
+.project-panel-closed .project-othertext {
+	font-size: 1.2em;
+	color: #1e5f80;
 }
 
 .edit-project-button {
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
 .project-name-label {
@@ -221,4 +250,16 @@
 
 .flex-element {
 	max-height: fit-content;
+}
+
+.collab-req-table { 
+	font-size: 1.1em;
+}
+
+.link-to-user {
+	cursor: pointer;
+}
+
+.link-to-user:hover {
+    font-weight: 600;
 }

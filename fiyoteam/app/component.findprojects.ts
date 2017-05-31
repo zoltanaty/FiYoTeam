@@ -17,6 +17,9 @@ export class FindProjectsComponent {
 	private nrOfPages: number[] = [];
 	private currentPageNr: number;
 	private searchCriteria = "";
+
+	private userId = localStorage.getItem("USERID");
+
 	@Output() onChange = new EventEmitter();
 
 	constructor(private getAndPostService: GetAndPostService){}
@@ -47,6 +50,18 @@ export class FindProjectsComponent {
 				this.getUserProjects(0);
 			}
 			);
+	}
+
+	requestCollaboration(userId: number, projectId: number, ownerId: number, project: ProjectResponse){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/' + userId + '/' + projectId + '/' + ownerId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				project.collaborationRequestResponse = res;
+			}
+			);
+
+
 	}
 
 	changeSelectedUser(selectedUser) {

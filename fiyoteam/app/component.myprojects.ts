@@ -1,4 +1,4 @@
-import {Component, ViewChild } from 'angular2/core';
+import {Component, ViewChild, EventEmitter, Output} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, Skill, Project, ProjectResponse} from './service.getandpost'
@@ -22,6 +22,9 @@ export class MyProjectsComponent {
 	private projectToEdit = new ProjectResponse(new Project(null, '', '', ''), new Array<Skill>());
 	private projectToEditCopy = new ProjectResponse(new Project(null, '', '', ''), new Array<Skill>());
 	private projectToEditStatus: boolean;
+	private collaborationsForProject: Collaboration[];
+
+	@Output() onChange = new EventEmitter();
 
 	constructor(private getAndPostService: GetAndPostService){}
 
@@ -172,6 +175,8 @@ export class MyProjectsComponent {
 	setProjectToEdit(prj: ProjectResponse){
 		this.projectToEdit = JSON.parse(JSON.stringify(prj));
 		this.projectToEditCopy = JSON.parse(JSON.stringify(prj));
+
+		this.getCollaborationsForProject(this.projectToEdit.project.id, this.userId);
 	}
 
 	getAvailableSkills(){
@@ -183,5 +188,35 @@ export class MyProjectsComponent {
 			}
 			);
 	}
+
+	getCollaborationsForProject(projectId: number, ownerId: number){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/requests/' + projectId + '/' + ownerId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.collaborationsForProject = res;
+			}
+			);
+	}
+
+	updateCollaborationsForProject(){
+		this.getAndPostService.postData(this.collaborationsForProject, this.getAndPostService.baseUrl + 'collaboration/').map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.collaborationsForProject = res;
+			}
+			);
+	}
+
+	negateCollaborationAcceptance(collaboration: Collaboration){
+		collaboration.accepted = !collaboration.accepted;
+		this.updateCollaborationsForProject();
+	}
+
+	changeSelectedUser(selectedUser) {
+		localStorage.setItem("SELECTEDUSER", selectedUser);
+        this.onChange.emit({value: selectedUser});
+    }
 
 }

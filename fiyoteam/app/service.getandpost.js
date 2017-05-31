@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1;
-    var User, Language, Skill, Project, ProjectResponse, GetAndPostService;
+    var User, Language, Skill, Project, ProjectResponse, Collaboration, GetAndPostService;
     return {
         setters:[
             function (core_1_1) {
@@ -66,23 +66,36 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             }());
             exports_1("Project", Project);
             ProjectResponse = (function () {
-                function ProjectResponse(project, skills, authorName, authorId, createdAt) {
+                function ProjectResponse(project, skills, authorName, authorId, createdAt, collaborationRequestResponse) {
+                    if (collaborationRequestResponse === void 0) { collaborationRequestResponse = 0; }
                     this.project = project;
                     this.skills = skills;
                     this.authorName = authorName;
                     this.authorId = authorId;
                     this.createdAt = createdAt;
+                    this.collaborationRequestResponse = collaborationRequestResponse;
                 }
                 return ProjectResponse;
             }());
             exports_1("ProjectResponse", ProjectResponse);
+            Collaboration = (function () {
+                function Collaboration(id, user, project, owner, accepted) {
+                    this.id = id;
+                    this.user = user;
+                    this.project = project;
+                    this.owner = owner;
+                    this.accepted = accepted;
+                }
+                return Collaboration;
+            }());
+            exports_1("Collaboration", Collaboration);
             GetAndPostService = (function () {
-                //private ipv4 = 'https://fiyoteam-backend.herokuapp.com';
-                //public baseUrl = this.ipv4 + '/rest/';
                 function GetAndPostService(_http) {
                     this._http = _http;
-                    this.ipv4 = 'localhost';
-                    this.baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
+                    //private ipv4 = 'localhost';
+                    //public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
+                    this.ipv4 = 'https://fiyoteam-backend.herokuapp.com';
+                    this.baseUrl = this.ipv4 + '/rest/';
                 }
                 GetAndPostService.prototype.getData = function (url) {
                     var headers = new http_1.Headers();

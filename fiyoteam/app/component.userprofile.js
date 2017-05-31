@@ -47,6 +47,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     this.filesToUpload = [];
                     this.profilePicURL = null;
                     this.showUpdatedUserMessage = false;
+                    this.onChange = new core_1.EventEmitter();
                 }
                 UserProfileComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
@@ -128,6 +129,13 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         _this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
                     });
                 };
+                UserProfileComponent.prototype.onSelectedUserChange = function (newSelectedUSer) {
+                    this.onChange.emit({ value: newSelectedUSer });
+                };
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], UserProfileComponent.prototype, "onChange", void 0);
                 UserProfileComponent = __decorate([
                     core_1.Component({
                         selector: 'userprofile',

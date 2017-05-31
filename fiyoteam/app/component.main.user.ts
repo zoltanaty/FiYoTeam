@@ -54,4 +54,9 @@ export class MainUserComponent {
         this.selectedUser = -1;
     }
 
+    changeSelectedUser(newSelectedUser){
+        this.selectedUser = newSelectedUser;
+        console.log("NEW SELECTED USER: " this.selectedUser);
+    }
+
 }

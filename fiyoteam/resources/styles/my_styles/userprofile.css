@@ -61,6 +61,8 @@
 
 .otheruser-profile-textbox {
 	background-color: #ffffff !important;
+	resize: vertical;
+	cursor: pointer;
 }
 
 

@@ -51,21 +51,21 @@
           </div>
         </div>
       </div>
-
-      <div class="alert alert-success alert-dismissable request-collaboration-alert" style="display:none;">
+ 
+      <div  *ngIf="project.collaborationRequestResponse > 0" class="alert alert-success alert-dismissable request-collaboration-alert fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success!</strong> Collaboration request sent.
       </div>
 
-      <div class="alert alert-danger alert-dismissable request-collaboration-alert" style="display:none;">>
+      <div *ngIf="project.collaborationRequestResponse < 0" class="alert alert-danger alert-dismissable request-collaboration-alert fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Failed</strong> to send Collaboration Request.
+        <strong>Failed!</strong> Collaboration for this Project already requested.
       </div>
 
     </div>
 
-    <div class="panel-heading find-projects-box-footer">
-      <button id="btnrequestCollaboration" class="pull-right fa fa-handshake-o request-collaboration  button-languages">  Request Collaboration</button>
+    <div class="panel-heading find-projects-box-footer" (click)="requestCollaboration(userId, project.project.id, project.authorId, project)">
+      <button id="btnRequestCollaboration" class="pull-right fa fa-handshake-o request-collaboration  button-languages">  Request Collaboration</button>
     </div>
   </div>
 

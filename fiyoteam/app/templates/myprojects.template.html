@@ -16,11 +16,13 @@
     <button (click)="setProjectToEdit(project)" id="btnEdit" class="pull-right fa fa-pencil-square-o fa-2x button-languages edit-project-button" data-toggle="modal" data-target="#editproject"></button>
 
     <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
-      <h3 class="language-box-title project-name">{{project.project.name}}, {{project.createdAt}}</h3>
+      <span (click)="setProjectToEdit(project)" class="project-title language-box-title" data-toggle="modal" data-target="#collaborationrequests">{{project.project.name}}</span>
+      <span class="project-creation-date">{{project.createdAt}}</span>
     </div>
 
     <div *ngIf="project.project.status == 'closed'" class="panel-heading project-panel-closed">
-      <h3 class="language-box-title project-name">{{project.project.name}}, {{project.createdAt}}</h3>
+      <span (click)="setProjectToEdit(project)" class="project-title language-box-title" data-toggle="modal" data-target="#collaborationrequests">{{project.project.name}}</span>
+      <span class="project-creation-date">{{project.createdAt}}</span>
     </div>
 
     <div class="panel-body no-padding-bottom">
@@ -186,4 +188,47 @@
     </div>
 
   </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------ -->
+<!--                                  Collaboe Requests Modal                             -->
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+<div class="modal fade" id="collaborationrequests" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Collaboration Requests</h4>
+
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+         <table class="table table-condensed table-hover collab-req-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Accepted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let collaboration of collaborationsForProject" >
+              <td (click)="changeSelectedUser(collaboration.user.id)" data-dismiss="modal" class="link-to-user">{{collaboration.user.firstName}} {{collaboration.user.lastName}}</td>
+              <td>{{collaboration.user.city}} ({{collaboration.user.country}})</td>
+              <td><label class="switch">
+              <input type="checkbox"  [(ngModel)]="collaboration.accepted" (change)="negateCollaborationAcceptance(collaboration)">
+                <div class="slider round"></div>
+              </label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
 </div>

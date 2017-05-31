@@ -26,6 +26,7 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
                     this.getAndPostService = getAndPostService;
                     this.nrOfPages = [];
                     this.searchCriteria = "";
+                    this.userId = localStorage.getItem("USERID");
                     this.onChange = new core_1.EventEmitter();
                 }
                 FindProjectsComponent.prototype.ngOnInit = function () {
@@ -46,6 +47,12 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
                         .subscribe(function (res) {
                         _this.nrOfPages = res;
                         _this.getUserProjects(0);
+                    });
+                };
+                FindProjectsComponent.prototype.requestCollaboration = function (userId, projectId, ownerId, project) {
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/' + userId + '/' + projectId + '/' + ownerId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        project.collaborationRequestResponse = res;
                     });
                 };
                 FindProjectsComponent.prototype.changeSelectedUser = function (selectedUser) {

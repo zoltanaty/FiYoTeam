@@ -1,4 +1,4 @@
-import {Component, ViewChild } from 'angular2/core';
+import {Component, ViewChild, EventEmitter, Output} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
 import {GetAndPostService, User} from './service.getandpost'
@@ -23,6 +23,8 @@ export class UserProfileComponent {
 	private profilePicURL: string = null;
 
 	private showUpdatedUserMessage = false;
+
+	@Output() onChange = new EventEmitter();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
@@ -116,5 +118,9 @@ export class UserProfileComponent {
 		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
 			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
 		});
+	}
+
+	onSelectedUserChange(newSelectedUSer){
+		this.onChange.emit({value: newSelectedUSer});
 	}
 }

@@ -87,7 +87,7 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label personal-data">Short description:</label>
                 <div class="col-lg-8">
-                  <textarea [(ngModel)]="user.description" class="form-control" rows="3" placeholder="Describe yourself here..."></textarea>
+                  <textarea [(ngModel)]="user.description" class="form-control" rows="3" placeholder="Describe yourself here..." style="resize:vertical"></textarea>
                 </div>
               </div>
 
@@ -126,7 +126,7 @@
 
   <language-template></language-template>
   <skill-template></skill-template>
-  <myprojects></myprojects>
+  <myprojects (onChange)="onSelectedUserChange($event.value)"></myprojects>
 
 </div>
 

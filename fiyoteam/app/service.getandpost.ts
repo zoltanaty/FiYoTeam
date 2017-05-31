@@ -18,17 +18,21 @@ export class Project {
 }
 
 export class ProjectResponse {
-	constructor(public project: Project, public skills: Skill[], public authorName: string, public authorId: number, public createdAt: string) {}
+	constructor(public project: Project, public skills: Skill[], public authorName: string, public authorId: number, public createdAt: string, public collaborationRequestResponse = 0) {}
+}
+
+export class Collaboration {
+	constructor(public id: number, public user: User, public project: Project, public owner: User, public accepted: boolean) {}
 }
 
 @Injectable()
 export class GetAndPostService{
 
-	private ipv4 = 'localhost';
-	public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
+	//private ipv4 = 'localhost';
+	//public baseUrl = 'http://' + this.ipv4 + ':8080/fiyoteam-backend/rest/';
 
-	//private ipv4 = 'https://fiyoteam-backend.herokuapp.com';
-	//public baseUrl = this.ipv4 + '/rest/';
+	private ipv4 = 'https://fiyoteam-backend.herokuapp.com';
+	public baseUrl = this.ipv4 + '/rest/';
 
 	constructor(private _http: Http){}
 

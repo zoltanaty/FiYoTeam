@@ -30,6 +30,7 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                     this.newProject = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', 'active'), new Array());
                     this.projectToEdit = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', ''), new Array());
                     this.projectToEditCopy = new service_getandpost_1.ProjectResponse(new service_getandpost_1.Project(null, '', '', ''), new Array());
+                    this.onChange = new core_1.EventEmitter();
                 }
                 MyProjectsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
@@ -148,6 +149,7 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 MyProjectsComponent.prototype.setProjectToEdit = function (prj) {
                     this.projectToEdit = JSON.parse(JSON.stringify(prj));
                     this.projectToEditCopy = JSON.parse(JSON.stringify(prj));
+                    this.getCollaborationsForProject(this.projectToEdit.project.id, this.userId);
                 };
                 MyProjectsComponent.prototype.getAvailableSkills = function () {
                     var _this = this;
@@ -156,6 +158,32 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                         _this.availableSkills = res;
                     });
                 };
+                MyProjectsComponent.prototype.getCollaborationsForProject = function (projectId, ownerId) {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/requests/' + projectId + '/' + ownerId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.collaborationsForProject = res;
+                    });
+                };
+                MyProjectsComponent.prototype.updateCollaborationsForProject = function () {
+                    var _this = this;
+                    this.getAndPostService.postData(this.collaborationsForProject, this.getAndPostService.baseUrl + 'collaboration/').map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.collaborationsForProject = res;
+                    });
+                };
+                MyProjectsComponent.prototype.negateCollaborationAcceptance = function (collaboration) {
+                    collaboration.accepted = !collaboration.accepted;
+                    this.updateCollaborationsForProject();
+                };
+                MyProjectsComponent.prototype.changeSelectedUser = function (selectedUser) {
+                    localStorage.setItem("SELECTEDUSER", selectedUser);
+                    this.onChange.emit({ value: selectedUser });
+                };
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], MyProjectsComponent.prototype, "onChange", void 0);
                 MyProjectsComponent = __decorate([
                     core_1.Component({
                         selector: 'myprojects',
