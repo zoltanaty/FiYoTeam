@@ -19,7 +19,10 @@ import org.slf4j.LoggerFactory;
 
 import com.fiyoteam.model.Collaboration;
 import com.fiyoteam.model.Project;
+import com.fiyoteam.model.ProjectSkill;
 import com.fiyoteam.model.User;
+import com.fiyoteam.model.DTO.UserProjectDTO;
+import com.fiyoteam.model.DTO.UserSkillDTO.Skill;
 import com.fiyoteam.persistence.Entitymanager;
 import com.sun.jersey.spi.container.ResourceFilters;
 
@@ -100,6 +103,56 @@ public class CollaborationService {
 		}else{
 			log.info("Returned the Collaboration Requests for this project: " + projectId);
 			return Response.ok(resultList).build();
+		}	
+	}
+	
+	@GET
+	@Path("/projects/{userid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResourceFilters(MyRequestFilter.class)
+	public Response getAppliedProjects(@PathParam("userid") Integer userId){
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		
+		User user = em.find(User.class, userId);
+		
+		Query query = em.createQuery("FROM Collaboration c WHERE c.user = :user");
+		query.setParameter("user", user);
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Collaboration> resultList = (ArrayList<Collaboration>) query.getResultList();
+		
+		List<UserProjectDTO> appliedProjectsList = new ArrayList<>();
+		for(Collaboration collaboration : resultList){
+			UserProjectDTO upr = new UserProjectDTO();
+			
+			List<Skill> projectSkillList = new ArrayList<>();
+
+			for (ProjectSkill projectSkill : collaboration.getProject().getProjectSkill()) {
+				Skill skill = new Skill();
+				skill.setId(projectSkill.getSkill().getId());
+				skill.setSkill(projectSkill.getSkill().getSkill());
+				projectSkillList.add(skill);
+			}
+			
+			upr.setSkills(projectSkillList);
+			upr.setProject(collaboration.getProject());
+			upr.setAuthorId(collaboration.getProject().getUser().getId());
+			upr.setAuthorName(collaboration.getProject().getUser().getFirstName() + " " + collaboration.getProject().getUser().getLastName());
+			upr.setCreatedAt(collaboration.getProject().getCreatedAt());
+			
+			appliedProjectsList.add(upr);
+		}
+
+		log.info("Returned all of the Applied Projects of the user: " + userId);
+
+		Entitymanager.closeEntityManager();		
+		
+		if(appliedProjectsList.size() == 0){
+			log.info("No Applied Projects for the user: " + userId);
+			return Response.ok(new ArrayList<Collaboration>()).build();
+		}else{
+			log.info("Returned all of the Applied Projects of the user: " + userId);
+			return Response.ok(appliedProjectsList).build();
 		}	
 	}
 	
