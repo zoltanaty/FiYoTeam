@@ -1,5 +1,4 @@
 
-
 <div class="row project-page-header">
   <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
     <h1 class="page-header project-page-header-title">Personal Projects</h1>
@@ -10,11 +9,13 @@
 
   <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small flex-element">
     <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
-      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
+      <span class="project-title language-box-title" data-toggle="modal" data-target="#collaborationrequests">{{project.project.name}}</span>
+      <span class="project-creation-date">{{project.createdAt}}</span>
     </div>
 
     <div *ngIf="project.project.status == 'closed'" class="panel-heading project-panel-closed">
-      <h3 class="language-box-title project-name">{{project.project.name}}, created at: {{project.createdAt}}</h3>
+      <span class="project-title language-box-title" data-toggle="modal" data-target="#collaborationrequests">{{project.project.name}}</span>
+      <span class="project-creation-date">{{project.createdAt}}</span>
     </div>  
 
     <div class="panel-body no-padding-bottom">

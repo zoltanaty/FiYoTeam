@@ -11,7 +11,7 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, service_getandpost_1;
-    var RatingComponent;
+    var OthersRatingComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -22,16 +22,16 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                 service_getandpost_1 = service_getandpost_1_1;
             }],
         execute: function() {
-            RatingComponent = (function () {
-                function RatingComponent(getAndPostService) {
+            OthersRatingComponent = (function () {
+                function OthersRatingComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
                     this.rating = new service_getandpost_1.Rating(null, null, 0, 0, 0, 0, 0, 0);
                 }
-                RatingComponent.prototype.ngOnInit = function () {
-                    this.userId = localStorage.getItem("USERID");
+                OthersRatingComponent.prototype.ngOnInit = function () {
+                    this.userId = localStorage.getItem("SELECTEDUSER");
                     this.getRatingForUser();
                 };
-                RatingComponent.prototype.getRatingForUser = function () {
+                OthersRatingComponent.prototype.getRatingForUser = function () {
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
@@ -48,18 +48,18 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                         }, 0);
                     });
                 };
-                RatingComponent = __decorate([
+                OthersRatingComponent = __decorate([
                     core_1.Component({
-                        selector: 'rating',
+                        selector: 'othersrating',
                         providers: [service_getandpost_1.GetAndPostService],
-                        templateUrl: 'app/templates/rating.template.html'
+                        templateUrl: 'app/templates/othersrating.template.html'
                     }), 
                     __metadata('design:paramtypes', [service_getandpost_1.GetAndPostService])
-                ], RatingComponent);
-                return RatingComponent;
+                ], OthersRatingComponent);
+                return OthersRatingComponent;
             }());
-            exports_1("RatingComponent", RatingComponent);
+            exports_1("OthersRatingComponent", OthersRatingComponent);
         }
     }
 });
-//# sourceMappingURL=component.rating.js.map
+//# sourceMappingURL=component.othersrating.js.map

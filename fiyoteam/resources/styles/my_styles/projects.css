@@ -33,7 +33,7 @@
 
 @media (min-width: 1550px) {
 	.project-panel-big {
-		width: 49%;ssss
+		width: 35%;
 		text-align: left;
 	}
 
@@ -250,6 +250,9 @@
 
 .flex-element {
 	max-height: fit-content;
+	flex-grow: 1;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .collab-req-table { 
@@ -261,5 +264,5 @@
 }
 
 .link-to-user:hover {
-    font-weight: 600;
+	font-weight: 600;
 }

@@ -1,0 +1,96 @@
+
+<div class="row project-page-header">
+  <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <h1 class="page-header project-page-header-title">Applied Projects</h1>
+  </div>
+</div>
+
+<div class="flex-container">
+
+  <div *ngFor="let project of projects" class="panel panel-default box-panel project-panel-big project-panel-small flex-element">
+    <div *ngIf="project.project.status == 'active'" class="panel-heading project-panel-active">
+      <span (click)="getCollaborationsForProject(project.project.id, project.authorId)" class="project-title language-box-title" data-toggle="modal" data-target="#projectcollaborationrequests">{{project.project.name}}</span>
+      <span class="project-othertext">, owner:</span>
+      <span class="proj-owner language-box-title" (click)="changeSelectedUser(project.authorId)">{{project.authorName}}</span>
+      <span class="project-creation-date">{{project.createdAt}}</span>
+    </div>
+
+    <div *ngIf="project.project.status == 'closed'" class="panel-heading project-panel-closed">
+      <span (click)="getCollaborationsForProject(project.project.id, project.authorId)" class="project-title language-box-title" data-toggle="modal" data-target="#projectcollaborationrequests">{{project.project.name}}</span>
+      <span class="project-othertext">, owner:</span>
+      <span class="proj-owner language-box-title" (click)="changeSelectedUser(project.authorId)">{{project.authorName}}</span>
+      <span class="project-creation-date">{{project.createdAt}}</span>
+    </div>  
+
+    <div class="panel-body no-padding-bottom">
+
+      <div class="row">
+
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="well well-sm rating-box">
+            <h4 class="page-header-custom">Project Description</h4>
+            <div class="form-group">
+              <textarea [(ngModel)]="project.project.description" class="form-control otheruser-profile-textbox" rows="5" readonly="true" placeholder="Describe your project here..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="well well-sm rating-box">
+            <h4 class="page-header-custom">Needed Technologies</h4>
+            <div *ngFor="let skill of project.skills">
+              <div class="progress progress-project">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                <span class="progress-type"> {{skill.skill}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ------------------------------------------------------------------------------------ -->
+<!--                             Collaboration Requests Modal                             -->
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+<div class="modal fade" id="projectcollaborationrequests" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Collaboration Requests</h4>
+
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+         <table class="table table-condensed table-hover collab-req-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Accepted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let collaboration of projectCollaborations" [ngClass]="{'info': collaboration.user.id == userId }">
+              <td (click)="changeSelectedUser(collaboration.user.id)" data-dismiss="modal" class="link-to-user">{{collaboration.user.firstName}} {{collaboration.user.lastName}}</td>
+              <td>{{collaboration.user.city}} ({{collaboration.user.country}})</td>
+              <td>{{collaboration.accepted}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+

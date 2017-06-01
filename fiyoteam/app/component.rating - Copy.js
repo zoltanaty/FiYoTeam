@@ -29,6 +29,7 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                 }
                 RatingComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
+                    this.selectedUser = localStorage.getItem("SELECTEDUSER");
                     this.getRatingForUser();
                 };
                 RatingComponent.prototype.getRatingForUser = function () {
@@ -36,6 +37,7 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.rating = res;
+                        console.log(_this.rating);
                         setTimeout(function () {
                             $('.kv-fa').rating({
                                 theme: 'krajee-fa',
@@ -62,4 +64,4 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
         }
     }
 });
-//# sourceMappingURL=component.rating.js.map
+//# sourceMappingURL=component.rating - Copy.js.map

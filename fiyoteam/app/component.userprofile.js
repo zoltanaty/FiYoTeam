@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost', './component.languages', './component.skills', './component.myprojects', './component.rating'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost', './component.languages', './component.skills', './component.myprojects', './component.rating', './component.projectsappliedfor'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, service_getandpost_1, component_languages_1, component_skills_1, component_myprojects_1, component_rating_1;
+    var core_1, router_1, Rx_1, service_getandpost_1, component_languages_1, component_skills_1, component_myprojects_1, component_rating_1, component_projectsappliedfor_1;
     var UserProfileComponent;
     return {
         setters:[
@@ -37,6 +37,9 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
             },
             function (component_rating_1_1) {
                 component_rating_1 = component_rating_1_1;
+            },
+            function (component_projectsappliedfor_1_1) {
+                component_projectsappliedfor_1 = component_projectsappliedfor_1_1;
             }],
         execute: function() {
             UserProfileComponent = (function () {
@@ -140,7 +143,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                     core_1.Component({
                         selector: 'userprofile',
                         templateUrl: 'app/templates/userprofile.template.html',
-                        directives: [component_languages_1.LanguageTemplateComponent, component_skills_1.SkillTemplateComponent, component_myprojects_1.MyProjectsComponent, component_rating_1.RatingComponent],
+                        directives: [component_languages_1.LanguageTemplateComponent, component_skills_1.SkillTemplateComponent, component_myprojects_1.MyProjectsComponent, component_projectsappliedfor_1.ProjectsAppliedForComponent, component_rating_1.RatingComponent],
                         providers: [service_getandpost_1.GetAndPostService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, service_getandpost_1.GetAndPostService])

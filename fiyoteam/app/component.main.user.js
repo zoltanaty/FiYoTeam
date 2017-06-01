@@ -70,7 +70,6 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
                 };
                 MainUserComponent.prototype.changeSelectedUser = function (newSelectedUser) {
                     this.selectedUser = newSelectedUser;
-                    console.log("NEW SELECTED USER: ", this.selectedUser);
                 };
                 MainUserComponent = __decorate([
                     core_1.Component({

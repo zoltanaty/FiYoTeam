@@ -6,11 +6,12 @@ import {LanguageTemplateComponent} from './component.languages';
 import {SkillTemplateComponent} from './component.skills';
 import {MyProjectsComponent} from './component.myprojects'
 import {RatingComponent} from './component.rating'
+import {ProjectsAppliedForComponent} from './component.projectsappliedfor'
 
 @Component({
 	selector: 'userprofile',
 	templateUrl: 'app/templates/userprofile.template.html',
-	directives: [LanguageTemplateComponent, SkillTemplateComponent, MyProjectsComponent, RatingComponent],
+	directives: [LanguageTemplateComponent, SkillTemplateComponent, MyProjectsComponent, ProjectsAppliedForComponent, RatingComponent],
 	providers: [GetAndPostService]
 
 })

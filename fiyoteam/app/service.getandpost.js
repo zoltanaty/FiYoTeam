@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1;
-    var User, Language, Skill, Project, ProjectResponse, Collaboration, GetAndPostService;
+    var User, Language, Skill, Project, ProjectResponse, Collaboration, Rating, GetAndPostService;
     return {
         setters:[
             function (core_1_1) {
@@ -89,6 +89,20 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
                 return Collaboration;
             }());
             exports_1("Collaboration", Collaboration);
+            Rating = (function () {
+                function Rating(voted, voter, avgRating, percentage5Star, percentage4Star, percentage3Star, percentage2Star, percentage1Star) {
+                    this.voted = voted;
+                    this.voter = voter;
+                    this.avgRating = avgRating;
+                    this.percentage5Star = percentage5Star;
+                    this.percentage4Star = percentage4Star;
+                    this.percentage3Star = percentage3Star;
+                    this.percentage2Star = percentage2Star;
+                    this.percentage1Star = percentage1Star;
+                }
+                return Rating;
+            }());
+            exports_1("Rating", Rating);
             GetAndPostService = (function () {
                 function GetAndPostService(_http) {
                     this._http = _http;

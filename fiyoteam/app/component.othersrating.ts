@@ -3,12 +3,12 @@ import 'rxjs/Rx';
 import {GetAndPostService, Rating} from './service.getandpost'
 
 @Component({
-	selector: 'rating',
+	selector: 'othersrating',
 	providers: [GetAndPostService],
-	templateUrl: 'app/templates/rating.template.html'
+	templateUrl: 'app/templates/othersrating.template.html'
 })
 
-export class RatingComponent {
+export class OthersRatingComponent {
 
 	private rating = new Rating(null, null, 0, 0, 0, 0, 0, 0);
 
@@ -16,7 +16,7 @@ export class RatingComponent {
 
 	ngOnInit(){
 		
-		this.userId = localStorage.getItem("USERID");
+		this.userId = localStorage.getItem("SELECTEDUSER");
 		this.getRatingForUser();
 	}
 
