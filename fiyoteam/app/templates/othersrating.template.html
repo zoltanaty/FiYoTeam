@@ -65,7 +65,8 @@
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <form class="star-position">
-                        <input type="text" class="kv-fa rating-loading" data-show-clear="false" data-show-caption="true" value="{{rating.avgRating}}" data-size="md" title="">
+                        <input *ngIf="canIRateHim == true" type="text" class="kv-fa rating-loading" data-show-clear="false" data-show-caption="true" value="{{rating.avgRating}}" data-size="md" title="">
+                        <input *ngIf="canIRateHim == false" data-readonly="true" type="text" class="kv-fa rating-loading" data-show-clear="false" data-show-caption="true" value="{{rating.avgRating}}" data-size="md" title="">
                     </form>
                 </div>
             </div>

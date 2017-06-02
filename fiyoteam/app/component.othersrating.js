@@ -29,7 +29,28 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                 }
                 OthersRatingComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("SELECTEDUSER");
-                    this.getRatingForUser();
+                    this.rater = localStorage.getItem("USERID");
+                    this.rated = localStorage.getItem("SELECTEDUSER");
+                    this.canIRateHim();
+                    this.listenAndSendRating();
+                };
+                OthersRatingComponent.prototype.listenAndSendRating = function () {
+                    $('.rating,.kv-fa').on('change', this.sendRating);
+                };
+                OthersRatingComponent.prototype.sendRating = function () {
+                    this.rate = $(this).val();
+                    $.ajax({
+                        url: 'https://fiyoteam-backend.herokuapp.com/rest/' + this.rated + '/' + this.rater + '/' + this.rate,
+                        type: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': localStorage.getItem("TOKEN"),
+                            'identifier': localStorage.getItem("USERID")
+                        },
+                        success: function (result) {
+                            this.rating = result;
+                        }
+                    });
                 };
                 OthersRatingComponent.prototype.getRatingForUser = function () {
                     var _this = this;
@@ -42,10 +63,15 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                                 filledStar: '<i class="fa fa-star"></i>',
                                 emptyStar: '<i class="fa fa-star-o"></i>'
                             });
-                            $('.rating,.kv-fa').on('change', function () {
-                                console.log('Rating selected: ' + $(this).val());
-                            });
                         }, 0);
+                    });
+                };
+                OthersRatingComponent.prototype.canIRateHim = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + this.rater + '/' + this.rated).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.canIRateHim = res;
+                        _this.getRatingForUser();
                     });
                 };
                 OthersRatingComponent = __decorate([
