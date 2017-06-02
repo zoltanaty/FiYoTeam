@@ -180,5 +180,20 @@ public class CollaborationService {
 			return Response.ok(collaborations).build();
 		}
 	}
+	
+	public boolean isCollaborationBetweenUs(Integer userId, Integer ownerId){
+		EntityManager em = Entitymanager.getEntityManagerInstance();	
+		User user = em.find(User.class, userId);
+		User owner = em.find(User.class, ownerId);
+		
+		Query query = em.createQuery("FROM Collaboration c WHERE (c.user = :user AND c.owner = :owner AND c.accepted = true) OR (c.user = :owner AND c.owner = :user AND c.accepted = true)");
+		query.setParameter("user", user);
+		query.setParameter("owner", owner);
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Collaboration> resultList = (ArrayList<Collaboration>) query.getResultList();
+		
+		return resultList.size() > 0;	
+	}
 
 }

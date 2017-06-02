@@ -96,4 +96,58 @@ public class RatingService {
 		
 		return Response.ok(ratingDTO).build();
 	}
+	
+	
+	@GET
+	@Path("/{rated}/{rater}/{rate}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResourceFilters(MyRequestFilter.class)
+	public Response rateUser(@PathParam("rated") Integer rated, @PathParam("rater") Integer rater, @PathParam("rate") Double rate){
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		
+		User raterUser = em.find(User.class, rater);
+		User ratedUser = em.find(User.class, rated);
+		
+		Query query = em.createQuery("FROM Rating r WHERE r.voted = :ratedUser AND r.voter =:raterUser");
+		query.setParameter("ratedUser", ratedUser);
+		query.setParameter("raterUser", raterUser);
+
+		@SuppressWarnings("unchecked")
+		ArrayList<Rating> resultList = (ArrayList<Rating>) query.getResultList();
+		
+		if(resultList.size() == 0){
+			Rating rating = new Rating();
+			rating.setRating(rate.intValue());
+			rating.setVoted(ratedUser);
+			rating.setVoter(raterUser);
+			
+			em.getTransaction().begin();
+			em.persist(rating);
+			em.flush();
+			em.getTransaction().commit();
+			
+		}else{
+			em.getTransaction().begin();
+			resultList.get(0).setRating(rate.intValue());
+			em.merge(resultList.get(0));
+			em.flush();
+			em.getTransaction().commit();
+			
+		}
+
+		return getRatingForUser(rated);
+	}
+	
+	
+	@GET
+	@Path("/{rated}/{rater}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResourceFilters(MyRequestFilter.class)
+	public Response canIRateHim(@PathParam("rated") Integer rated, @PathParam("rater") Integer rater){
+		CollaborationService collaborationService = new CollaborationService();
+		
+		boolean response = collaborationService.isCollaborationBetweenUs(rater, rated);
+		return Response.ok(response).build();
+	}
+	
 }
