@@ -270,7 +270,7 @@ public class UserService {
 			final File fileToUpload = File.createTempFile(fileName, "");
 			java.nio.file.Files.copy(uploadedInputStream, fileToUpload.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-			Transformation transformation = new Transformation().width(650).height(650).crop("thumb").gravity("faces:center");
+			Transformation transformation = new Transformation().width(650).height(650).crop("thumb").gravity("faces:auto");
 			@SuppressWarnings("rawtypes")
 			Map uploadParams = ObjectUtils.asMap("public_id", fileName, "unique_filename", false, "eager", Arrays.asList(transformation));
 			@SuppressWarnings("rawtypes")
