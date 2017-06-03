@@ -32,15 +32,16 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                     this.rater = localStorage.getItem("USERID");
                     this.rated = localStorage.getItem("SELECTEDUSER");
                     this.canIRateHim();
-                    this.listenAndSendRating();
                 };
                 OthersRatingComponent.prototype.listenAndSendRating = function () {
                     $('.rating,.kv-fa').on('change', this.sendRating);
                 };
                 OthersRatingComponent.prototype.sendRating = function () {
                     this.rate = $(this).val();
+                    var rater = localStorage.getItem("USERID");
+                    var rated = localStorage.getItem("SELECTEDUSER");
                     $.ajax({
-                        url: 'https://fiyoteam-backend.herokuapp.com/rest/' + this.rated + '/' + this.rater + '/' + this.rate,
+                        url: 'https://fiyoteam-backend.herokuapp.com/rest/rating/' + rated + '/' + rater + '/' + this.rate,
                         type: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -64,11 +65,14 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                                 emptyStar: '<i class="fa fa-star-o"></i>'
                             });
                         }, 0);
+                        _this.listenAndSendRating();
                     });
                 };
                 OthersRatingComponent.prototype.canIRateHim = function () {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + this.rater + '/' + this.rated).map(function (res) { return res.json(); })
+                    var rater = localStorage.getItem("USERID");
+                    var rated = localStorage.getItem("SELECTEDUSER");
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + rater + '/' + rated).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.canIRateHim = res;
                         _this.getRatingForUser();

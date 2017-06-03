@@ -11,9 +11,9 @@ import {GetAndPostService, Rating} from './service.getandpost'
 export class OthersRatingComponent {
 
 	private rating = new Rating(null, null, 0, 0, 0, 0, 0, 0);
+	private rate;
 	private rater;
 	private rated;
-	private rate;
 	private canIRateHim: boolean;
 
 
@@ -21,13 +21,11 @@ export class OthersRatingComponent {
 	}
 
 	ngOnInit(){
-		
 		this.userId = localStorage.getItem("SELECTEDUSER");
 		this.rater = localStorage.getItem("USERID");
 		this.rated = localStorage.getItem("SELECTEDUSER");
 		
 		this.canIRateHim();
-		this.listenAndSendRating();
 
 		
 	}
@@ -39,9 +37,11 @@ export class OthersRatingComponent {
 
 	sendRating () {
 		this.rate = $(this).val();
+		var rater = localStorage.getItem("USERID");
+		var rated = localStorage.getItem("SELECTEDUSER");
 
 		$.ajax({
-			url: 'https://fiyoteam-backend.herokuapp.com/rest/' + this.rated + '/' + this.rater + '/' + this.rate,
+			url: 'https://fiyoteam-backend.herokuapp.com/rest/rating/' + rated + '/' + rater + '/' + this.rate,
 			type: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -70,17 +70,23 @@ export class OthersRatingComponent {
 
 				}, 0)
 
+				this.listenAndSendRating();
+
 			}
 			);
 	}
 
 	canIRateHim(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + this.rater + '/' + this.rated).map(res => res.json())
+		var rater = localStorage.getItem("USERID");
+		var rated = localStorage.getItem("SELECTEDUSER");
+
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'rating/' + rater + '/' + rated).map(res => res.json())
 
 		.subscribe(
 			(res) => {
 				this.canIRateHim = res;
 				this.getRatingForUser();
+
 			}
 			);
 	}
