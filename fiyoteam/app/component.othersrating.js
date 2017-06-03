@@ -41,6 +41,7 @@ System.register(['angular2/core', 'rxjs/Rx', './service.getandpost'], function(e
                     var rater = localStorage.getItem("USERID");
                     var rated = localStorage.getItem("SELECTEDUSER");
                     $.ajax({
+                        //url: 'http://localhost:8080/fiyoteam-backend/rest/rating/' + rated + '/' + rater + '/' + this.rate,
                         url: 'https://fiyoteam-backend.herokuapp.com/rest/rating/' + rated + '/' + rater + '/' + this.rate,
                         type: 'GET',
                         headers: {

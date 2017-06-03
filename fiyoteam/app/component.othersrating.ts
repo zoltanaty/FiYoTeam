@@ -41,6 +41,7 @@ export class OthersRatingComponent {
 		var rated = localStorage.getItem("SELECTEDUSER");
 
 		$.ajax({
+			//url: 'http://localhost:8080/fiyoteam-backend/rest/rating/' + rated + '/' + rater + '/' + this.rate,
 			url: 'https://fiyoteam-backend.herokuapp.com/rest/rating/' + rated + '/' + rater + '/' + this.rate,
 			type: 'GET',
 			headers: {

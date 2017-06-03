@@ -22,7 +22,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             }],
         execute: function() {
             User = (function () {
-                function User(id, firstName, lastName, country, city, email, description, password, passwordAgain, profilePicURL) {
+                function User(id, firstName, lastName, country, city, email, description, password, passwordAgain, profilePicUrl) {
                     this.id = id;
                     this.firstName = firstName;
                     this.lastName = lastName;
@@ -32,7 +32,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
                     this.description = description;
                     this.password = password;
                     this.passwordAgain = passwordAgain;
-                    this.profilePicURL = profilePicURL;
+                    this.profilePicUrl = profilePicUrl;
                 }
                 return User;
             }());

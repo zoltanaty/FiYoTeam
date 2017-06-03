@@ -32,7 +32,8 @@ export class UserProfileComponent {
 	ngOnInit(){
 		this.userId = localStorage.getItem("USERID");
 		this.getUser();
-		this.createImageURL();
+		//this.createImageURL();
+		this.getProlilePictureURL();
 	}
 
 	getUser(){
@@ -67,7 +68,8 @@ export class UserProfileComponent {
 
 	upload() {
 		this.makeFileRequest( this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, this.filesToUpload).then((result) => {
-			this.createImageURL();
+			//this.createImageURL();
+			this.getProlilePictureURL();
 		}, (error) => {
 			console.error(error);
 		});
@@ -100,7 +102,12 @@ export class UserProfileComponent {
 		});
 	}
 
-	downloadImage(url:string){ 
+
+	/*
+	 *     The old implementation of loading the images, but still good
+	 */
+
+	/*downloadImage(url:string){ 
 		return Observable.create(observer=>{
 			let req = new XMLHttpRequest();
 			req.open('get',url);
@@ -119,6 +126,17 @@ export class UserProfileComponent {
 		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
 			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
 		});
+	}*/
+
+	getProlilePictureURL() {
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.profilePicURL = res.profilePicUrl;
+				console.log("The url is: " + this.profilePicURL);
+			}
+			);
 	}
 
 	onSelectedUserChange(newSelectedUSer){

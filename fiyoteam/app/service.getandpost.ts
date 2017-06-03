@@ -2,7 +2,7 @@ import {Injectable} from 'angular2/core';
 import {Http, Headers} from 'angular2/http';
 
 export class User {
-	constructor(public id:number, public firstName: string, public lastName: string, public country: string, public city: string, public email: string, public description: string, public password: string, public passwordAgain: string, public profilePicURL: string) { }
+	constructor(public id:number, public firstName: string, public lastName: string, public country: string, public city: string, public email: string, public description: string, public password: string, public passwordAgain: string, public profilePicUrl: string) { }
 }
 
 export class Language {

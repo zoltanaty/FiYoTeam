@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost', './component.languages', './component.skills', './component.myprojects', './component.rating', './component.projectsappliedfor'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './service.getandpost', './component.languages', './component.skills', './component.myprojects', './component.rating', './component.projectsappliedfor'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, service_getandpost_1, component_languages_1, component_skills_1, component_myprojects_1, component_rating_1, component_projectsappliedfor_1;
+    var core_1, router_1, service_getandpost_1, component_languages_1, component_skills_1, component_myprojects_1, component_rating_1, component_projectsappliedfor_1;
     var UserProfileComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-            },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
             },
             function (service_getandpost_1_1) {
                 service_getandpost_1 = service_getandpost_1_1;
@@ -55,7 +52,8 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                 UserProfileComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
                     this.getUser();
-                    this.createImageURL();
+                    //this.createImageURL();
+                    this.getProlilePictureURL();
                 };
                 UserProfileComponent.prototype.getUser = function () {
                     var _this = this;
@@ -81,7 +79,8 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                 UserProfileComponent.prototype.upload = function () {
                     var _this = this;
                     this.makeFileRequest(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, this.filesToUpload).then(function (result) {
-                        _this.createImageURL();
+                        //this.createImageURL();
+                        _this.getProlilePictureURL();
                     }, function (error) {
                         console.error(error);
                     });
@@ -112,12 +111,15 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         xhr.send(formData);
                     });
                 };
-                UserProfileComponent.prototype.downloadImage = function (url) {
-                    return Rx_1.Observable.create(function (observer) {
-                        var req = new XMLHttpRequest();
-                        req.open('get', url);
+                /*
+                 *     The old implementation of loading the images, but still good
+                 */
+                /*downloadImage(url:string){
+                    return Observable.create(observer=>{
+                        let req = new XMLHttpRequest();
+                        req.open('get',url);
                         req.responseType = "arraybuffer";
-                        req.onreadystatechange = function () {
+                        req.onreadystatechange = function() {
                             if (req.readyState == 4 && req.status == 200) {
                                 observer.next(req.response);
                                 observer.complete();
@@ -125,11 +127,19 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         };
                         req.send();
                     });
-                };
-                UserProfileComponent.prototype.createImageURL = function () {
+                }
+            
+                createImageURL(){
+                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
+                        this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+                    });
+                }*/
+                UserProfileComponent.prototype.getProlilePictureURL = function () {
                     var _this = this;
-                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(function (imageData) {
-                        _this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.profilePicURL = res.profilePicUrl;
+                        console.log("The url is: " + _this.profilePicURL);
                     });
                 };
                 UserProfileComponent.prototype.onSelectedUserChange = function (newSelectedUSer) {
