@@ -51,6 +51,9 @@ public class User implements Serializable{
 	@Column(name = "role")
 	private String role;
 	
+	@Column(name = "profilepic")
+	private String profilePicUrl;
+	
 	@OneToMany(mappedBy = "user")
 	private List<UserLanguage> userLanguage = new ArrayList<>();
 	
@@ -179,6 +182,14 @@ public class User implements Serializable{
 
 	public void setUserProjects(List<Project> userProjects) {
 		this.userProjects = userProjects;
+	}
+	
+	public String getProfilePicUrl() {
+		return profilePicUrl;
+	}
+
+	public void setProfilePicUrl(String profilePicUrl) {
+		this.profilePicUrl = profilePicUrl;
 	}
 
 	@Override

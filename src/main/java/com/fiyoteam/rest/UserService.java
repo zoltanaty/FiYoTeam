@@ -6,11 +6,15 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -28,15 +32,18 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.utils.ObjectUtils;
 import com.fiyoteam.model.Project;
 import com.fiyoteam.model.ProjectSkill;
 import com.fiyoteam.model.User;
 import com.fiyoteam.model.UserLanguage;
 import com.fiyoteam.model.UserSkill;
 import com.fiyoteam.model.DTO.UserLanguageDTO;
+import com.fiyoteam.model.DTO.UserLanguageDTO.Language;
 import com.fiyoteam.model.DTO.UserProjectDTO;
 import com.fiyoteam.model.DTO.UserSkillDTO;
-import com.fiyoteam.model.DTO.UserLanguageDTO.Language;
 import com.fiyoteam.model.DTO.UserSkillDTO.Skill;
 import com.fiyoteam.persistence.Entitymanager;
 import com.fiyoteam.utils.ProjectDateSorter;
@@ -65,42 +72,43 @@ public class UserService {
 
 		return person;
 	}
-	
+
 	@GET
 	@Path("/nrpages/{searchCriteria : (.*)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
 	public Response getNrOfPages(@PathParam("searchCriteria") String searchCriteria) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		
+
 		Query query;
-		if((null != searchCriteria) && (!"".equals(searchCriteria))){
-			query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia AND us.user = u) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
+		if ((null != searchCriteria) && (!"".equals(searchCriteria))) {
+			query = em.createQuery(
+					"SELECT COUNT(*) FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia AND us.user = u) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
 			query.setParameter("role", "admin");
 			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
-		}else{
+		} else {
 			query = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.role != :role");
 			query.setParameter("role", "admin");
 		}
-		
+
 		Long nrOfRows = (Long) query.getSingleResult();
-		
+
 		Long nrOfPages = 0L;
-		if(nrOfRows % NUMBER_OF_RECORDS_PER_PAGE == 0){
-			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE;
-		}else{
-			nrOfPages = nrOfRows/NUMBER_OF_RECORDS_PER_PAGE + 1;
+		if (nrOfRows % NUMBER_OF_RECORDS_PER_PAGE == 0) {
+			nrOfPages = nrOfRows / NUMBER_OF_RECORDS_PER_PAGE;
+		} else {
+			nrOfPages = nrOfRows / NUMBER_OF_RECORDS_PER_PAGE + 1;
 		}
-		
+
 		Entitymanager.closeEntityManager();
-		
+
 		List<Long> pages = new ArrayList<>();
-		for(Long i = 0L; i<nrOfPages; ++i){
+		for (Long i = 0L; i < nrOfPages; ++i) {
 			pages.add(i);
 		}
-		
+
 		log.info("Returned the nr of pages with Users");
-		
+
 		return Response.ok(pages).build();
 	}
 
@@ -108,24 +116,25 @@ public class UserService {
 	 * Services of the User
 	 */
 
-
 	@GET
 	@Path("/page/{pagenr}/{searchCriteria : (.*)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response getAPageOfUser(@PathParam("pagenr") Integer pageNumber, @PathParam("searchCriteria") String searchCriteria) {
+	public Response getAPageOfUser(@PathParam("pagenr") Integer pageNumber,
+			@PathParam("searchCriteria") String searchCriteria) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		
+
 		Query query;
-		if((null != searchCriteria) && (!"".equals(searchCriteria))){
-			query = em.createQuery("FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia AND us.user = u) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
+		if ((null != searchCriteria) && (!"".equals(searchCriteria))) {
+			query = em.createQuery(
+					"FROM User u WHERE u.role != :role AND ((SELECT COUNT(*) FROM UserSkill us  WHERE us.skill.skill LIKE :searchCritearia AND us.user = u) > 0 OR u.firstName LIKE :searchCritearia OR u.lastName LIKE :searchCritearia OR u.country LIKE :searchCritearia OR u.city LIKE :searchCritearia OR u.description LIKE :searchCritearia)");
 			query.setParameter("role", "admin");
 			query.setParameter("searchCritearia", "%" + searchCriteria + "%");
-		}else{
+		} else {
 			query = em.createQuery("FROM User u WHERE u.role != :role");
 			query.setParameter("role", "admin");
 		}
-		
+
 		query.setFirstResult(NUMBER_OF_RECORDS_PER_PAGE * pageNumber);
 		query.setMaxResults(NUMBER_OF_RECORDS_PER_PAGE);
 
@@ -138,7 +147,6 @@ public class UserService {
 
 		return Response.ok(personList).build();
 	}
-	
 
 	@GET
 	@Path("/{id}")
@@ -202,16 +210,22 @@ public class UserService {
 	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("id") Integer id) {
 
-		String fileExtension = getFileExtension(fileDetail.getFileName());
-		String uploadedFileLocation = CATALINA_BASE + "/FiYoTeam/photos/user_" + id + "." + fileExtension; // +
+//		String fileExtension = getFileExtension(fileDetail.getFileName());
+//		 String uploadedFileLocation = CATALINA_BASE +
+//		 "/FiYoTeam/photos/user_" + id + "." + fileExtension;
+		String uploadedFileLocation = "user_" + id; // +
 
-		if (writeToFile(uploadedInputStream, uploadedFileLocation) == true) {
-			log.info("The User with id: " + id + " successfully uploaded his Profile Picture");
-			return Response.ok(true).build();
-		} else {
-			log.error("The User with id: " + id + " Failed to upload his Profile Picture");
-			return Response.ok(false).build();
-		}
+		uploadToCloudinary(uploadedInputStream, uploadedFileLocation, id);
+
+//		if (writeToFile(uploadedInputStream, uploadedFileLocation) == true) {
+//			log.info("The User with id: " + id + " successfully uploaded his Profile Picture");
+//			return Response.ok(true).build();
+//		} else {
+//			log.error("The User with id: " + id + " Failed to upload his Profile Picture");
+//			return Response.ok(false).build();
+//		}
+		
+		return Response.ok(true).build();
 	}
 
 	private String getFileExtension(String fileName) {
@@ -242,6 +256,48 @@ public class UserService {
 		return true;
 	}
 
+	private String uploadToCloudinary(InputStream uploadedInputStream, String fileName, Integer userId) {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "zoltanaty", "api_key",
+				"614166556482157", "api_secret", "sIduiCPqAxjH2x7pOvh7TkUl3zs"));
+
+		try {
+			final File fileToUpload = File.createTempFile(fileName, "");
+			java.nio.file.Files.copy(uploadedInputStream, fileToUpload.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+			Transformation transformation = new Transformation().width(600).height(600).crop("crop").gravity("face");
+			@SuppressWarnings("rawtypes")
+			Map uploadParams = ObjectUtils.asMap("public_id", fileName, "unique_filename", false, "eager", Arrays.asList(transformation));
+			@SuppressWarnings("rawtypes")
+			Map uploadResult = cloudinary.uploader().upload(fileToUpload, uploadParams);
+			fileToUpload.delete();
+			
+			@SuppressWarnings("rawtypes")
+			ArrayList eagerMap = (ArrayList) uploadResult.get("eager");
+			@SuppressWarnings("rawtypes")
+			HashMap urlMap = (HashMap) eagerMap.get(0);
+			String secureUrl = (String) urlMap.get("secure_url");
+			log.info("Successful upload to Cloudinary. You can reach in the URL: " + secureUrl);
+			
+			EntityManager em = Entitymanager.getEntityManagerInstance();
+			em.clear();
+			User user = em.find(User.class, userId);
+			user.setProfilePicUrl(secureUrl);
+			
+			em.getTransaction().begin();
+			em.merge(user);
+			em.flush();
+			em.getTransaction().commit();
+			
+			Entitymanager.closeEntityManager();
+			
+			log.info("Profilepic URL saved to DataBase");
+		} catch (IOException e) {
+			log.error("Failed to upload to Cloudinary. - " + e);
+		}
+
+		return fileName;
+	}
+
 	@GET
 	@Path("/profilepic/{id}")
 	@Produces("image/png")
@@ -265,6 +321,21 @@ public class UserService {
 			log.error("Failed to load the file. - " + e);
 			return Response.noContent().build();
 		}
+	}
+	
+	@GET
+	@Path("/profilepicurl/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getProfilePicUrl(@PathParam("id") int userId) {
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		em.clear();
+		User user = em.find(User.class, userId);
+		Entitymanager.closeEntityManager();
+		
+		String profilePicUrl = user.getProfilePicUrl();
+		log.info("ProfilePicUrl Returned: " + profilePicUrl);
+		
+		return Response.ok("{ \"profilePicUrl\": \"" + profilePicUrl + "\"}").build();
 	}
 
 	/*
