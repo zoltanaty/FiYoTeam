@@ -228,33 +228,39 @@ public class UserService {
 		return Response.ok(true).build();
 	}
 
-	private String getFileExtension(String fileName) {
-		try {
-			return fileName.substring(fileName.lastIndexOf(".") + 1);
-		} catch (Exception e) {
-			return "";
-		}
-	}
-
-	private boolean writeToFile(InputStream uploadedInputStream, String uploadedFileLocation) {
-		try {
-			OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
-			int read = 0;
-			byte[] bytes = new byte[1024];
-
-			out = new FileOutputStream(new File(uploadedFileLocation));
-			while ((read = uploadedInputStream.read(bytes)) != -1) {
-				out.write(bytes, 0, read);
-			}
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			log.error("Failed to write the file to the disk. - " + e);
-			return false;
-		}
-
-		return true;
-	}
+	
+	
+	/*
+	 * 		Currently unnecessary methods 
+	 */
+	
+//	private String getFileExtension(String fileName) {
+//		try {
+//			return fileName.substring(fileName.lastIndexOf(".") + 1);
+//		} catch (Exception e) {
+//			return "";
+//		}
+//	}
+//
+//	private boolean writeToFile(InputStream uploadedInputStream, String uploadedFileLocation) {
+//		try {
+//			OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
+//			int read = 0;
+//			byte[] bytes = new byte[1024];
+//
+//			out = new FileOutputStream(new File(uploadedFileLocation));
+//			while ((read = uploadedInputStream.read(bytes)) != -1) {
+//				out.write(bytes, 0, read);
+//			}
+//			out.flush();
+//			out.close();
+//		} catch (IOException e) {
+//			log.error("Failed to write the file to the disk. - " + e);
+//			return false;
+//		}
+//
+//		return true;
+//	}
 
 	private String uploadToCloudinary(InputStream uploadedInputStream, String fileName, Integer userId) {
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "zoltanaty", "api_key",
@@ -264,7 +270,7 @@ public class UserService {
 			final File fileToUpload = File.createTempFile(fileName, "");
 			java.nio.file.Files.copy(uploadedInputStream, fileToUpload.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-			Transformation transformation = new Transformation().width(600).height(600).crop("crop").gravity("face");
+			Transformation transformation = new Transformation().width(650).height(650).crop("thumb").gravity("face");
 			@SuppressWarnings("rawtypes")
 			Map uploadParams = ObjectUtils.asMap("public_id", fileName, "unique_filename", false, "eager", Arrays.asList(transformation));
 			@SuppressWarnings("rawtypes")
