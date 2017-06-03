@@ -138,8 +138,9 @@ System.register(['angular2/core', 'angular2/router', './service.getandpost', './
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
-                        _this.profilePicURL = res.profilePicUrl;
-                        console.log("The url is: " + _this.profilePicURL);
+                        if (res.profilePicUrl != 'null') {
+                            _this.profilePicURL = res.profilePicUrl;
+                        }
                     });
                 };
                 UserProfileComponent.prototype.onSelectedUserChange = function (newSelectedUSer) {

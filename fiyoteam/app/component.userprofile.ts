@@ -133,8 +133,9 @@ export class UserProfileComponent {
 
 		.subscribe(
 			(res) => {
-				this.profilePicURL = res.profilePicUrl;
-				console.log("The url is: " + this.profilePicURL);
+				if(res.profilePicUrl != 'null'){
+					this.profilePicURL = res.profilePicUrl;
+				}
 			}
 			);
 	}

@@ -27,7 +27,8 @@ export class OthersProfileComponent {
 	ngOnInit(){
 		this.userId = localStorage.getItem("SELECTEDUSER");
 		this.getUser();
-		this.createImageURL();
+		//this.createImageURL();
+		this.getProlilePictureURL();
 	}
 
 	getUser(){
@@ -40,7 +41,11 @@ export class OthersProfileComponent {
 			);
 	}
 
-	downloadImage(url:string){ 
+	/*
+	 *     The old implementation of loading the images, but still good
+	 */
+
+	/*downloadImage(url:string){ 
 		return Observable.create(observer=>{
 			let req = new XMLHttpRequest();
 			req.open('get',url);
@@ -59,5 +64,17 @@ export class OthersProfileComponent {
 		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
 			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
 		});
+	}*/
+
+	getProlilePictureURL() {
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				if(res.profilePicUrl != 'null'){
+					this.profilePicURL = res.profilePicUrl;
+				}
+			}
+			);
 	}
 }

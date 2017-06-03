@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost', './component.otherslanguages', './component.othersskills', './component.othersprojects', './component.othersrating', './component.othersprojectsappliedfor'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './service.getandpost', './component.otherslanguages', './component.othersskills', './component.othersprojects', './component.othersrating', './component.othersprojectsappliedfor'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, service_getandpost_1, component_otherslanguages_1, component_othersskills_1, component_othersprojects_1, component_othersrating_1, component_othersprojectsappliedfor_1;
+    var core_1, router_1, service_getandpost_1, component_otherslanguages_1, component_othersskills_1, component_othersprojects_1, component_othersrating_1, component_othersprojectsappliedfor_1;
     var OthersProfileComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-            },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
             },
             function (service_getandpost_1_1) {
                 service_getandpost_1 = service_getandpost_1_1;
@@ -52,7 +49,8 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                 OthersProfileComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("SELECTEDUSER");
                     this.getUser();
-                    this.createImageURL();
+                    //this.createImageURL();
+                    this.getProlilePictureURL();
                 };
                 OthersProfileComponent.prototype.getUser = function () {
                     var _this = this;
@@ -61,12 +59,15 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         _this.user = res;
                     });
                 };
-                OthersProfileComponent.prototype.downloadImage = function (url) {
-                    return Rx_1.Observable.create(function (observer) {
-                        var req = new XMLHttpRequest();
-                        req.open('get', url);
+                /*
+                 *     The old implementation of loading the images, but still good
+                 */
+                /*downloadImage(url:string){
+                    return Observable.create(observer=>{
+                        let req = new XMLHttpRequest();
+                        req.open('get',url);
                         req.responseType = "arraybuffer";
-                        req.onreadystatechange = function () {
+                        req.onreadystatechange = function() {
                             if (req.readyState == 4 && req.status == 200) {
                                 observer.next(req.response);
                                 observer.complete();
@@ -74,11 +75,20 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         };
                         req.send();
                     });
-                };
-                OthersProfileComponent.prototype.createImageURL = function () {
+                }
+            
+                createImageURL(){
+                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
+                        this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+                    });
+                }*/
+                OthersProfileComponent.prototype.getProlilePictureURL = function () {
                     var _this = this;
-                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(function (imageData) {
-                        _this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        if (res.profilePicUrl != 'null') {
+                            _this.profilePicURL = res.profilePicUrl;
+                        }
                     });
                 };
                 OthersProfileComponent = __decorate([

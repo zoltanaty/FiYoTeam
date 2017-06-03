@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getandpost'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './service.getandpost'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, service_getandpost_1;
+    var core_1, router_1, service_getandpost_1;
     var UsersComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-            },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
             },
             function (service_getandpost_1_1) {
                 service_getandpost_1 = service_getandpost_1_1;
@@ -50,7 +47,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         _this.users = res;
                         for (var _i = 0, _a = _this.users; _i < _a.length; _i++) {
                             var user = _a[_i];
-                            _this.createImageURL(user);
+                            _this.getProlilePictureURL(user);
                         }
                     });
                 };
@@ -62,12 +59,15 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         _this.getUsers(0);
                     });
                 };
-                UsersComponent.prototype.downloadImage = function (url) {
-                    return Rx_1.Observable.create(function (observer) {
-                        var req = new XMLHttpRequest();
-                        req.open('get', url);
+                /*
+                 *     The old implementation of loading the images, but still good
+                 */
+                /*downloadImage(url:string){
+                    return Observable.create(observer=>{
+                        let req = new XMLHttpRequest();
+                        req.open('get',url);
                         req.responseType = "arraybuffer";
-                        req.onreadystatechange = function () {
+                        req.onreadystatechange = function() {
                             if (req.readyState == 4 && req.status == 200) {
                                 observer.next(req.response);
                                 observer.complete();
@@ -75,10 +75,20 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', './service.getan
                         };
                         req.send();
                     });
-                };
-                UsersComponent.prototype.createImageURL = function (user) {
-                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + user.id).subscribe(function (imageData) {
+                }
+            
+                createImageURL(user){
+            
+                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + user.id).subscribe(imageData =>{
                         user.profilePicURL = URL.createObjectURL(new Blob([imageData]));
+                    });
+                }*/
+                UsersComponent.prototype.getProlilePictureURL = function (user) {
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + user.id).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        if (res.profilePicUrl != 'null') {
+                            user.profilePicURL = res.profilePicUrl;
+                        }
                     });
                 };
                 UsersComponent.prototype.changeSelectedUser = function (selectedUser) {

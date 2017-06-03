@@ -38,7 +38,7 @@ export class UsersComponent {
 				this.users = res;
 
 				for(var user of this.users){
-					this.createImageURL(user);
+					this.getProlilePictureURL(user);
 				}
 			}
 			);
@@ -55,7 +55,11 @@ export class UsersComponent {
 			);
 	}
 
-	downloadImage(url:string){ 
+	/*
+	 *     The old implementation of loading the images, but still good
+	 */
+
+	/*downloadImage(url:string){ 
 		return Observable.create(observer=>{
 			let req = new XMLHttpRequest();
 			req.open('get',url);
@@ -75,6 +79,18 @@ export class UsersComponent {
 		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + user.id).subscribe(imageData =>{
 			user.profilePicURL = URL.createObjectURL(new Blob([imageData]));
 		});	
+	}*/
+
+	getProlilePictureURL(user) {
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + user.id).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				if(res.profilePicUrl != 'null'){
+					user.profilePicURL = res.profilePicUrl;
+				}
+			}
+			);
 	}
 
 	changeSelectedUser(selectedUser) {
