@@ -21,10 +21,10 @@
 
 				<ul class="dropdown-menu">
 					<li>
-						<a (click)="switchMenu(1)" ><i class="fa fa-fw fa-user"></i> Profile</a>
+						<a (click)="switchMenu(1)" ><i class="fa fa-fw fa-home"></i> Home</a>
 					</li>
 					<li>
-						<a (click)="switchMenu(2)" ><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+						<a (click)="switchMenu(2)" ><i class="fa fa-fw fa-user"></i> Profile</a>
 					</li>
 					<li>
 						<a (click)="switchMenu(5)" ><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -41,10 +41,10 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav side-nav">
 				<li [ngClass]="{'active': activeMenu==1 }" (click)="switchMenu(1)">
-					<a><i class="fa fa-user fa-lg fa-custom "></i> My Profile</a>
+					<a><i class="fa fa-home fa-lg fa-custom "></i> Home</a>
 				</li>
 				<li [ngClass]="{'active': activeMenu==2 }" (click)="switchMenu(2)">
-					<a><i class="fa fa-comment-o fa-lg fa-custom "></i> Messages</a>
+					<a><i class="fa fa-user fa-lg fa-custom "></i> My Profile</a>
 				</li>
 				<li [ngClass]="{'active': activeMenu==3 }" (click)="switchMenu(3)">
 					<a><i class="fa fa-cubes fa-lg fa-custom "></i> Projects</a>
@@ -60,7 +60,7 @@
 		<!-- /.navbar-collapse -->
 	</nav>
 
-	<userprofile *ngIf="activeMenu==1  && selectedUser == -1" (onChange)="changeSelectedUser($event.value)"></userprofile>
+	<userprofile *ngIf="activeMenu==2  && selectedUser == -1" (onChange)="changeSelectedUser($event.value)"></userprofile>
 	<findprojects *ngIf="activeMenu==3 && selectedUser == -1" (onChange)="selectedUser = $event.value"></findprojects>
 	<users *ngIf="activeMenu==4 && selectedUser == -1" (onChange)="selectedUser = $event.value"></users>
 	<othersprofile  *ngIf="selectedUser != -1"></othersprofile>
