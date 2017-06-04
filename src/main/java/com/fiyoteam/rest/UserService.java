@@ -1,11 +1,9 @@
 package com.fiyoteam.rest;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -273,15 +271,11 @@ public class UserService {
 			Transformation transformation = new Transformation().width(650).height(650).crop("thumb").gravity("face:center");
 			@SuppressWarnings("rawtypes")
 			Map uploadParams = ObjectUtils.asMap("public_id", fileName, "unique_filename", false, "eager", Arrays.asList(transformation));
-			@SuppressWarnings("rawtypes")
+			@SuppressWarnings({ "rawtypes", "unused" })
 			Map uploadResult = cloudinary.uploader().upload(fileToUpload, uploadParams);
 			fileToUpload.delete();
 			
-			@SuppressWarnings("rawtypes")
-			ArrayList eagerMap = (ArrayList) uploadResult.get("eager");
-			@SuppressWarnings("rawtypes")
-			HashMap urlMap = (HashMap) eagerMap.get(0);
-			String secureUrl = (String) urlMap.get("secure_url");
+			String secureUrl = "https://res.cloudinary.com/zoltanaty/image/upload/c_thumb,g_face:center,h_650,w_650/user_" + userId + ".jpg";
 			log.info("Successful upload to Cloudinary. You can reach in the URL: " + secureUrl);
 			
 			EntityManager em = Entitymanager.getEntityManagerInstance();
