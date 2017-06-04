@@ -60,6 +60,7 @@
 		<!-- /.navbar-collapse -->
 	</nav>
 
+	<homepage  *ngIf="activeMenu==1  && selectedUser == -1" (onChange)="changeSelectedUser($event.value)"></homepage>
 	<userprofile *ngIf="activeMenu==2  && selectedUser == -1" (onChange)="changeSelectedUser($event.value)"></userprofile>
 	<findprojects *ngIf="activeMenu==3 && selectedUser == -1" (onChange)="selectedUser = $event.value"></findprojects>
 	<users *ngIf="activeMenu==4 && selectedUser == -1" (onChange)="selectedUser = $event.value"></users>

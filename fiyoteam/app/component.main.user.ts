@@ -6,11 +6,12 @@ import {UserProfileComponent} from './component.userprofile';
 import {UsersComponent} from './component.users';
 import {OthersProfileComponent} from './component.othersprofile';
 import {FindProjectsComponent} from './component.findprojects';
+import {HomePageComponent} from './component.homepage'
 
 @Component({
     selector: 'main-user',
     templateUrl: 'app/templates/main.user.template.html',
-    directives: [UserProfileComponent, UsersComponent, OthersProfileComponent, FindProjectsComponent],
+    directives: [UserProfileComponent, UsersComponent, OthersProfileComponent, FindProjectsComponent, HomePageComponent],
     providers: [GetAndPostService]
 
 })

@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1;
-    var User, Language, Skill, Project, ProjectResponse, Collaboration, Rating, GetAndPostService;
+    var User, Language, Skill, Project, ProjectResponse, Collaboration, CollaboratorsForProject, Rating, GetAndPostService;
     return {
         setters:[
             function (core_1_1) {
@@ -89,6 +89,14 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
                 return Collaboration;
             }());
             exports_1("Collaboration", Collaboration);
+            CollaboratorsForProject = (function () {
+                function CollaboratorsForProject(project, collaborators) {
+                    this.project = project;
+                    this.collaborators = collaborators;
+                }
+                return CollaboratorsForProject;
+            }());
+            exports_1("CollaboratorsForProject", CollaboratorsForProject);
             Rating = (function () {
                 function Rating(voted, voter, avgRating, percentage5Star, percentage4Star, percentage3Star, percentage2Star, percentage1Star) {
                     this.voted = voted;

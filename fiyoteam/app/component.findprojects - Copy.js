@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './service.getandpost'], function(exports_1, context_1) {
+System.register(['angular2/core', './service.getandpost'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,71 +10,72 @@ System.register(['angular2/core', 'angular2/router', './service.getandpost'], fu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, service_getandpost_1;
-    var UsersComponent;
+    var core_1, service_getandpost_1;
+    var FindProjectsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
-            },
             function (service_getandpost_1_1) {
                 service_getandpost_1 = service_getandpost_1_1;
             }],
         execute: function() {
-            UsersComponent = (function () {
-                function UsersComponent(_router, getAndPostService) {
-                    this._router = _router;
+            FindProjectsComponent = (function () {
+                function FindProjectsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
-                    this.users = [];
                     this.nrOfPages = [];
                     this.searchCriteria = "";
+                    this.userId = localStorage.getItem("USERID");
                     this.onChange = new core_1.EventEmitter();
                 }
-                UsersComponent.prototype.ngOnInit = function () {
-                    this.userId = localStorage.getItem("USERID");
+                FindProjectsComponent.prototype.ngOnInit = function () {
                     this.getNrOfPages();
                 };
-                UsersComponent.prototype.getUsers = function (pageNumber) {
+                FindProjectsComponent.prototype.getUserProjects = function (pageNumber) {
                     var _this = this;
-                    this.users = null;
+                    this.projects = null;
                     this.currentPageNr = pageNumber;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/page/' + pageNumber + '/' + this.searchCriteria).map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/' + pageNumber + '/' + this.searchCriteria).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
-                        _this.users = res;
+                        _this.projects = res;
                     });
                 };
-                UsersComponent.prototype.getNrOfPages = function () {
+                FindProjectsComponent.prototype.getNrOfPages = function () {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/nrpages/' + this.searchCriteria).map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'project/nrpages/' + this.searchCriteria).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         _this.nrOfPages = res;
-                        _this.getUsers(0);
+                        _this.getUserProjects(0);
                     });
                 };
-                UsersComponent.prototype.changeSelectedUser = function (selectedUser) {
+                FindProjectsComponent.prototype.requestCollaboration = function (userId, projectId, ownerId, project) {
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/' + userId + '/' + projectId + '/' + ownerId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        project.collaborationRequestResponse = res;
+                    });
+                };
+                FindProjectsComponent.prototype.changeSelectedUser = function (selectedUser) {
                     localStorage.setItem("SELECTEDUSER", selectedUser);
                     this.onChange.emit({ value: selectedUser });
                 };
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], UsersComponent.prototype, "onChange", void 0);
-                UsersComponent = __decorate([
+                ], FindProjectsComponent.prototype, "onChange", void 0);
+                FindProjectsComponent = __decorate([
                     core_1.Component({
-                        selector: 'users',
-                        templateUrl: 'app/templates/users.template.html',
+                        selector: 'findprojects',
+                        templateUrl: 'app/templates/findprojects.template.html',
                         directives: [],
                         providers: [service_getandpost_1.GetAndPostService]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, service_getandpost_1.GetAndPostService])
-                ], UsersComponent);
-                return UsersComponent;
+                    __metadata('design:paramtypes', [service_getandpost_1.GetAndPostService])
+                ], FindProjectsComponent);
+                return FindProjectsComponent;
             }());
-            exports_1("UsersComponent", UsersComponent);
+            exports_1("FindProjectsComponent", FindProjectsComponent);
         }
     }
 });
-//# sourceMappingURL=component.users.js.map
+//# sourceMappingURL=component.findprojects - Copy.js.map

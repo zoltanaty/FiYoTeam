@@ -20,12 +20,12 @@
         <div class="card">
             <div class="front">
                 <div class="cover">
-                    <img *ngIf="user.profilePicURL != null" class="card-cover-blur" [src]="user.profilePicURL"/>
-                    <img *ngIf="user.profilePicURL == null" class="card-cover-blur" src="./resources/images/default_avatar.jpg" />
+                    <img *ngIf="user.profilePicUrl != null" class="card-cover-blur" [src]="user.profilePicUrl"/>
+                    <img *ngIf="user.profilePicUrl == null" class="card-cover-blur" src="./resources/images/default_avatar.jpg" />
                 </div>
                 <div class="user">
-                    <img *ngIf="user.profilePicURL != null" class="img-circle card-cover-no-blur" [src]="user.profilePicURL"/>
-                    <img *ngIf="user.profilePicURL == null" src="./resources/images/default_avatar.jpg"  class="img-circle card-cover-no-blur" />
+                    <img *ngIf="user.profilePicUrl != null" class="img-circle card-cover-no-blur" [src]="user.profilePicUrl"/>
+                    <img *ngIf="user.profilePicUrl == null" src="./resources/images/default_avatar.jpg"  class="img-circle card-cover-no-blur" />
                 </div>
                 <div class="content">
                     <div class="main">

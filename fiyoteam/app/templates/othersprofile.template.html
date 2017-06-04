@@ -13,8 +13,8 @@
           <!-- left column -->
           <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
             <div class="text-center">
-              <img *ngIf="profilePicURL != null" [src]="profilePicURL" class="avatar img-thumbnail profile-pic" alt="avatar">
-              <img *ngIf="profilePicURL == null" src="./resources/images/default_avatar.jpg" class="avatar img-thumbnail profile-pic" alt="avatar">
+              <img *ngIf="user.profilePicUrl != null" [src]="user.profilePicUrl" class="avatar img-thumbnail profile-pic" alt="avatar">
+              <img *ngIf="user.profilePicUrl == null" src="./resources/images/default_avatar.jpg" class="avatar img-thumbnail profile-pic" alt="avatar">
             </div>
           </div>
 

@@ -14,7 +14,6 @@ export class UsersComponent {
 
 	private userId;
 	private users: Array<User> = [];
-	private profilePicUrls  = [];
 	private nrOfPages: number[] = [];
 	private currentPageNr: number;
 	private searchCriteria = "";
@@ -36,10 +35,6 @@ export class UsersComponent {
 		.subscribe(
 			(res) => {
 				this.users = res;
-
-				for(var user of this.users){
-					this.getProlilePictureURL(user);
-				}
 			}
 			);
 	}
@@ -51,44 +46,6 @@ export class UsersComponent {
 			(res) => {
 				this.nrOfPages = res;
 				this.getUsers(0);
-			}
-			);
-	}
-
-	/*
-	 *     The old implementation of loading the images, but still good
-	 */
-
-	/*downloadImage(url:string){ 
-		return Observable.create(observer=>{
-			let req = new XMLHttpRequest();
-			req.open('get',url);
-			req.responseType = "arraybuffer";
-			req.onreadystatechange = function() {
-				if (req.readyState == 4 && req.status == 200) {
-					observer.next(req.response);
-					observer.complete();
-				}
-			};
-			req.send();
-		});
-	}
-
-	createImageURL(user){
-
-		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + user.id).subscribe(imageData =>{
-			user.profilePicURL = URL.createObjectURL(new Blob([imageData]));
-		});	
-	}*/
-
-	getProlilePictureURL(user) {
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + user.id).map(res => res.json())
-
-		.subscribe(
-			(res) => {
-				if(res.profilePicUrl != 'null'){
-					user.profilePicURL = res.profilePicUrl;
-				}
 			}
 			);
 	}

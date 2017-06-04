@@ -19,16 +19,13 @@ import {OthersProjectsAppliedForComponent} from './component.othersprojectsappli
 export class OthersProfileComponent { 
 
 	private userId;
-	private user = new User(null, '', '', '','', '', '', '', '', '');
-	private profilePicURL: string = null;
+	private user = new User(null, '', '', '','', '', '', '', '', null);
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
 	ngOnInit(){
 		this.userId = localStorage.getItem("SELECTEDUSER");
 		this.getUser();
-		//this.createImageURL();
-		this.getProlilePictureURL();
 	}
 
 	getUser(){
@@ -37,43 +34,6 @@ export class OthersProfileComponent {
 		.subscribe(
 			(res) => {
 				this.user = res;
-			}
-			);
-	}
-
-	/*
-	 *     The old implementation of loading the images, but still good
-	 */
-
-	/*downloadImage(url:string){ 
-		return Observable.create(observer=>{
-			let req = new XMLHttpRequest();
-			req.open('get',url);
-			req.responseType = "arraybuffer";
-			req.onreadystatechange = function() {
-				if (req.readyState == 4 && req.status == 200) {
-					observer.next(req.response);
-					observer.complete();
-				}
-			};
-			req.send();
-		});
-	}
-
-	createImageURL(){
-		this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
-			this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
-		});
-	}*/
-
-	getProlilePictureURL() {
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(res => res.json())
-
-		.subscribe(
-			(res) => {
-				if(res.profilePicUrl != 'null'){
-					this.profilePicURL = res.profilePicUrl;
-				}
 			}
 			);
 	}

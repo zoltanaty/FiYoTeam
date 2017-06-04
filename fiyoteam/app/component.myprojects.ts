@@ -31,11 +31,11 @@ export class MyProjectsComponent {
 	ngOnInit(){
 		this.userId = localStorage.getItem("USERID");
 
-		this.getProjectSkills();
+		this.getProjects();
 		this.getAvailableSkills();
 	}
 
-	getProjectSkills(){
+	getProjects(){
 		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(res => res.json())
 
 		.subscribe(

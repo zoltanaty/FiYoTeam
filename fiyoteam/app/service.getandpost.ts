@@ -25,6 +25,10 @@ export class Collaboration {
 	constructor(public id: number, public user: User, public project: Project, public owner: User, public accepted: boolean) {}
 }
 
+export class CollaboratorsForProject {
+	constructor(public project: Project, public collaborators: User[]) {}
+}
+
 export class Rating {
 	constructor(public voted: User, public voter: User, public avgRating: number, public percentage5Star: number, public percentage4Star: number, public percentage3Star: number, public percentage2Star: number, public percentage1Star: number) {}
 }

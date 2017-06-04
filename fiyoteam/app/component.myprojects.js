@@ -34,10 +34,10 @@ System.register(['angular2/core', './service.getandpost', './component.languages
                 }
                 MyProjectsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
-                    this.getProjectSkills();
+                    this.getProjects();
                     this.getAvailableSkills();
                 };
-                MyProjectsComponent.prototype.getProjectSkills = function () {
+                MyProjectsComponent.prototype.getProjects = function () {
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {

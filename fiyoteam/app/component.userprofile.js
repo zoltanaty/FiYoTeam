@@ -43,17 +43,14 @@ System.register(['angular2/core', 'angular2/router', './service.getandpost', './
                 function UserProfileComponent(_router, getAndPostService) {
                     this._router = _router;
                     this.getAndPostService = getAndPostService;
-                    this.user = new service_getandpost_1.User(null, '', '', '', '', '', '', '', '', '');
+                    this.user = new service_getandpost_1.User(null, '', '', '', '', '', '', '', '', null);
                     this.filesToUpload = [];
-                    this.profilePicURL = null;
                     this.showUpdatedUserMessage = false;
                     this.onChange = new core_1.EventEmitter();
                 }
                 UserProfileComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
                     this.getUser();
-                    //this.createImageURL();
-                    this.getProlilePictureURL();
                 };
                 UserProfileComponent.prototype.getUser = function () {
                     var _this = this;
@@ -79,7 +76,6 @@ System.register(['angular2/core', 'angular2/router', './service.getandpost', './
                 UserProfileComponent.prototype.upload = function () {
                     var _this = this;
                     this.makeFileRequest(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId, this.filesToUpload).then(function (result) {
-                        //this.createImageURL();
                         _this.getProlilePictureURL();
                     }, function (error) {
                         console.error(error);
@@ -111,35 +107,12 @@ System.register(['angular2/core', 'angular2/router', './service.getandpost', './
                         xhr.send(formData);
                     });
                 };
-                /*
-                 *     The old implementation of loading the images, but still good
-                 */
-                /*downloadImage(url:string){
-                    return Observable.create(observer=>{
-                        let req = new XMLHttpRequest();
-                        req.open('get',url);
-                        req.responseType = "arraybuffer";
-                        req.onreadystatechange = function() {
-                            if (req.readyState == 4 && req.status == 200) {
-                                observer.next(req.response);
-                                observer.complete();
-                            }
-                        };
-                        req.send();
-                    });
-                }
-            
-                createImageURL(){
-                    this.downloadImage(this.getAndPostService.baseUrl + 'user/profilepic/' + this.userId).subscribe(imageData =>{
-                        this.profilePicURL = URL.createObjectURL(new Blob([imageData]));
-                    });
-                }*/
                 UserProfileComponent.prototype.getProlilePictureURL = function () {
                     var _this = this;
                     this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/profilepicurl/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
                         if (res.profilePicUrl != 'null') {
-                            _this.profilePicURL = res.profilePicUrl;
+                            _this.user.profilePicUrl = res.profilePicUrl;
                         }
                     });
                 };
