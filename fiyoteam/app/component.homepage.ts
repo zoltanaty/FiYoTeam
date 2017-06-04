@@ -14,22 +14,34 @@ import {GetAndPostService, User, CollaboratorsForProject} from './service.getand
 export class HomePageComponent { 
 
 	private userId;
-	private collaboratorsForProjects: CollaboratorsForProject[];
+	private teamsImLeading: CollaboratorsForProject[];
+	private teamsImParticipating: CollaboratorsForProject[];
 	@Output() onChange = new EventEmitter();
 
 	constructor(private _router: Router, private getAndPostService: GetAndPostService) {}
 
 	ngOnInit(){
 		this.userId = localStorage.getItem("USERID");
-		this.getCollaboratorsForProjects();
+		this.getTeamsImLeading();
+		this.getTeamsImParticipating();
 	}
 
-	getCollaboratorsForProjects(){
-		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/projectswithcollaborators/' + this.userId).map(res => res.json())
+	getTeamsImLeading(){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/teamsimleading/' + this.userId).map(res => res.json())
 
 		.subscribe(
 			(res) => {
-				this.collaboratorsForProjects = res;
+				this.teamsImLeading = res;
+			}
+			);
+	}
+
+	getTeamsImParticipating(){
+		this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/teamsimparticipating/' + this.userId).map(res => res.json())
+
+		.subscribe(
+			(res) => {
+				this.teamsImParticipating = res;
 			}
 			);
 	}

@@ -32,13 +32,21 @@ System.register(['angular2/core', 'angular2/router', './service.getandpost'], fu
                 }
                 HomePageComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
-                    this.getCollaboratorsForProjects();
+                    this.getTeamsImLeading();
+                    this.getTeamsImParticipating();
                 };
-                HomePageComponent.prototype.getCollaboratorsForProjects = function () {
+                HomePageComponent.prototype.getTeamsImLeading = function () {
                     var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/projectswithcollaborators/' + this.userId).map(function (res) { return res.json(); })
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/teamsimleading/' + this.userId).map(function (res) { return res.json(); })
                         .subscribe(function (res) {
-                        _this.collaboratorsForProjects = res;
+                        _this.teamsImLeading = res;
+                    });
+                };
+                HomePageComponent.prototype.getTeamsImParticipating = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'collaboration/teamsimparticipating/' + this.userId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.teamsImParticipating = res;
                     });
                 };
                 HomePageComponent.prototype.changeSelectedUser = function (selectedUser) {
