@@ -162,10 +162,10 @@ public class CollaborationService {
 	}
 
 	@GET
-	@Path("/projectswithcollaborators/{userid}")
+	@Path("/teamsimleading/{userid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResourceFilters(MyRequestFilter.class)
-	public Response getUsersProjectsWithCollaborators(@PathParam("userid") Integer userId) {
+	public Response getTeamsImLeading(@PathParam("userid") Integer userId) {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
 		User user = em.find(User.class, userId);
 
@@ -201,7 +201,55 @@ public class CollaborationService {
 				}
 			}
 		}
+		
+		log.info("Returned teams I'm leading.");
 
+		return Response.ok(collaboratorsForProject).build();
+	}
+	
+	@GET
+	@Path("/teamsimparticipating/{userid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResourceFilters(MyRequestFilter.class)
+	public Response getTeamsImParticipating(@PathParam("userid") Integer userId) {
+		EntityManager em = Entitymanager.getEntityManagerInstance();
+		User user = em.find(User.class, userId);
+
+		Query query = em.createQuery("FROM Project p WHERE p.user != :user");
+		query.setParameter("user", user);
+
+		@SuppressWarnings("unchecked")
+		ArrayList<Project> myProjects = (ArrayList<Project>) query.getResultList();
+
+		ArrayList<CollaboratorsForProject> collaboratorsForProject = new ArrayList<>();
+
+		if (myProjects.size() > 0) {
+			for (Project project : myProjects) {
+
+				Query query1 = em.createQuery("FROM Collaboration c WHERE c.user = :user AND c.project = :project AND accepted = true");
+				query1.setParameter("user", user);
+				query1.setParameter("project", project);
+
+				@SuppressWarnings("unchecked")
+				ArrayList<Collaboration> collaborationsForProject = (ArrayList<Collaboration>) query1.getResultList();
+
+				if (collaborationsForProject.size() > 0) {
+					CollaboratorsForProject projectAndCollaborators = new CollaboratorsForProject();
+					projectAndCollaborators.setProject(project);
+
+					ArrayList<User> collaborators = new ArrayList<>();
+					for (Collaboration collaboration : collaborationsForProject) {
+						collaborators.add(collaboration.getUser());
+					}
+					projectAndCollaborators.setCollaborators(collaborators);
+
+					collaboratorsForProject.add(projectAndCollaborators);
+				}
+			}
+		}
+		
+		log.info("Returned teams I'm participating in.");
+		
 		return Response.ok(collaboratorsForProject).build();
 	}
 

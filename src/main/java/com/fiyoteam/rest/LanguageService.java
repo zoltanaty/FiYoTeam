@@ -28,7 +28,7 @@ public class LanguageService {
 	@ResourceFilters(MyRequestFilter.class)
 	public Response getAllLanguages() {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM Language");
+		Query query = em.createQuery("FROM Language l ORDER BY l.language");
 
 		@SuppressWarnings("unchecked")
 		List<Language> languageList = (List<Language>) query.getResultList();

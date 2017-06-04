@@ -28,7 +28,7 @@ public class SkillService {
 	@ResourceFilters(MyRequestFilter.class)
 	public Response getAllLanguages() {
 		EntityManager em = Entitymanager.getEntityManagerInstance();
-		Query query = em.createQuery("FROM Skill");
+		Query query = em.createQuery("FROM Skill s ORDER BY s.skill");
 
 		@SuppressWarnings("unchecked")
 		List<Skill> skillList = (List<Skill>) query.getResultList();
