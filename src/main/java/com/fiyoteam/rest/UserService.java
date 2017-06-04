@@ -268,14 +268,18 @@ public class UserService {
 			final File fileToUpload = File.createTempFile(fileName, "");
 			java.nio.file.Files.copy(uploadedInputStream, fileToUpload.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-			Transformation transformation = new Transformation().width(650).height(650).crop("thumb").gravity("face:center");
+			Transformation transformation = new Transformation().width(650).height(650).crop("thumb").gravity("face");
 			@SuppressWarnings("rawtypes")
 			Map uploadParams = ObjectUtils.asMap("public_id", fileName, "unique_filename", false, "eager", Arrays.asList(transformation));
-			@SuppressWarnings({ "rawtypes", "unused" })
+			@SuppressWarnings("rawtypes")
 			Map uploadResult = cloudinary.uploader().upload(fileToUpload, uploadParams);
 			fileToUpload.delete();
 			
-			String secureUrl = "https://res.cloudinary.com/zoltanaty/image/upload/c_thumb,g_face:center,h_650,w_650/user_" + userId + ".jpg";
+			@SuppressWarnings("rawtypes")
+			ArrayList eagerMap = (ArrayList) uploadResult.get("eager");
+			@SuppressWarnings("rawtypes")
+			HashMap urlMap = (HashMap) eagerMap.get(0);
+			String secureUrl = (String) urlMap.get("secure_url");
 			log.info("Successful upload to Cloudinary. You can reach in the URL: " + secureUrl);
 			
 			EntityManager em = Entitymanager.getEntityManagerInstance();
