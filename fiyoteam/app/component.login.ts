@@ -35,10 +35,11 @@ export class LoginComponent {
 					this.loginError = false;
 
 				}else if(res.id >= 0 && res.role=="admin"){
-					this._router.navigate(['MainAdmin']);    
+					this._router.navigate(['MainAdmin']); 
 					localStorage.setItem("USERID", res.id);
 					localStorage.setItem("TOKEN", res.token);
 					localStorage.setItem("USERNAME", res.firstName + " " + res.lastName);
+
 					this.loginError = false;
 
 				}else if(res.id < 0){

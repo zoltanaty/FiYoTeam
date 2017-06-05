@@ -11,7 +11,7 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, service_getandpost_1;
-    var OthersProjectsComponent;
+    var AdminSkillsComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -21,34 +21,26 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
                 service_getandpost_1 = service_getandpost_1_1;
             }],
         execute: function() {
-            OthersProjectsComponent = (function () {
-                function OthersProjectsComponent(getAndPostService) {
+            AdminSkillsComponent = (function () {
+                function AdminSkillsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
                 }
-                OthersProjectsComponent.prototype.ngOnInit = function () {
-                    this.userId = localStorage.getItem("SELECTEDUSER");
-                    this.getUserProjects();
+                AdminSkillsComponent.prototype.ngOnInit = function () {
+                    this.userId = localStorage.getItem("USERID");
                 };
-                OthersProjectsComponent.prototype.getUserProjects = function () {
-                    var _this = this;
-                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'user/projects/' + this.userId).map(function (res) { return res.json(); })
-                        .subscribe(function (res) {
-                        _this.projects = res;
-                    });
-                };
-                OthersProjectsComponent = __decorate([
+                AdminSkillsComponent = __decorate([
                     core_1.Component({
-                        selector: 'othersprojects',
-                        templateUrl: 'app/templates/othersprojects.template.html',
+                        selector: 'admin-skills',
+                        templateUrl: 'app/templates/admin-skills.template.html',
                         directives: [],
                         providers: [service_getandpost_1.GetAndPostService]
                     }), 
                     __metadata('design:paramtypes', [service_getandpost_1.GetAndPostService])
-                ], OthersProjectsComponent);
-                return OthersProjectsComponent;
+                ], AdminSkillsComponent);
+                return AdminSkillsComponent;
             }());
-            exports_1("OthersProjectsComponent", OthersProjectsComponent);
+            exports_1("AdminSkillsComponent", AdminSkillsComponent);
         }
     }
 });
-//# sourceMappingURL=component.othersprojects - Copy.js.map
+//# sourceMappingURL=component.admin.skills.js.map

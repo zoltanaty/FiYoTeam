@@ -1,4 +1,4 @@
-System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rxjs/Rx'], function(exports_1, context_1) {
+System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rxjs/Rx', './component.admin.skills', './component.admin.languages'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, service_getandpost_1, router_1;
+    var core_1, service_getandpost_1, router_1, component_admin_skills_1, component_admin_languages_1;
     var MainAdminComponent;
     return {
         setters:[
@@ -23,28 +23,43 @@ System.register(['angular2/core', './service.getandpost', 'angular2/router', 'rx
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (_1) {}],
+            function (_1) {},
+            function (component_admin_skills_1_1) {
+                component_admin_skills_1 = component_admin_skills_1_1;
+            },
+            function (component_admin_languages_1_1) {
+                component_admin_languages_1 = component_admin_languages_1_1;
+            }],
         execute: function() {
             MainAdminComponent = (function () {
                 function MainAdminComponent(_router, getAndPostService) {
                     this._router = _router;
                     this.getAndPostService = getAndPostService;
+                    /*
+                    *   Defines which menu is active
+                    */
+                    this.activeMenu = 1;
                 }
                 MainAdminComponent.prototype.ngOnInit = function () {
-                    if (localStorage.getItem("USEREMAIL") === null) {
+                    if (localStorage.getItem("USERID") === null) {
                         this._router.navigate(['Login']);
                     }
-                    this.userEmail = localStorage.getItem("USEREMAIL");
+                    this.userName = localStorage.getItem("USERNAME");
                 };
                 MainAdminComponent.prototype.logout = function () {
-                    localStorage.removeItem("USEREMAIL");
                     localStorage.removeItem("USERID");
+                    localStorage.removeItem("USERNAME");
+                    localStorage.removeItem("TOKEN");
                     this._router.navigate(['Login']);
+                };
+                MainAdminComponent.prototype.switchMenu = function (menuToActivate) {
+                    this.activeMenu = menuToActivate;
                 };
                 MainAdminComponent = __decorate([
                     core_1.Component({
                         selector: 'main-admin',
                         templateUrl: 'app/templates/main.admin.template.html',
+                        directives: [component_admin_skills_1.AdminSkillsComponent, component_admin_languages_1.AdminLanguagesComponent],
                         providers: [service_getandpost_1.GetAndPostService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, service_getandpost_1.GetAndPostService])

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './component.login', './component.main.user', './component.main.admin'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './component.login', './component.main.admin', './component.main.user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './component.login', './com
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, component_login_1, component_main_user_1, component_main_admin_1;
+    var core_1, router_1, component_login_1, component_main_admin_1, component_main_user_1;
     var AppComponent;
     return {
         setters:[
@@ -23,11 +23,11 @@ System.register(['angular2/core', 'angular2/router', './component.login', './com
             function (component_login_1_1) {
                 component_login_1 = component_login_1_1;
             },
-            function (component_main_user_1_1) {
-                component_main_user_1 = component_main_user_1_1;
-            },
             function (component_main_admin_1_1) {
                 component_main_admin_1 = component_main_admin_1_1;
+            },
+            function (component_main_user_1_1) {
+                component_main_user_1 = component_main_user_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -41,8 +41,8 @@ System.register(['angular2/core', 'angular2/router', './component.login', './com
                     }),
                     router_1.RouteConfig([
                         { path: '/login', name: 'Login', component: component_login_1.LoginComponent, useAsDefault: true },
-                        { path: '/main-user', name: 'MainUser', component: component_main_user_1.MainUserComponent },
-                        { path: '/main-admin', name: 'MainAdmin', component: component_main_admin_1.MainAdminComponent }
+                        { path: '/main-admin', name: 'MainAdmin', component: component_main_admin_1.MainAdminComponent },
+                        { path: '/main-user', name: 'MainUser', component: component_main_user_1.MainUserComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
