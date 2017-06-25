@@ -24,9 +24,32 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
             AdminSkillsComponent = (function () {
                 function AdminSkillsComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
+                    this.newSkill = "";
                 }
                 AdminSkillsComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
+                    this.getAvailableSkills();
+                };
+                AdminSkillsComponent.prototype.getAvailableSkills = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/').map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.availableSkills = res;
+                    });
+                };
+                AdminSkillsComponent.prototype.addNewSkill = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'skill/' + this.newSkill).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.availableSkills = res;
+                    });
+                };
+                AdminSkillsComponent.prototype.deleteSkill = function (skillId) {
+                    var _this = this;
+                    this.getAndPostService.delete(this.getAndPostService.baseUrl + 'skill/' + skillId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.availableSkills = res;
+                    });
                 };
                 AdminSkillsComponent = __decorate([
                     core_1.Component({

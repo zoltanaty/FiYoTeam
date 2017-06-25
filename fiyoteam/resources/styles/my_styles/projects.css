@@ -266,3 +266,9 @@
 .link-to-user:hover {
 	font-weight: 600;
 }
+
+.admin-dropdown {
+	min-width: 200px;
+    max-width: 250px;
+    width: 30%;
+}

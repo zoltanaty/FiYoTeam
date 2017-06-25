@@ -24,9 +24,32 @@ System.register(['angular2/core', './service.getandpost'], function(exports_1, c
             AdminLanguagesComponent = (function () {
                 function AdminLanguagesComponent(getAndPostService) {
                     this.getAndPostService = getAndPostService;
+                    this.newLanguage = "";
                 }
                 AdminLanguagesComponent.prototype.ngOnInit = function () {
                     this.userId = localStorage.getItem("USERID");
+                    this.getAvailableLanguages();
+                };
+                AdminLanguagesComponent.prototype.getAvailableLanguages = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'language/').map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.availableLanguages = res;
+                    });
+                };
+                AdminLanguagesComponent.prototype.addNewLanguage = function () {
+                    var _this = this;
+                    this.getAndPostService.getData(this.getAndPostService.baseUrl + 'language/' + this.newLanguage).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.availableLanguages = res;
+                    });
+                };
+                AdminLanguagesComponent.prototype.deleteLanguage = function (languageId) {
+                    var _this = this;
+                    this.getAndPostService.delete(this.getAndPostService.baseUrl + 'language/' + languageId).map(function (res) { return res.json(); })
+                        .subscribe(function (res) {
+                        _this.availableLanguages = res;
+                    });
                 };
                 AdminLanguagesComponent = __decorate([
                     core_1.Component({

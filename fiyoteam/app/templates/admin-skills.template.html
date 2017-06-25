@@ -7,61 +7,27 @@
 
   <div class="row">
 
-    <div *ngFor="let collaboration of teamsImLeading" class="col-lg-12">
-      <div class="panel panel-default box-panel">
-        <div class="panel-heading panel-heading-1 personal-information-panel">
-          <h3 class="panel-title"><i class="fa fa-users"></i> {{collaboration.project.name}}</h3>
+    <form class="form-horizontal" id="editproject" data-toggle="validator">
+
+      <div class="form-group">
+        <div class="row">   
+          <input [(ngModel)]="newSkill" class="col-xs-3 col-sm-3 col-md-3 col-lg-2 form-control" type="text" style="max-width: 200px; margin-left: 30px; margin-right: 15px;">
+          <input (click)="addNewSkill()" class="col-xs-2 col-sm-2 col-md-2 col-lg-1 btn btn-primary save-button" value="Add" type="submit">
         </div>
-        <div class="panel-body panel-body-1">
+        
+      </div>
 
-          <div class="flex-container-developers">
+      <div class="form-group needed-technologies-select">
 
-            <div *ngFor="let collaborator of collaboration.collaborators" class="card-container manual-flip">
-              <div class="card">
-                <div class="front">
-                  <div class="cover">
-                    <img *ngIf="collaborator.profilePicUrl != null" class="card-cover-blur" [src]="collaborator.profilePicUrl"/>
-                    <img *ngIf="collaborator.profilePicUrl == null" class="card-cover-blur" src="./resources/images/default_avatar.jpg" />
-                  </div>
-                  <div class="user">
-                    <img *ngIf="collaborator.profilePicUrl != null" class="img-circle card-cover-no-blur" [src]="collaborator.profilePicUrl"/>
-                    <img *ngIf="collaborator.profilePicUrl == null" src="./resources/images/default_avatar.jpg"  class="img-circle card-cover-no-blur" />
-                  </div>
-                  <div class="content">
-                    <div class="main">
-                      <h3 class="name" (click)="changeSelectedUser(collaborator.id)">{{collaborator.firstName}} {{collaborator.lastName}}</h3>
-                      <p *ngIf="collaborator.city.length > 3" class="location">{{collaborator.city}} ({{collaborator.country}})</p>
-                      <p *ngIf="collaborator.city.length <= 3" class="location">Location not published</p>
-                      <p *ngIf="collaborator.description != null" class="text-center">{{collaborator.description.substring(0, 45)}}...</p>
-                    </div>
-                    <div class="footer">
-                      <button class="btn btn-simple" onclick="rotateCard(this)">
-                        <i class="fa fa-mail-forward"></i> Flip Card
-                      </button>
-                    </div>
-                  </div>
-                </div> <!-- end front panel -->
-                <div class="back">
-                  <div class="content">
-                    <div class="main">
-                      <p *ngIf="collaborator.description != null" class="text-center2">{{collaborator.description.substring(0, 150)}}...</p>
-                      <p *ngIf="collaborator.description == null" class="text-center2">No description provided...</p>
-                    </div>
-                  </div>
-                  <div class="footer">
-                    <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
-                      <i class="fa fa-reply"></i> Back
-                    </button>
-                  </div>
-                </div> <!-- end back panel -->
-              </div> <!-- end card -->
-            </div> <!-- end flex-container -->
-
-          </div>
+        <div *ngFor="let skill of availableSkills" style="float:left; height:22px; margin-right:5px; margin-left:1px; margin-bottom:10px; background-color: #8f7aa7; border-radius: 5px;">
+          <span class="tag label">
+          <span>{{skill.skill}}</span>
+            <a (click)="deleteSkill(skill.id)"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a> 
+          </span>
         </div>
       </div>
-    </div>
-  </div>
+    </form>
 
+  </div>
 </div>
 
