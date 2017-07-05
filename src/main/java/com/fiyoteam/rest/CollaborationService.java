@@ -234,13 +234,22 @@ public class CollaborationService {
 				ArrayList<Collaboration> collaborationsForProject = (ArrayList<Collaboration>) query1.getResultList();
 
 				if (collaborationsForProject.size() > 0) {
+					Query query2 = em.createQuery("FROM Collaboration c WHERE c.project = :project AND accepted = true");
+					query2.setParameter("project", project);
+
+					@SuppressWarnings("unchecked")
+					ArrayList<Collaboration> otherCollaborationsForProject = (ArrayList<Collaboration>) query2.getResultList();
+					
 					CollaboratorsForProject projectAndCollaborators = new CollaboratorsForProject();
 					projectAndCollaborators.setProject(project);
 
 					ArrayList<User> collaborators = new ArrayList<>();
-					for (Collaboration collaboration : collaborationsForProject) {
+					collaborators.add(otherCollaborationsForProject.get(0).getOwner());
+
+					for (Collaboration collaboration : otherCollaborationsForProject) {
 						collaborators.add(collaboration.getUser());
 					}
+					
 					projectAndCollaborators.setCollaborators(collaborators);
 
 					collaboratorsForProject.add(projectAndCollaborators);
